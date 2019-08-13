@@ -5,21 +5,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>	
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
-	<body>
+	<body onload="init()">
 
 		<div class="container-fluid">
-		<div class="jumbotron">
-			<h1>Ron Stern</h1>
-			<img class="img-responsive" src="assets/comingsoon.jpg" />
-			<p> While I've 
-down loads from the cloud,  I'm 
-not completely out of the woods just yet...
- (sitesurfacings00n)
- 			</p>
+			<div id="canvas" style="position: relative;">
+				<canvas id="layer1" width="100" height="100" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+				<canvas id="layer2" width="100" height="100" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+			</div>
 		</div>
-		</div>
-
+		<img src="assets/comingsoon.jpg"></img>
+		<script>
+				var canvas = document.getElementById("layer2");
+				var context = canvas.getContext("2d");
+				context.font = "30px Arial";
+				context.fillText("Hello World", 10, 50);
+		</script>
 	</body>
 </html>
