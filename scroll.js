@@ -1,10 +1,6 @@
 	const canvas = document.getElementById("layer2");
-    var FONT_SIZE = 30;
-    var FONT_PADDING = 0;
-    var FONT_X_POS = canvas.width;
-    var FONT_Y_POS = canvas.height;
-
-	var lines = [
+    
+	const lines = [
         "While I've",
         "down loads from the cloud,",
         "I'm not completely out of the",
@@ -12,15 +8,26 @@
         "(site coming soon)"
     ];
     
+    var font = {
+        "type": "Lexend Tera",
+        "size": 32,
+        "padding": 0,
+        "color": "#ffffff"
+    }
+
+    var TEXT_X_INITIAL_POS = canvas.width;
+    var TEXT_Y_INITIAL_POS = canvas.height;
+
 	var context = canvas.getContext("2d");
 
-    context.font = FONT_SIZE + "px Arial"
-    context.fillStyle = "#ffffff";
+    context.font = font.size + "px " + font.type;
+    context.fillStyle = font.color;
 
     for (var x = 0; x < lines.length; x++) {
-        var line = lines[x];
-        var fontX = FONT_X_POS - ((FONT_SIZE + FONT_PADDING) * line.length);
-        var fontY = FONT_Y_POS - ((FONT_SIZE + FONT_PADDING) * (lines.length- x));
+        const line = lines[x];
+        const lineOffsetY = lines.length - x;
+        var fontX = TEXT_X_INITIAL_POS - context.measureText(line).width;
+        var fontY = TEXT_Y_INITIAL_POS - ((font.size + font.padding) * lineOffsetY);
         context.fillText(line, fontX, fontY);
     };
 
