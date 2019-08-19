@@ -1,3 +1,9 @@
+const justify = {
+	LEFT: 0,
+	CENTER: 1,
+	RIGHT: 2,
+};
+
 const text = [
     "While I've",
     "down loads from the cloud,",
@@ -9,10 +15,11 @@ const text = [
 var font = {
     "type": "Arial",
     "size": 32,
-    "padding": 0,
+    "padding": 16,
     "color": "#ffffff"
 }
 
+const fadeOffset = 0.4;
 const roadLineColor = "#B89132";
 
 const canvas = document.getElementById("layer2"); 
@@ -39,7 +46,7 @@ function drawText() {
 	
 	for (var x = 0; x < text.length; x++) {
     	const textLine = text[x];		
-		const textLinePosition = getTextPosition(textLine, x);
+		const textLinePosition = getTextPosition(textLine, x, justify.CENTER);
 
 		setGlobalAlpha(textLinePosition);
 
@@ -59,16 +66,28 @@ function clearCanvas() {
 	context.clearRect(0,0,canvas.width, canvas.height);
 }
 
-function getTextPosition(textLine, textLineNumber) {
+function getTextPosition(textLine, textLineNumber, justified) {
 	const textLineOffsetY = text.length - textLineNumber;
-	var textX = TEXT_X_INITIAL_POS - context.measureText(textLine).width;
+	var textX = 0;
+
+	switch(justified) {
+		case (justify.LEFT):
+			textX = 0;
+			break;
+		case (justify.CENTER):
+			textX = (canvas.width / 2) - (context.measureText(textLine).width / 2);
+			break;
+		case (justify.RIGHT):
+			textX = TEXT_X_INITIAL_POS - context.measureText(textLine).width;
+	}	
+					
 	var textY = TEXT_Y_INITIAL_POS - ((font.size + font.padding) * textLineOffsetY);
 
 	return {"X": textX, "Y": textY};
 }
 
 function setGlobalAlpha(textLinePosition) {
-	context.globalAlpha = textLinePosition.Y / canvas.height;
+	context.globalAlpha = (textLinePosition.Y / canvas.height) - fadeOffset;
 }
 
 function isLastLineOfText(text, textLineNumber) {
