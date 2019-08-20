@@ -26,10 +26,13 @@ const roadLineColor = "#A27E26";
 const canvas = document.getElementById("textTop"); 
 const context = setInitialContext();
 
-var TEXT_X_INITIAL_POS = canvas.width;
-var TEXT_Y_INITIAL_POS = canvas.height + ((font.size + font.padding) * text.length);
+var img = document.getElementById("textTopImg");
 
-setInterval(drawText,50);
+var TEXT_X_INITIAL_POS = canvas.width;
+var TEXT_Y_INITIAL_POS = canvas.height;
+//var TEXT_Y_INITIAL_POS = canvas.height + ((font.size + font.padding) * text.length);
+
+setInterval(drawText,30);
 
 function setInitialContext() {
 
@@ -44,17 +47,18 @@ function setInitialContext() {
 function drawText() {
 
 	clearCanvas();
-	
-	for (var x = 0; x < text.length; x++) {
-    	const textLine = text[x];		
-		const textLinePosition = getTextPosition(textLine, x, justify.CENTER);
 
-		setGlobalAlpha(textLinePosition);
+	context.drawImage(img,(canvas.width/2)-100,TEXT_Y_INITIAL_POS);
+//	for (var x = 0; x < text.length; x++) {
+//    	const textLine = text[x];		
+//		const textLinePosition = getTextPosition(textLine, x, justify.CENTER);
 
-	    context.fillText(textLine, textLinePosition.X, textLinePosition.Y);
+		setGlobalAlpha(TEXT_Y_INITIAL_POS);
 
-		context.fillStyle = font.color;
-	};
+//	    context.fillText(textLine, textLinePosition.X, textLinePosition.Y);
+
+//		context.fillStyle = font.color;
+//	};
 
 	TEXT_Y_INITIAL_POS -= 1;
 }
@@ -86,7 +90,7 @@ function getTextPosition(textLine, textLineNumber, justified) {
 }
 
 function setGlobalAlpha(textLinePosition) {
-	context.globalAlpha = ((textLinePosition.Y - fadeOffset) / canvas.height);
+	context.globalAlpha = textLinePosition / canvas.height;
 }
 
 function isLastLineOfText(text, textLineNumber) {
