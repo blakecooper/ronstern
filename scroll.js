@@ -9,24 +9,25 @@ const text = [
     "down loads from the cloud,",
     "I'm not completely out of the",
     "woods just yet...",
-    "(site coming soon)"
 ];
+
+const comingSoonText = "(Site coming soon)";
     
 var font = {
-    "type": "Arial",
-    "size": 32,
-    "padding": 16,
+    "type": "Open Sans Condensed",
+    "size": 48,
+    "padding": 12,
     "color": "#ffffff"
 }
 
-const fadeOffset = 0.4;
-const roadLineColor = "#B89132";
+const fadeOffset = 0;
+const roadLineColor = "#A27E26";
 
-const canvas = document.getElementById("layer2"); 
+const canvas = document.getElementById("textTop"); 
 const context = setInitialContext();
 
 var TEXT_X_INITIAL_POS = canvas.width;
-var TEXT_Y_INITIAL_POS = canvas.height;
+var TEXT_Y_INITIAL_POS = canvas.height + ((font.size + font.padding) * text.length);
 
 setInterval(drawText,50);
 
@@ -50,10 +51,6 @@ function drawText() {
 
 		setGlobalAlpha(textLinePosition);
 
-		if (isLastLineOfText(text, x)) {
-			context.fillStyle = roadLineColor;
-		}
-
 	    context.fillText(textLine, textLinePosition.X, textLinePosition.Y);
 
 		context.fillStyle = font.color;
@@ -67,8 +64,8 @@ function clearCanvas() {
 }
 
 function getTextPosition(textLine, textLineNumber, justified) {
-	const textLineOffsetY = text.length - textLineNumber;
-	var textX = 0;
+	
+    var textX = 0;
 
 	switch(justified) {
 		case (justify.LEFT):
@@ -80,14 +77,16 @@ function getTextPosition(textLine, textLineNumber, justified) {
 		case (justify.RIGHT):
 			textX = TEXT_X_INITIAL_POS - context.measureText(textLine).width;
 	}	
-					
-	var textY = TEXT_Y_INITIAL_POS - ((font.size + font.padding) * textLineOffsetY);
+	
+	var textLineOffsetY = text.length - textLineNumber;
+	
+    var textY = TEXT_Y_INITIAL_POS - ((font.size + font.padding) * textLineOffsetY);
 
 	return {"X": textX, "Y": textY};
 }
 
 function setGlobalAlpha(textLinePosition) {
-	context.globalAlpha = (textLinePosition.Y / canvas.height) - fadeOffset;
+	context.globalAlpha = ((textLinePosition.Y - fadeOffset) / canvas.height);
 }
 
 function isLastLineOfText(text, textLineNumber) {

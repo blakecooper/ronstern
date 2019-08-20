@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Lexend+Tera&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -11,12 +11,49 @@
 	<body>
 
 		<div class="container-fluid">
-			<div id="canvas" style="position: relative;">
-				<canvas id="layer1" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
-				<canvas id="layer2" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
-			</div>
+            <div style="display: none">
+                <img id="imgTop" src="assets/image_top.png"></img>
+                <img id="imgMiddle" src="assets/image_middle.png"></img>
+                <img id="imgBottom" src="assets/image_bottom.png"></img>
+            </div>
+            <div id="canvas" style="position: relative;">
+				<canvas id="sky" width="925" height="547" style="position:
+                absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                <canvas id="line" width="925" height="547" style="position:
+                absolute; left: 0; top: 0; z-index: 4;"></canvas>
+                <canvas id="road" width="925" height="547" style="position:
+                absolute; left: 0; top: 0; z-index: 6;"></canvas>
+
+                <canvas id="textTop" width="925" height="547" style="position:
+                absolute; left: 0; top: 0; z-index: 3;"></canvas>
+
+                <canvas id="textBottom" width="925" height="547"
+                style="position: absolute; left: 0; top: 0; z-index:
+                4;"></canvas>
+            </div>
 		</div>
-		<img src="assets/comingsoon.jpg"></img>
-		<script src="scroll.js"></script>
+		<script>
+        window.onload = function() {
+            var top = document.getElementById("sky");
+            var middle = document.getElementById("line");
+            var bottom = document.getElementById("road");
+
+            var ctx = top.getContext("2d");
+            var img = document.getElementById("imgTop");
+
+            ctx.drawImage(img, 0, 0);
+
+            ctx = middle.getContext("2d");
+            img = document.getElementById("imgMiddle");
+
+            ctx.drawImage(img, 0, 0);
+        
+            ctx = bottom.getContext("2d");
+            img = document.getElementById("imgBottom");
+        
+            ctx.drawImage(img, 0, 0);
+        }
+        </script>
+        <script src="scroll.js"></script>
 	</body>
 </html>
