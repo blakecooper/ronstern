@@ -24,18 +24,30 @@ const fadeOffset = 0;
 const roadLineColor = "#A27E26";
 
 const canvas = document.getElementById("textTop"); 
-const context = setInitialContext();
+const canvasComingSoon = document.getElementById("textBottom");
+
+var skyCanvas = document.getElementById("sky");
+var roadCanvas = document.getElementById("road");
+
+const context = setInitialContext(canvas);
+const contextComingSoon = setInitialContext(canvasComingSoon);
 
 var img = document.getElementById("textTopImg");
+var imgComingSoon = document.getElementById("textBottomImg");
 
-var TEXT_X_INITIAL_POS = canvas.width;
+var TEXT_X_INITIAL_POS = canvas.width/2;
 var TEXT_Y_INITIAL_POS = canvas.height;
+
+var COMING_SOON_X_INITIAL_POS = (canvas.width/2)+100;
+var COMING_SOON_Y_INITIAL_POS = canvas.height-150;
+
 //var TEXT_Y_INITIAL_POS = canvas.height + ((font.size + font.padding) * text.length);
 
 setInterval(drawText,30);
 
-function setInitialContext() {
+function setInitialContext(canvas) {
 
+	var canvas = canvas
 	var ctx = canvas.getContext("2d");
 
 	ctx.font = font.size + "px " + font.type;
@@ -46,9 +58,9 @@ function setInitialContext() {
 
 function drawText() {
 
-	clearCanvas();
+	clearCanvas(canvas, context);
 
-	context.drawImage(img,(canvas.width/2)-100,TEXT_Y_INITIAL_POS);
+	context.drawImage(img,TEXT_X_INITIAL_POS-100,TEXT_Y_INITIAL_POS);
 //	for (var x = 0; x < text.length; x++) {
 //    	const textLine = text[x];		
 //		const textLinePosition = getTextPosition(textLine, x, justify.CENTER);
@@ -60,11 +72,30 @@ function drawText() {
 //		context.fillStyle = font.color;
 //	};
 
-	TEXT_Y_INITIAL_POS -= 1;
+	TEXT_X_INITIAL_POS -= 0.1;
+	TEXT_Y_INITIAL_POS -= 1.1;
+
+	if (TEXT_Y_INITIAL_POS < 1) {
+		skyCanvas.style.zIndex = "6";
+		roadCanvas.style.zIndex = "2";
+
+		clearCanvas(canvasComingSoon, contextComingSoon);
+
+		if (canvas.height - COMING_SOON_Y_INITIAL_POS > 90) {
+			var comingSoonContext = canvasComingSoon.getContext("2d");
+				comingSoonContext.drawImage(imgComingSoon,COMING_SOON_X_INITIAL_POS,COMING_SOON_Y_INITIAL_POS);
+
+				COMING_SOON_Y_INITIAL_POS += .2;
+		} else {
+			var comingSoonContext = canvasComingSoon.getContext("2d");
+				comingSoonContext.drawImage(imgComingSoon,COMING_SOON_X_INITIAL_POS,COMING_SOON_Y_INITIAL_POS);
+		}
+	}
+			
 }
 
-function clearCanvas() {
-	context.clearRect(0,0,canvas.width, canvas.height);
+function clearCanvas(canvasToClear, contextToClear) {
+	contextToClear.clearRect(0,0,canvasToClear.width, canvasToClear.height);
 }
 
 function getTextPosition(textLine, textLineNumber, justified) {
