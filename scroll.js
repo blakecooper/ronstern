@@ -43,8 +43,30 @@ var COMING_SOON_Y_INITIAL_POS = canvas.height-150;
 
 //var TEXT_Y_INITIAL_POS = canvas.height + ((font.size + font.padding) * text.length);
 
+window.onload = paintCanvas();
 setInterval(drawText,30);
 
+		
+function paintCanvas() {
+    var top = document.getElementById("sky");
+    var middle = document.getElementById("line");
+    var bottom = document.getElementById("road");
+
+    var ctx = top.getContext("2d");
+    var img = document.getElementById("imgTop");
+
+    ctx.drawImage(img, 0, 0);
+
+    ctx = middle.getContext("2d");
+    img = document.getElementById("imgMiddle");
+
+    ctx.drawImage(img, 0, 0);
+        
+    ctx = bottom.getContext("2d");
+    img = document.getElementById("imgBottom");
+       
+    ctx.drawImage(img, 0, 0);
+};
 function setInitialContext(canvas) {
 
 	var canvas = canvas

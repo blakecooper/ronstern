@@ -26,28 +26,6 @@
                 <canvas id="textBottom" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
             </div>
 		</div>
-		<script>
-        window.onload = function() {
-            var top = document.getElementById("sky");
-            var middle = document.getElementById("line");
-            var bottom = document.getElementById("road");
-
-            var ctx = top.getContext("2d");
-            var img = document.getElementById("imgTop");
-
-            ctx.drawImage(img, 0, 0);
-
-            ctx = middle.getContext("2d");
-            img = document.getElementById("imgMiddle");
-
-            ctx.drawImage(img, 0, 0);
-        
-            ctx = bottom.getContext("2d");
-            img = document.getElementById("imgBottom");
-        
-            ctx.drawImage(img, 0, 0);
-        }
-        </script>
-        <script src="scroll.js"></script>
+        <script src="animate.js"></script>
 	</body>
 </html>
