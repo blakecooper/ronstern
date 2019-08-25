@@ -1,5 +1,9 @@
 const animationElements = getElements();
 
+var bottomTextReachedBottom = false;
+var bottomTextSpeedUpFactor = .01;
+var bottomTextPauseCounter = 100;
+
 function getElements() {
 	return	{
 		"sky": {
@@ -26,7 +30,7 @@ function getElements() {
 			"image": document.getElementById("textTopImg"),
 			"isText": true,
 			"position": {
-				X: document.getElementById("textTop").width/2,
+				X: document.getElementById("textTop").width/2-100,
 				Y: document.getElementById("textTop").height
 			},
 		},
@@ -37,7 +41,7 @@ function getElements() {
 			"isText": true,
 			"position": {
 				X: (document.getElementById("textBottom").width/2)+100,
-				Y: document.getElementById("textBottom").height-150,
+				Y: document.getElementById("textBottom").height-130,
 			},
 		},
 	};
@@ -60,7 +64,7 @@ function animate() {
 	var upText = animationElements["textTop"];
 	var bottomText = animationElements["textBottom"];
 
-	if (upText.position.Y > 1) {
+	if (upText.position.Y > -500) {
 
 		clearCanvas(upText);
 
@@ -70,19 +74,36 @@ function animate() {
 
 		upText.position.X -= 0.1;
 		upText.position.Y -= 1.1;
-	} else {
 		
-		animationElements.sky.canvas.style.zIndex = "6";
-		animationElements.road.canvas.style.zIndex = "2";
+		if (upText.position.Y < upText.canvas.height/2) {
+		
+			animationElements.sky.canvas.style.zIndex = "4";
+			animationElements.road.canvas.style.zIndex = "2";
 
-		clearCanvas(bottomText);
+			clearCanvas(bottomText);
 
-		bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y);
+			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y);
 
-		if (bottomText.canvas.height - bottomText.position.Y > 90) {
-			bottomText.position.Y += .2;
+			if (!bottomTextReachedBottom && bottomText.canvas.height - bottomText.position.Y > 90) {
+				bottomText.position.Y += .3;
+			} else {
+				bottomTextReachedBottom = true;
+				if (bottomTextPauseCounter > 0) {
+					bottomTextPauseCounter--;
+				} else {
+					animationElements.sky.canvas.style.zIndex = "2";
+					animationElements.road.canvas.style.zIndex = "4";
+					animationElements.line.canvas.style.zIndex = "4";
+					bottomText.canvas.style.zIndex = "4";
+
+					bottomText.position.X -= .5 + bottomTextSpeedUpFactor;
+					bottomText.position.Y -= .5 + bottomTextSpeedUpFactor;
+
+					bottomTextSpeedUpFactor = bottomTextSpeedUpFactor * 1.01;
+				};
+			};
 		};
-	};		
+	};
 };
 
 function clearCanvas(element) {
