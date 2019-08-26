@@ -1,9 +1,5 @@
 const animationElements = getElements();
 
-var bottomTextReachedBottom = false;
-var bottomTextSpeedUpFactor = .01;
-var bottomTextPauseCounter = 100;
-
 function getElements() {
 	return	{
 		"sky": {
@@ -39,6 +35,11 @@ function getElements() {
 			"context": document.getElementById("textBottom").getContext("2d"),
 			"image": document.getElementById("textBottomImg"),
 			"isText": true,
+			"reachedBottomOfCanvas": false,
+			"speedUpFactor": .01,
+			"pauseCounter": 100,
+			"width": document.getElementById("textBottomImg").width,
+			"height": document.getElementById("textBottomImg").height,
 			"position": {
 				X: (document.getElementById("textBottom").width/2)+100,
 				Y: document.getElementById("textBottom").height-130,
@@ -82,24 +83,27 @@ function animate() {
 
 			clearCanvas(bottomText);
 
-			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y);
+			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
 
-			if (!bottomTextReachedBottom && bottomText.canvas.height - bottomText.position.Y > 90) {
+			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
 				bottomText.position.Y += .3;
 			} else {
-				bottomTextReachedBottom = true;
-				if (bottomTextPauseCounter > 0) {
-					bottomTextPauseCounter--;
+				bottomText.reachedBottomOfCanvas = true;
+				if (bottomText.pauseCounter > 0) {
+					bottomText.pauseCounter--;
 				} else {
 					animationElements.sky.canvas.style.zIndex = "2";
 					animationElements.road.canvas.style.zIndex = "4";
 					animationElements.line.canvas.style.zIndex = "4";
 					bottomText.canvas.style.zIndex = "4";
 
-					bottomText.position.X -= .5 + bottomTextSpeedUpFactor;
-					bottomText.position.Y -= .5 + bottomTextSpeedUpFactor;
+					bottomText.position.X -= .5 + bottomText.speedUpFactor;
+					bottomText.position.Y -= .5 + bottomText.speedUpFactor;
 
-					bottomTextSpeedUpFactor = bottomTextSpeedUpFactor * 1.01;
+					bottomText.speedUpFactor = bottomText.speedUpFactor * 1.01;
+
+					bottomText.width = bottomText.width * 1.001;
+					bottomText.height = bottomText.height * 1.001;
 				};
 			};
 		};
