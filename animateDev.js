@@ -41,7 +41,7 @@ function getElements() {
 			"width": document.getElementById("underConstruction").width,
 			"height": document.getElementById("underConstruction").height,
 			"position": {
-				X: (document.getElementById("textBottom").width/2)+100,
+				X: (document.getElementById("textBottom").width/2)+150,
 				Y: document.getElementById("textBottom").height-130,
 			},
 		},
@@ -62,51 +62,19 @@ setInterval(animate,30);
 
 function animate() {
 	
-	var upText = animationElements["textTop"];
 	var bottomText = animationElements["textBottom"];
 
-	if (upText.position.Y > -500) {
+	animationElements.sky.canvas.style.zIndex = "4";
+	animationElements.road.canvas.style.zIndex = "2";
 
-		clearCanvas(upText);
+	clearCanvas(bottomText);
 
-		upText.context.drawImage(upText.image,upText.position.X-100,upText.position.Y);
-		
-		setTopTextAlphaForFade(upText);
+	bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
 
-		upText.position.X -= 0.1;
-		upText.position.Y -= 1.1;
-		
-		if (upText.position.Y < upText.canvas.height/2) {
-		
-			animationElements.sky.canvas.style.zIndex = "4";
-			animationElements.road.canvas.style.zIndex = "2";
-
-			clearCanvas(bottomText);
-
-			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
-
-			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
-				bottomText.position.Y += .3;
-			} else {
-				bottomText.reachedBottomOfCanvas = true;
-				if (bottomText.pauseCounter > 0) {
-					bottomText.pauseCounter--;
-				} else {
-					animationElements.sky.canvas.style.zIndex = "2";
-					animationElements.road.canvas.style.zIndex = "4";
-					animationElements.line.canvas.style.zIndex = "4";
-					bottomText.canvas.style.zIndex = "4";
-
-					bottomText.position.X -= .5 + bottomText.speedUpFactor;
-					bottomText.position.Y -= .5 + bottomText.speedUpFactor;
-
-					bottomText.speedUpFactor = bottomText.speedUpFactor * 1.01;
-
-					bottomText.width = bottomText.width * 1.001;
-					bottomText.height = bottomText.height * 1.001;
-				};
-			};
-		};
+	if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
+		bottomText.position.Y += .3;
+	} else {
+		bottomText.reachedBottomOfCanvas = true;
 	};
 };
 
