@@ -45,6 +45,13 @@ function getElements() {
 				Y: document.getElementById("textBottom").height-130,
 			},
 		},
+		"constructionLines": {
+			"canvas": document.getElementById("constructionLinesCanvas"),
+			"context": document.getElementById("constructionLinesCanvas").getContext("2d"),
+			"image": document.getElementById("constructionLinesImg"),
+			"isText": false,
+			"alphaCounter": 0,
+		},
 	};
 };
 
@@ -64,7 +71,7 @@ function animate() {
 	
 	var upText = animationElements["textTop"];
 	var bottomText = animationElements["textBottom"];
-
+	var constructionLines = animationElements["constructionLines"];
 	if (upText.position.Y > -500) {
 
 		clearCanvas(upText);
@@ -83,7 +90,9 @@ function animate() {
 
 			clearCanvas(bottomText);
 
+			constructionLines.context.globalAlpha = constructionLines.alphaCounter;
 			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
+			constructionLines.context.drawImage(constructionLines.image,0,0);
 
 			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
 				bottomText.position.Y += .3;
@@ -104,6 +113,8 @@ function animate() {
 
 					bottomText.width = bottomText.width * 1.001;
 					bottomText.height = bottomText.height * 1.001;
+
+					constructionLines.alphaCounter = constructionLines.alphaCounter * 1.001;
 				};
 			};
 		};
