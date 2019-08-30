@@ -33,16 +33,14 @@ function getElements() {
 		"textBottom": {
 			"canvas": document.getElementById("textBottom"),
 			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underConstruction"),
+			"image": document.getElementById("underconstructiongrid"),
 			"isText": true,
 			"reachedBottomOfCanvas": false,
-			"speedUpFactor": .01,
+			"speedUpFactor": .011,
 			"pauseCounter": 100,
-			"width": document.getElementById("underConstruction").width,
-			"height": document.getElementById("underConstruction").height,
 			"position": {
-				X: (document.getElementById("textBottom").width/2)+150,
-				Y: document.getElementById("textBottom").height-130,
+				X: (document.getElementById("textBottom").width/2)-180,
+				Y: document.getElementById("textBottom").height-230,
 			},
 		},
 	};
@@ -62,19 +60,33 @@ setInterval(animate,30);
 
 function animate() {
 	
+	var upText = animationElements["textTop"];
 	var bottomText = animationElements["textBottom"];
+	if (upText.position.Y > -500) {
 
-	animationElements.sky.canvas.style.zIndex = "4";
-	animationElements.road.canvas.style.zIndex = "2";
+		clearCanvas(upText);
+		upText.context.drawImage(upText.image,upText.position.X-100,upText.position.Y);
+		
+		setTopTextAlphaForFade(upText);
 
-	clearCanvas(bottomText);
+		upText.position.X -= 0.1;
+		upText.position.Y -= 1.1;
+		
+		if (upText.position.Y < upText.canvas.height/2) {
+		
+			animationElements.sky.canvas.style.zIndex = "4";
+			animationElements.road.canvas.style.zIndex = "2";
 
-	bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
+			clearCanvas(bottomText);
 
-	if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
-		bottomText.position.Y += .3;
-	} else {
-		bottomText.reachedBottomOfCanvas = true;
+			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y);
+
+			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 120) {
+				bottomText.position.Y += .3;
+			} else {
+				bottomText.reachedBottomOfCanvas = true;	
+			};
+		};
 	};
 };
 
