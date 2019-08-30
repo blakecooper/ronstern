@@ -33,10 +33,10 @@ function getElements() {
 		"textBottom": {
 			"canvas": document.getElementById("textBottom"),
 			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underConstruction"),
+			"image": document.getElementById("underConstructionStencil"),
 			"isText": true,
 			"reachedBottomOfCanvas": false,
-			"speedUpFactor": .01,
+			"speedUpFactor": .011,
 			"pauseCounter": 100,
 			"width": document.getElementById("underConstruction").width,
 			"height": document.getElementById("underConstruction").height,
@@ -75,7 +75,7 @@ function animate() {
 	if (upText.position.Y > -500) {
 
 		clearCanvas(upText);
-
+		clearCanvas(constructionLines);
 		upText.context.drawImage(upText.image,upText.position.X-100,upText.position.Y);
 		
 		setTopTextAlphaForFade(upText);
@@ -90,9 +90,7 @@ function animate() {
 
 			clearCanvas(bottomText);
 
-			constructionLines.context.globalAlpha = constructionLines.alphaCounter;
 			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
-			constructionLines.context.drawImage(constructionLines.image,0,0);
 
 			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
 				bottomText.position.Y += .3;
@@ -106,15 +104,19 @@ function animate() {
 					animationElements.line.canvas.style.zIndex = "4";
 					bottomText.canvas.style.zIndex = "4";
 
-					bottomText.position.X -= .5 + bottomText.speedUpFactor;
-					bottomText.position.Y -= .5 + bottomText.speedUpFactor;
+					bottomText.position.X -= .43 + bottomText.speedUpFactor;
+					bottomText.position.Y -= .23 + bottomText.speedUpFactor;
 
 					bottomText.speedUpFactor = bottomText.speedUpFactor * 1.01;
 
-					bottomText.width = bottomText.width * 1.001;
-					bottomText.height = bottomText.height * 1.001;
-
-					constructionLines.alphaCounter = constructionLines.alphaCounter * 1.001;
+					bottomText.width = bottomText.width * 1.0011;
+					bottomText.height = bottomText.height * 1.0011;
+					
+					if (constructionLines.alphaCounter < 1) {
+						constructionLines.alphaCounter += .002;
+					};
+					constructionLines.context.globalAlpha = constructionLines.alphaCounter;
+					constructionLines.context.drawImage(constructionLines.image,0,0);
 				};
 			};
 		};
