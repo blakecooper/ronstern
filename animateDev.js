@@ -33,15 +33,15 @@ function getElements() {
 		"textBottom": {
 			"canvas": document.getElementById("textBottom"),
 			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underconstructiongrid"),
+			"image": document.getElementById("underConstruction"),
 			"isText": true,
 			"reachedBottomOfCanvas": false,
-			"speedUpFactor": .011,
-			"pauseCounter": 100,
 			"position": {
-				X: (document.getElementById("textBottom").width/2)-180,
+				X: (document.getElementById("textBottom").width/2),
 				Y: document.getElementById("textBottom").height-230,
 			},
+			"width": 405,
+			"height": 50,
 		},
 	};
 };
@@ -79,7 +79,7 @@ function animate() {
 
 			clearCanvas(bottomText);
 
-			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y);
+			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
 
 			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 120) {
 				bottomText.position.Y += .3;
