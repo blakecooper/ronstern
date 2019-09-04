@@ -33,24 +33,18 @@ function getElements() {
 		"textBottom": {
 			"canvas": document.getElementById("textBottom"),
 			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underConstructionStencil"),
+			"image": document.getElementById("underConstruction"),
 			"isText": true,
+            "hasBeenDrawn": false,
 			"reachedBottomOfCanvas": false,
-			"speedUpFactor": .011,
-			"pauseCounter": 100,
-			"width": document.getElementById("underConstruction").width,
-			"height": document.getElementById("underConstruction").height,
 			"position": {
-				X: (document.getElementById("textBottom").width/2)+100,
+				X: (document.getElementById("textBottom").width/2 + 100),
 				Y: document.getElementById("textBottom").height-130,
-			},
-		},
-		"constructionLines": {
-			"canvas": document.getElementById("constructionLinesCanvas"),
-			"context": document.getElementById("constructionLinesCanvas").getContext("2d"),
-			"image": document.getElementById("constructionLinesImg"),
-			"isText": false,
-			"alphaCounter": 0,
+            },
+            "width": 304,
+			"height": 37,
+            "rotationInDegrees": -10,
+            "totalSwingCounter": 0,
 		},
 	};
 };
@@ -71,11 +65,9 @@ function animate() {
 	
 	var upText = animationElements["textTop"];
 	var bottomText = animationElements["textBottom"];
-	var constructionLines = animationElements["constructionLines"];
 	if (upText.position.Y > -500) {
 
 		clearCanvas(upText);
-		clearCanvas(constructionLines);
 		upText.context.drawImage(upText.image,upText.position.X-100,upText.position.Y);
 		
 		setTopTextAlphaForFade(upText);
@@ -90,35 +82,28 @@ function animate() {
 
 			clearCanvas(bottomText);
 
-			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
+            if(!bottomText.hasBeenDrawn) {
+                bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
+                bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
+                bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
+                bottomText.rotationInDegrees = 0;
+                bottomText.hasBeenDrawn = true;
+            }
 
-			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 90) {
+			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
+//            bottomText.rotationInDegrees -= .01;
+			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 40) {
 				bottomText.position.Y += .3;
 			} else {
 				bottomText.reachedBottomOfCanvas = true;
-				if (bottomText.pauseCounter > 0) {
-					bottomText.pauseCounter--;
-				} else {
-					animationElements.sky.canvas.style.zIndex = "2";
-					animationElements.road.canvas.style.zIndex = "4";
-					animationElements.line.canvas.style.zIndex = "4";
-					bottomText.canvas.style.zIndex = "4";
-
-					bottomText.position.X -= .43 + bottomText.speedUpFactor;
-					bottomText.position.Y -= .23 + bottomText.speedUpFactor;
-
-					bottomText.speedUpFactor = bottomText.speedUpFactor * 1.01;
-
-					bottomText.width = bottomText.width * 1.0011;
-					bottomText.height = bottomText.height * 1.0011;
-					
-					if (constructionLines.alphaCounter < 1) {
-						constructionLines.alphaCounter += .002;
-					};
-					constructionLines.context.globalAlpha = constructionLines.alphaCounter;
-					constructionLines.context.drawImage(constructionLines.image,0,0);
-				};
-			};
+                if (bottomText.totalSwingCounter < 9) {
+                    bottomText.totalSwingCounter += bottomText.rotationInDegrees;
+                    bottomText.rotationInDegrees += .01;    
+                    bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
+                    bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
+                    bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
+			    };
+            };
 		};
 	};
 };

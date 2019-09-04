@@ -35,13 +35,16 @@ function getElements() {
 			"context": document.getElementById("textBottom").getContext("2d"),
 			"image": document.getElementById("underConstruction"),
 			"isText": true,
+            "hasBeenDrawn": false,
 			"reachedBottomOfCanvas": false,
 			"position": {
-				X: (document.getElementById("textBottom").width/2),
-				Y: document.getElementById("textBottom").height-230,
-			},
-			"width": 405,
-			"height": 50,
+				X: (document.getElementById("textBottom").width/2 + 100),
+				Y: document.getElementById("textBottom").height-130,
+            },
+            "width": 304,
+			"height": 37,
+            "rotationInDegrees": -10,
+            "totalSwingCounter": 0,
 		},
 	};
 };
@@ -79,13 +82,28 @@ function animate() {
 
 			clearCanvas(bottomText);
 
-			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
+            if(!bottomText.hasBeenDrawn) {
+                bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
+                bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
+                bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
+                bottomText.rotationInDegrees = 0;
+                bottomText.hasBeenDrawn = true;
+            }
 
-			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 120) {
+			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
+//            bottomText.rotationInDegrees -= .01;
+			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 40) {
 				bottomText.position.Y += .3;
 			} else {
-				bottomText.reachedBottomOfCanvas = true;	
-			};
+				bottomText.reachedBottomOfCanvas = true;
+                if (bottomText.totalSwingCounter < 9) {
+                    bottomText.totalSwingCounter += bottomText.rotationInDegrees;
+                    bottomText.rotationInDegrees += .01;    
+                    bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
+                    bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
+                    bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
+			    };
+            };
 		};
 	};
 };
