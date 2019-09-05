@@ -16,19 +16,18 @@
                 <img id="imgBottom" src="assets/image_bottom.png"></img>
 				<img id="textTopImg" src="assets/text.png"></img>
 				<img id="underConstruction" src="assets/underconstruction.png"></img>
-				<img id="underConstructionStencil" src="assets/underconstruction_stencil1.png"></img>
-				<img id="constructionLinesImg" src="assets/constructionlines.png"></img>
-				<img id="underconstructiongrid" src="assets/underconstructiongrid.png"></img>
+				<img id="stencilImg" src="assets/stencil.png"></img>
 			</div>
             <div id="canvas" style="position: relative;">
 				<canvas id="sky" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
                 <canvas id="line" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
                 <canvas id="road" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 6;"></canvas>
                 <canvas id="textTop" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
-                <canvas id="textBottom" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
-            	<canvas id="constructionLinesCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 7;"></canvas>
+                <canvas id="textBottom" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+            	<canvas id="stencilCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
 			</div>
 		</div>
-        <script src="animateDev.js"></script>
+		<script src="utils.js"></script>
+		<script src="animateDev.js"></script>
 	</body>
 </html>

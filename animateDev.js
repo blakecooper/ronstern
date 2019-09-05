@@ -1,137 +1,131 @@
 const animationElements = getElements();
+const textTop = animationElements["textTop"];
+const textBottom = animationElements["textBottom"];
+const stencil = animationElements["stencil"];
 
-function getElements() {
-	return	{
-		"sky": {
-			"canvas": document.getElementById("sky"),
-			"context": document.getElementById("sky").getContext("2d"),
-			"image": document.getElementById("imgTop"),
-			"isText": false,
-		},
-		"line": {
-			"canvas": document.getElementById("line"),
-			"context": document.getElementById("line").getContext("2d"),
-			"image": document.getElementById("imgMiddle"),
-			"isText": false,
-		},
-		"road": {
-			"canvas": document.getElementById("road"),
-			"context": document.getElementById("road").getContext("2d"),
-			"image": document.getElementById("imgBottom"),
-			"isText": false,
-		},
-		"textTop": {
-			"canvas": document.getElementById("textTop"),
-			"context": document.getElementById("textTop").getContext("2d"),
-			"image": document.getElementById("textTopImg"),
-			"isText": true,
-			"position": {
-				X: document.getElementById("textTop").width/2-100,
-				Y: document.getElementById("textTop").height
-			},
-		},
-		"textBottom": {
-			"canvas": document.getElementById("textBottom"),
-			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underConstruction"),
-			"isText": true,
-            "hasBeenDrawn": false,
-			"reachedBottomOfCanvas": false,
-			"position": {
-				X: (document.getElementById("textBottom").width/2 + 100),
-				Y: document.getElementById("textBottom").height-130,
-            },
-            "width": 304,
-			"height": 37,
-            "rotationInDegrees": -10,
-            "totalSwingCounter": 0,
-			"hasBounced": false,
-			"numberOfBounces": 0,
-		},
-	};
+window.onload = function() 
+{
+	drawBackground();
 };
 
-window.onload = function() {
-		
-	for (var element in animationElements) {
-		if (!animationElements[element].isText) {
+setInterval(animate,30);
+
+
+
+/* ANIMATION FUNCTIONS: */
+function drawBackground() 
+{
+	for (let element in animationElements) 
+	{
+		if (animationElements[element].isBackground) 
+		{
 			animationElements[element].context.drawImage(animationElements[element].image,0,0);
 		};
 	};
 };
 
+function animate() 
+{
+	if (textTop.isStillOnPage) 
+	{
+		updateTextTop();
+	};
 
-setInterval(animate,30);
+	if (textTop.hasReachedBreakPoint) 
+	{
+		flipSkyAndRoad();		
+		updateTextBottom();
+	};
 
-function animate() {
+	if (textBottom.hasReachedBreakPoint)
+	{	
+		updateStencil();
+	};				
+};
+
+function updateTextTop()
+{
+	clear(textTop);
+	//TODO: figure out why custom draw() function isn't working
+	textTop.context.drawImage(textTop.image,textTop.position.X-100,textTop.position.Y);
 	
-	var upText = animationElements["textTop"];
-	var bottomText = animationElements["textBottom"];
-	if (upText.position.Y > -500) {
+	//The opacity of the scrolling top text is a function of its vertcal position on the page.
+	textTop.context.globalAlpha = textTop.position.Y / textTop.canvas.height;
+	
+	move(textTop, -0.1, -1.1);	
 
-		clearCanvas(upText);
-		upText.context.drawImage(upText.image,upText.position.X-100,upText.position.Y);
-		
-		setTopTextAlphaForFade(upText);
-
-		upText.position.X -= 0.1;
-		upText.position.Y -= 1.1;
-		
-		if (upText.position.Y < upText.canvas.height/2) {
-		
-			animationElements.sky.canvas.style.zIndex = "4";
-			animationElements.road.canvas.style.zIndex = "2";
-
-			clearCanvas(bottomText);
-
-            if(!bottomText.hasBeenDrawn) {
-                bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
-                bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
-                bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
-                bottomText.rotationInDegrees = 0;
-                bottomText.hasBeenDrawn = true;
-            }
-
-			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
-			
-			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 40) {
-				bottomText.position.Y += .3;
-			} else {
-				bottomText.reachedBottomOfCanvas = true;
-                if (bottomText.totalSwingCounter < 9) {
-                    bottomText.totalSwingCounter += bottomText.rotationInDegrees;
-                    bottomText.rotationInDegrees += .01;    
-                    bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
-                    bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
-                    bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
-			    } else {
-                //	if (bottomText.totalSwingCounter > 0) {
-					if (!bottomText.hasBounced) {
-						bottomText.rotationInDegrees = 0;
-						bottomText.hasBounced = true;
-					};
-					
-					if (bottomText.numberOfBounces < 4) {
-						bottomText.totalSwingCounter += bottomText.rotationInDegrees;
-                   		bottomText.rotationInDegrees -= .01;    
-                    	bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
-                    	bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
-                    	bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));
-						
-						if (bottomText.totalSwingCounter < 9) {
-							bottomText.numberOfBounces++;
-						};
-					};
-				};
-            };
-		};
+	if (!textTop.hasReachedBreakPoint && textTop.position.Y < textTop.canvas.height/2) 
+	{
+		textTop.hasReachedBreakPoint = true;
+	} else if (textTop.position.Y < -500) {
+		textTop.isStillOnPage = false;
 	};
 };
 
-function clearCanvas(element) {
-	element.context.clearRect(0,0,element.canvas.width, element.canvas.height);
+function flipSkyAndRoad() 
+{
+	animationElements.sky.canvas.style.zIndex = "4";
+	animationElements.road.canvas.style.zIndex = "2";
 };
 
-function setTopTextAlphaForFade(text) {
-	text.context.globalAlpha = text.position.Y / text.canvas.height;
+function updateTextBottom() {
+	clear(textBottom);
+
+    if(!textBottom.hasBeenDrawn) 
+	{
+        textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
+        textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
+        textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
+        textBottom.rotationInDegrees = 0;
+        textBottom.hasBeenDrawn = true;
+    }
+
+	textBottom.context.drawImage(textBottom.image,textBottom.position.X,textBottom.position.Y,textBottom.width,textBottom.height);
+	
+	if (!textBottom.reachedBottomOfCanvas && textBottom.canvas.height - textBottom.position.Y > 40) 
+	{
+		textBottom.position.Y += .3;
+	} else {
+		textBottom.reachedBottomOfCanvas = true;
+        if (textBottom.totalSwingCounter < 9) 
+		{
+            textBottom.totalSwingCounter += textBottom.rotationInDegrees;
+            textBottom.rotationInDegrees += .01;    
+            textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
+            textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
+            textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
+		} else {
+			if (!textBottom.hasBounced) 
+			{
+				textBottom.rotationInDegrees = 0;
+				textBottom.hasBounced = true;
+			};
+			if (textBottom.numberOfBounces < 1) 
+			{
+				textBottom.totalSwingCounter += textBottom.rotationInDegrees;
+    	       	textBottom.rotationInDegrees -= .08;    
+	           	textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
+        	   	textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
+    	       	textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));
+		
+				if (textBottom.totalSwingCounter < 9) 
+				{
+					textBottom.numberOfBounces++;
+				};
+			} else {
+				textBottom.hasReachedBreakPoint = true;
+			};
+    	};
+	};
+};
+
+function updateStencil() {
+	clear(stencil);
+	stencil.context.globalAlpha = stencil.alpha;
+	stencil.context.drawImage(stencil.image,38,0);	
+					
+	if(stencil.alpha < 1) 
+	{
+		stencil.alpha += .03;
+	};
 };
