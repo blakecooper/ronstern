@@ -46,14 +46,14 @@ function animate()
 function updateTextTop()
 {
 	clear(textTop);
-	//TODO: figure out why custom draw() function isn't working
-	textTop.context.drawImage(textTop.image,textTop.position.X-100,textTop.position.Y);
+	
+	draw(textTop.image,textTop.position.X-100,textTop.position.Y);
+	
+	move(textTop, -0.1, -1.1);	
 	
 	//The opacity of the scrolling top text is a function of its vertcal position on the page.
 	textTop.context.globalAlpha = textTop.position.Y / textTop.canvas.height;
 	
-	move(textTop, -0.1, -1.1);	
-
 	if (!textTop.hasReachedBreakPoint && textTop.position.Y < textTop.canvas.height/2) 
 	{
 		textTop.hasReachedBreakPoint = true;
@@ -68,32 +68,32 @@ function flipSkyAndRoad()
 	animationElements.road.canvas.style.zIndex = "2";
 };
 
-function updateTextBottom() {
+function updateTextBottom() 
+{
 	clear(textBottom);
 
     if(!textBottom.hasBeenDrawn) 
 	{
-        textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-        textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-        textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
+		swing();
+
         textBottom.rotationInDegrees = 0;
         textBottom.hasBeenDrawn = true;
     }
 
-	textBottom.context.drawImage(textBottom.image,textBottom.position.X,textBottom.position.Y,textBottom.width,textBottom.height);
+	draw(textBottom.image,textBottom.position.X,textBottom.position.Y,textBottom.width,textBottom.height);
+
+	let textBottomDistanceFromBottomOfCanvas = textBottom.canvas.height - textBottom.position.Y;
 	
-	if (!textBottom.reachedBottomOfCanvas && textBottom.canvas.height - textBottom.position.Y > 40) 
+	if (!textBottom.reachedBottomOfCanvas && textBottomDistanceFromBottomOfCanvas > 40) 
 	{
 		textBottom.position.Y += .3;
 	} else {
 		textBottom.reachedBottomOfCanvas = true;
         if (textBottom.totalSwingCounter < 9) 
 		{
-            textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-            textBottom.rotationInDegrees += .01;    
-            textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-            textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-            textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
+			updateTextBottomTilt(.01);
+
+			tiltTextBottom();
 		} else {
 			if (!textBottom.hasBounced) 
 			{
@@ -102,12 +102,9 @@ function updateTextBottom() {
 			};
 			if (textBottom.numberOfBounces < 1) 
 			{
-				textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-    	       	textBottom.rotationInDegrees -= .08;    
-	           	textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-        	   	textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-    	       	textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));
-		
+				updateTextBottomTile(-.08);
+
+				tiltTextBottom();
 				if (textBottom.totalSwingCounter < 9) 
 				{
 					textBottom.numberOfBounces++;
@@ -122,7 +119,7 @@ function updateTextBottom() {
 function updateStencil() {
 	clear(stencil);
 	stencil.context.globalAlpha = stencil.alpha;
-	stencil.context.drawImage(stencil.image,38,0);	
+	draw(stencil.image,38,0);	
 					
 	if(stencil.alpha < 1) 
 	{

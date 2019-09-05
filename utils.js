@@ -81,3 +81,16 @@ function move (element, x, y)
 	element.position.X += x;
 	element.position.Y += y;
 };
+
+function tiltTextBottom()
+{
+	textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
+    textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
+    textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
+};
+
+function updateTextBottomTilt(degrees) 
+{
+    textBottom.totalSwingCounter += textBottom.rotationInDegrees;
+    textBottom.rotationInDegrees += degrees;    
+};
