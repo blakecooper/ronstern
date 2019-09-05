@@ -45,6 +45,8 @@ function getElements() {
 			"height": 37,
             "rotationInDegrees": -10,
             "totalSwingCounter": 0,
+			"hasBounced": false,
+			"numberOfBounces": 0,
 		},
 	};
 };
@@ -91,7 +93,7 @@ function animate() {
             }
 
 			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
-//            bottomText.rotationInDegrees -= .01;
+			
 			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 40) {
 				bottomText.position.Y += .3;
 			} else {
@@ -102,7 +104,25 @@ function animate() {
                     bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
                     bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
                     bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));    
-			    };
+			    } else {
+                //	if (bottomText.totalSwingCounter > 0) {
+					if (!bottomText.hasBounced) {
+						bottomText.rotationInDegrees = 0;
+						bottomText.hasBounced = true;
+					};
+					
+					if (bottomText.numberOfBounces < 4) {
+						bottomText.totalSwingCounter += bottomText.rotationInDegrees;
+                   		bottomText.rotationInDegrees -= .01;    
+                    	bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
+                    	bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
+                    	bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));
+						
+						if (bottomText.totalSwingCounter < 9) {
+							bottomText.numberOfBounces++;
+						};
+					};
+				};
             };
 		};
 	};

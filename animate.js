@@ -48,6 +48,13 @@ function getElements() {
 			"hasBounced": false,
 			"numberOfBounces": 0,
 		},
+		"stencil": {
+			"canvas": document.getElementById("stencilCanvas"),
+			"context": document.getElementById("stencilCanvas").getContext("2d"),
+			"image": document.getElementById("stencilImg"),
+			"isText": true,
+			"alpha": 0,
+		},
 	};
 };
 
@@ -67,13 +74,16 @@ function animate() {
 	
 	var upText = animationElements["textTop"];
 	var bottomText = animationElements["textBottom"];
+	var stencil = animationElements["stencil"];
+
 	if (upText.position.Y > -500) {
 
 		clearCanvas(upText);
+		clearCanvas(stencil);
 		upText.context.drawImage(upText.image,upText.position.X-100,upText.position.Y);
-		
+		stencil.context.globalAlpha = stencil.alpha;
+		stencil.context.drawImage(stencil.image,38,0);	
 		setTopTextAlphaForFade(upText);
-
 		upText.position.X -= 0.1;
 		upText.position.Y -= 1.1;
 		
@@ -93,7 +103,6 @@ function animate() {
             }
 
 			bottomText.context.drawImage(bottomText.image,bottomText.position.X,bottomText.position.Y,bottomText.width,bottomText.height);
-			
 			if (!bottomText.reachedBottomOfCanvas && bottomText.canvas.height - bottomText.position.Y > 40) {
 				bottomText.position.Y += .3;
 			} else {
@@ -111,9 +120,13 @@ function animate() {
 						bottomText.hasBounced = true;
 					};
 					
-					if (bottomText.numberOfBounces < 4) {
+					if(stencil.alpha < 1) {
+						stencil.alpha += .03;
+					};
+					
+					if (bottomText.numberOfBounces < 1) {
 						bottomText.totalSwingCounter += bottomText.rotationInDegrees;
-                   		bottomText.rotationInDegrees -= .01;    
+                   		bottomText.rotationInDegrees -= .08;    
                     	bottomText.context.translate(bottomText.position.X,bottomText.position.Y);
                     	bottomText.context.rotate(bottomText.rotationInDegrees * Math.PI / 180);
                     	bottomText.context.translate(-(bottomText.position.X),-(bottomText.position.Y));
@@ -121,6 +134,7 @@ function animate() {
 						if (bottomText.totalSwingCounter < 9) {
 							bottomText.numberOfBounces++;
 						};
+					} else {
 					};
 				};
             };
