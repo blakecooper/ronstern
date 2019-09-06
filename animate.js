@@ -119,7 +119,7 @@ function updateTextBottom()
 function updateStencil() {
 	clear(stencil);
 	stencil.context.globalAlpha = stencil.alpha;
-	draw(stencil.image,38,0);	
+	draw(stencil.image,0,0);	
 					
 	if(stencil.alpha < 1) 
 	{
