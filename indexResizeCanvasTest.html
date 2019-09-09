@@ -10,12 +10,12 @@
 	<body>
 		<div class="container-fluid">
             <div id="canvas">
-				<canvas id="sky" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id="line" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
-                <canvas id="road" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 6;"></canvas>
-                <canvas id="textTop" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
-                <canvas id="textBottom" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-            	<canvas id="stencilCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+				<canvas id="sky"  style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+                <canvas id="line"  style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
+                <canvas id="road"  style="position: absolute; left: 0; top: 0; z-index: 6;"></canvas>
+                <canvas id="textTop"  style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
+                <canvas id="textBottom"  style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+            	<canvas id="stencilCanvas"  style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
 			</div>
             <div style="display: none">
                 <img id="imgTop" src="assets/image_top.png"></img>
@@ -26,7 +26,8 @@
 				<img id="stencilImg" src="assets/stencil.png"></img>
 			</div>
 		</div>
+		<script src="adjustCanvas.js"></script>
 		<script src="utils.js"></script>
-		<script src="animate.js"></script>
+		<script src="animateDev.js"></script>
 	</body>
 </html>
