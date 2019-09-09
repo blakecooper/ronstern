@@ -1,36 +1,6 @@
 function getElements() 
 {
 	return	{
-		"sky": {
-			"canvas": document.getElementById("sky"),
-			"context": document.getElementById("sky").getContext("2d"),
-			"image": document.getElementById("imgTop"),
-			"isBackground": true,
-		},
-		"line": {
-			"canvas": document.getElementById("line"),
-			"context": document.getElementById("line").getContext("2d"),
-			"image": document.getElementById("imgMiddle"),
-			"isBackground": true,
-		},
-		"road": {
-			"canvas": document.getElementById("road"),
-			"context": document.getElementById("road").getContext("2d"),
-			"image": document.getElementById("imgBottom"),
-			"isBackground": true,
-		},
-		"textTop": {
-			"canvas": document.getElementById("textTop"),
-			"context": document.getElementById("textTop").getContext("2d"),
-			"image": document.getElementById("textTopImg"),
-			"isBackground": false,
-			"position": {
-				X: document.getElementById("textTop").width/2-100,
-				Y: document.getElementById("textTop").height
-			},
-			"isStillOnPage": true,
-			"hasReachedBreakPoint": false,
-		},
 		"textBottom": {
 			"canvas": document.getElementById("textBottom"),
 			"context": document.getElementById("textBottom").getContext("2d"),
@@ -76,12 +46,27 @@ function getElements()
 			"context": document.getElementById("skySwingCanvas").getContext("2d"),
 			"image": document.getElementById("photo1SwingTop"),
 			"isBackground": true,
+			"isStillOnPage": true,
+			"rotationInDegrees": -0.25,
+			"swingPointX": (document.getElementById("skySwingCanvas").width/3.3),
+			"swingPointY": (document.getElementById("skySwingCanvas").height),
+			"degreesSwung": 0,
+			"hasReachedBreakPoint": false,
+			"position": {
+				"X": 0,
+				"Y": 0,
+			},
 		},
 		"roadSwing": {
 			"canvas": document.getElementById("roadSwingCanvas"),
 			"context": document.getElementById("roadSwingCanvas").getContext("2d"),
 			"image": document.getElementById("photo1SwingBottom"),
 			"isBackground": true,
+			"isStillOnPage": true,
+			"rotationInDegrees": 0.08,
+			"swingPointX": (document.getElementById("roadSwingCanvas").width/3.3),
+			"swingPointY": (document.getElementById("roadSwingCanvas").height),
+			"degreesSwung": 0,
 		},
 	};
 };

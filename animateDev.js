@@ -1,7 +1,7 @@
 const animationElements = getElements();
-const textTop = animationElements["textTop"];
-const textBottom = animationElements["textBottom"];
-const stencil = animationElements["stencil"];
+const swingTop = animationElements["skySwing"];
+const swingBottom = animationElements["roadSwing"];
+const title = animationElements["title"];
 
 window.onload = function() 
 {
@@ -26,106 +26,51 @@ function drawBackground()
 
 function animate() 
 {
-	if (textTop.isStillOnPage) 
+	if (swingTop.isStillOnPage || swingBottom.isStillOnPage) 
 	{
-		updateTextTop();
+		updateSwing();
 	};
 
-	if (textTop.hasReachedBreakPoint) 
+	if (swingTop.hasReachedBreakPoint)
 	{
-		flipSkyAndRoad();		
-		updateTextBottom();
+		//fade title in over BIG RED
 	};
-
-	if (textBottom.hasReachedBreakPoint)
-	{	
-		updateStencil();
-	};				
 };
 
-function updateTextTop()
+function updateSwing()
 {
-	clear(textTop);
-	//TODO: figure out why custom draw() function isn't working
-	textTop.context.drawImage(textTop.image,textTop.position.X-100,textTop.position.Y);
-	
-	//The opacity of the scrolling top text is a function of its vertcal position on the page.
-	textTop.context.globalAlpha = textTop.position.Y / textTop.canvas.height;
-	
-	move(textTop, -0.1, -1.1);	
+	clear(swingTop);
+	clear(swingBottom);
 
-	if (!textTop.hasReachedBreakPoint && textTop.position.Y < textTop.canvas.height/2) 
+	swingTop.position.X -= 0.8;
+	swingTop.position.Y -= 1.5;
+
+	swingTop.context.translate(swingTop.swingPointX, swingTop.swingPointY);
+	swingTop.context.rotate(swingTop.rotationInDegrees * Math.PI / 180);
+	swingTop.context.translate(-swingTop.swingPointX, -swingTop.swingPointY);
+	
+	swingBottom.context.translate(swingBottom.swingPointX, swingBottom.swingPointY);
+	swingBottom.context.rotate(swingBottom.rotationInDegrees * Math.PI / 180);
+	swingBottom.context.translate(-swingBottom.swingPointX, -swingBottom.swingPointY);
+	
+	swingTop.degreesSwung -= swingTop.rotationInDegrees;
+	swingBottom.degreesSwung += swingBottom.rotationInDegrees;
+
+	swingTop.context.drawImage(swingTop.image,swingTop.position.X,swingTop.position.Y);
+	swingBottom.context.drawImage(swingBottom.image,0,0);
+	
+	if (swingTop.isStillOnPage && swingTop.degreesSwung > 140) 
 	{
-		textTop.hasReachedBreakPoint = true;
-	} else if (textTop.position.Y < -500) {
-		textTop.isStillOnPage = false;
+		swingTop.isStillOnPage = false;
 	};
-};
-
-function flipSkyAndRoad() 
-{
-	animationElements.sky.canvas.style.zIndex = "4";
-	animationElements.road.canvas.style.zIndex = "2";
-};
-
-function updateTextBottom() {
-	clear(textBottom);
-
-    if(!textBottom.hasBeenDrawn) 
-	{
-        textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-        textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-        textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
-        textBottom.rotationInDegrees = 0;
-        textBottom.hasBeenDrawn = true;
-    }
-
-	textBottom.context.drawImage(textBottom.image,textBottom.position.X,textBottom.position.Y,textBottom.width,textBottom.height);
 	
-	if (!textBottom.reachedBottomOfCanvas && textBottom.canvas.height - textBottom.position.Y > 40) 
+	if (swingBottom.isStillOnPage && swingBottom.degreesSwung > 45) 
 	{
-		textBottom.position.Y += .3;
-	} else {
-		textBottom.reachedBottomOfCanvas = true;
-        if (textBottom.totalSwingCounter < 9) 
-		{
-            textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-            textBottom.rotationInDegrees += .01;    
-            textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-            textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-            textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
-		} else {
-			if (!textBottom.hasBounced) 
-			{
-				textBottom.rotationInDegrees = 0;
-				textBottom.hasBounced = true;
-			};
-			if (textBottom.numberOfBounces < 1) 
-			{
-				textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-    	       	textBottom.rotationInDegrees -= .08;    
-	           	textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-        	   	textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-    	       	textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));
-		
-				if (textBottom.totalSwingCounter < 9) 
-				{
-					textBottom.numberOfBounces++;
-				};
-			} else {
-				textBottom.hasReachedBreakPoint = true;
-			};
-    	};
+		swingBottom.isStillOnPage = false;
 	};
-};
 
-function updateStencil() {
-	clear(stencil);
-	stencil.context.globalAlpha = stencil.alpha;
-	stencil.context.drawImage(stencil.image,35,0);	
-					
-	if(stencil.alpha < 1) 
+	if (!swingTop.isStillOnPage && !swingBottom.isStillOnPage)
 	{
-		stencil.alpha += .03;
+		swingTop.hasReachedBreakPoint = true;
 	};
 };
