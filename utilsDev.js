@@ -1,3 +1,5 @@
+let counter = 0;
+
 function getElements() 
 {
 	return	{
@@ -9,8 +11,8 @@ function getElements()
             "hasBeenDrawn": false,
 			"reachedBottomOfCanvas": false,
 			"position": {
-				X: (document.getElementById("textBottom").width/2 + 100),
-				Y: document.getElementById("textBottom").height-130,
+				X: 543,
+				Y: 504,
             },
             "width": 304,
 			"height": 37,
@@ -26,7 +28,7 @@ function getElements()
 			"context": document.getElementById("stencilCanvas").getContext("2d"),
 			"image": document.getElementById("stencilImg"),
 			"isBackground": false,
-			"alpha": 0,
+			"alpha": 100,
 		},
 		"bigRed": {
 			"canvas": document.getElementById("bigRedCanvas"),

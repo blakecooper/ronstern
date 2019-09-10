@@ -2,6 +2,9 @@ const animationElements = getElements();
 const swingTop = animationElements["skySwing"];
 const swingBottom = animationElements["roadSwing"];
 const title = animationElements["title"];
+const stencil = animationElements["stencil"];
+const textBottom = animationElements["textBottom"];
+let underConstructionSignHasChanged = false;
 
 window.onload = function() 
 {
@@ -26,14 +29,53 @@ function drawBackground()
 
 function animate() 
 {
-	if (swingTop.isStillOnPage || swingBottom.isStillOnPage) 
+
+	if (!underConstructionSignHasChanged) {
+		changeUnderConstructionSign();
+	}
+
+	if (counter > 300 && (swingTop.isStillOnPage || swingBottom.isStillOnPage)) 
 	{
 		updateSwing();
 	};
 
 	if (swingTop.hasReachedBreakPoint)
 	{
-		//fade title in over BIG RED
+		drawTitle();
+	};
+
+	counter++;
+};
+
+function changeUnderConstructionSign() 
+{
+
+	if (!textBottom.hasBeenDrawn)
+	{
+		textBottom.context.drawImage(textBottom.image,543,504,textBottom.width,textBottom.height);
+		textBottom.hasBeenDrawn = true;
+	}
+	
+	clear(stencil);	
+	
+	stencil.context.drawImage(stencil.image,0,0);
+
+	if (counter > 50) {
+		clear(textBottom);
+		clear(stencil);
+	}
+
+	if (counter < 250)
+	{
+		if (counter > 100 && counter % 25 == 0) {
+			clear(textBottom);
+		} else if (counter > 100 && counter % 200 != 0) {
+			textBottom.image = document.getElementById("nowOnlineImg");
+			textBottom.context.drawImage(textBottom.image,543,504,textBottom.width,textBottom.height);
+		};
+	} else {
+		clear(textBottom);
+		underConstructionSignHasChanged = true;
 	};
 };
 
@@ -59,12 +101,12 @@ function updateSwing()
 	swingTop.context.drawImage(swingTop.image,swingTop.position.X,swingTop.position.Y);
 	swingBottom.context.drawImage(swingBottom.image,0,0);
 	
-	if (swingTop.isStillOnPage && swingTop.degreesSwung > 140) 
+	if (swingTop.isStillOnPage && swingTop.degreesSwung > 40) 
 	{
 		swingTop.isStillOnPage = false;
 	};
 	
-	if (swingBottom.isStillOnPage && swingBottom.degreesSwung > 45) 
+	if (swingBottom.isStillOnPage && swingBottom.degreesSwung > 30) 
 	{
 		swingBottom.isStillOnPage = false;
 	};
@@ -73,4 +115,9 @@ function updateSwing()
 	{
 		swingTop.hasReachedBreakPoint = true;
 	};
+};
+
+function drawTitle() 
+{
+	title.context.drawImage(title.image,100,80,248,90);
 };
