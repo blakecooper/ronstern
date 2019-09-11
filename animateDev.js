@@ -25,6 +25,9 @@ function drawBackground()
 			animationElements[element].context.drawImage(animationElements[element].image,0,0);
 		};
 	};
+
+	drawTitle();
+
 };
 
 function animate() 
@@ -37,11 +40,6 @@ function animate()
 	if (counter > 300 && (swingTop.isStillOnPage || swingBottom.isStillOnPage)) 
 	{
 		updateSwing();
-	};
-
-	if (swingTop.hasReachedBreakPoint)
-	{
-		drawTitle();
 	};
 
 	counter++;
@@ -119,5 +117,5 @@ function updateSwing()
 
 function drawTitle() 
 {
-	title.context.drawImage(title.image,100,80,248,90);
+	title.context.drawImage(title.image,65,100,350,127);
 };
