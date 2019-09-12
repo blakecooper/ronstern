@@ -1,0 +1,13 @@
+@media only screen and (max-device-width: 480px) {
+    canvas {
+        width: auto;
+    }
+}
+
+canvas {
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+}

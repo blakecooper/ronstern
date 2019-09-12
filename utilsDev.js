@@ -1,75 +1,52 @@
-let counter = 0;
+let photoCounter = 1;
+let timer = 1;
+let transitionIsComplete = true;
+
+const OUT = 0;
+const IN = 1;
+
+let transitionState = IN;
+
+let photoCanvas = document.getElementById("left");
+let textCanvas = document.getElementById("right");
+
+const totalPhotos = 3;
+
+const photoDuration = 100;
+
+const text = [
+    "The first line of text goes here.",
+    "And the second line of text goes here.",
+    "And so on, and so on."
+];
 
 function getElements() 
 {
 	return	{
-		"textBottom": {
-			"canvas": document.getElementById("textBottom"),
-			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underConstruction"),
-			"isBackground": false,
-            "hasBeenDrawn": false,
-			"reachedBottomOfCanvas": false,
-			"position": {
-				X: 543,
-				Y: 504,
+        "textElement": {
+            "canvas": textCanvas,
+            "context": textCanvas.getContext("2d"),
+            "alpha": 0,
+        },
+        "photo1": {
+            "canvas": document.getElementById("photo1Canvas"),
+            "context": document.getElementById("photo1Canvas").getContext("2d"),
+            "image": document.getElementById("photo1"),
+            "alpha": 0,
+            "heightRatio": .5943,
             },
-            "width": 304,
-			"height": 37,
-            "rotationInDegrees": -10,
-            "totalSwingCounter": 0,
-			"degreesToSwing": 9,
-			"hasBounced": false,
-			"numberOfBounces": 0,
-			"hasReachedBreakPoint": false,
-		},
-		"stencil": {
-			"canvas": document.getElementById("stencilCanvas"),
-			"context": document.getElementById("stencilCanvas").getContext("2d"),
-			"image": document.getElementById("stencilImg"),
-			"isBackground": false,
-			"alpha": 100,
-		},
-		"bigRed": {
-			"canvas": document.getElementById("bigRedCanvas"),
-			"context": document.getElementById("bigRedCanvas").getContext("2d"),
-			"image": document.getElementById("bigRedImg"),
-			"isBackground": true,
-		},
-		"title": {
-			"canvas": document.getElementById("titleCanvas"),
-			"context": document.getElementById("titleCanvas").getContext("2d"),
-			"image": document.getElementById("titleImg"),
-			"isBackground": false,
-			"alpha": 0,
-		},
-		"skySwing": {
-			"canvas": document.getElementById("skySwingCanvas"),
-			"context": document.getElementById("skySwingCanvas").getContext("2d"),
-			"image": document.getElementById("photo1SwingTop"),
-			"isBackground": true,
-			"isStillOnPage": true,
-			"rotationInDegrees": -0.25,
-			"swingPointX": (document.getElementById("skySwingCanvas").width/3.3),
-			"swingPointY": (document.getElementById("skySwingCanvas").height),
-			"degreesSwung": 0,
-			"hasReachedBreakPoint": false,
-			"position": {
-				"X": 0,
-				"Y": 0,
-			},
-		},
-		"roadSwing": {
-			"canvas": document.getElementById("roadSwingCanvas"),
-			"context": document.getElementById("roadSwingCanvas").getContext("2d"),
-			"image": document.getElementById("photo1SwingBottom"),
-			"isBackground": true,
-			"isStillOnPage": true,
-			"rotationInDegrees": 0.08,
-			"swingPointX": (document.getElementById("roadSwingCanvas").width/3.3),
-			"swingPointY": (document.getElementById("roadSwingCanvas").height),
-			"degreesSwung": 0,
-		},
+	    "photo2": {
+            "canvas": photoCanvas,
+            "context": photoCanvas.getContext("2d"),
+            "image": document.getElementById("photo2"),
+            "alpha": 0,
+        },
+	    "photo3": {
+            "canvas": photoCanvas,
+            "context": photoCanvas.getContext("2d"),
+            "image": document.getElementById("photo3"),
+            "alpha": 0,
+        },
 	};
 };
 
@@ -93,17 +70,4 @@ function move (element, x, y)
 {
 	element.position.X += x;
 	element.position.Y += y;
-};
-
-function tiltTextBottom()
-{
-	textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-    textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-    textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
-};
-
-function updateTextBottomTilt(degrees) 
-{
-    textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-    textBottom.rotationInDegrees += degrees;    
 };

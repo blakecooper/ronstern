@@ -1,121 +1,161 @@
 const animationElements = getElements();
-const swingTop = animationElements["skySwing"];
-const swingBottom = animationElements["roadSwing"];
-const title = animationElements["title"];
-const stencil = animationElements["stencil"];
-const textBottom = animationElements["textBottom"];
-let underConstructionSignHasChanged = false;
+
+let firstPhotoLoaded = false;
 
 window.onload = function() 
 {
-	drawBackground();
+    resizeCanvas();
+    transitionIsComplete = false;
 };
 
 setInterval(animate,30);
 
-
-
 /* ANIMATION FUNCTIONS: */
-function drawBackground() 
-{
-	for (let element in animationElements) 
-	{
-		if (animationElements[element].isBackground) 
-		{
-			animationElements[element].context.drawImage(animationElements[element].image,0,0);
-		};
-	};
-
-	drawTitle();
-
-};
-
 function animate() 
 {
+    if (transitionIsComplete) 
+    {
+        if (timer > photoDuration)
+        {
+            timer = 0;
+            transitionIsComplete = false;
+        } else {
+            drawPhoto();
+            drawText();
+            timer++;
+        };
+    } else {
+        nextPhoto(photoCounter);
+    };
 
-	if (!underConstructionSignHasChanged) {
-		changeUnderConstructionSign();
-	}
-
-	if (counter > 300 && (swingTop.isStillOnPage || swingBottom.isStillOnPage)) 
-	{
-		updateSwing();
-	};
-
-	counter++;
 };
 
-function changeUnderConstructionSign() 
+function nextPhoto(photoNumber)
 {
+    if (photoCounter < totalPhotos + 1)
+    {
+        transitionIsComplete = false;
+        if (!transitionIsComplete)
+        {
+            if (firstPhotoLoaded)
+            {
+                if (transitionState == OUT)
+                {
+                    fadeOut();
+                };
+            };
 
-	if (!textBottom.hasBeenDrawn)
-	{
-		textBottom.context.drawImage(textBottom.image,543,504,textBottom.width,textBottom.height);
-		textBottom.hasBeenDrawn = true;
-	}
-	
-	clear(stencil);	
-	
-	stencil.context.drawImage(stencil.image,0,0);
-
-	if (counter > 50) {
-		clear(textBottom);
-		clear(stencil);
-	}
-
-	if (counter < 250)
-	{
-		if (counter > 100 && counter % 25 == 0) {
-			clear(textBottom);
-		} else if (counter > 100 && counter % 200 != 0) {
-			textBottom.image = document.getElementById("nowOnlineImg");
-			textBottom.context.drawImage(textBottom.image,543,504,textBottom.width,textBottom.height);
-		};
-	} else {
-		clear(textBottom);
-		underConstructionSignHasChanged = true;
-	};
+            if (transitionState == IN) 
+            {
+                fadeIn();
+            };
+        };
+    };
 };
 
-function updateSwing()
+function fadeOut()
 {
-	clear(swingTop);
-	clear(swingBottom);
+    const photo = getCurrentPhoto();
+    const text = animationElements["textElement"];
 
-	swingTop.position.X -= 0.8;
-	swingTop.position.Y -= 1.5;
+    photo.alpha -= .005;
+    text.alpha -= .005;
 
-	swingTop.context.translate(swingTop.swingPointX, swingTop.swingPointY);
-	swingTop.context.rotate(swingTop.rotationInDegrees * Math.PI / 180);
-	swingTop.context.translate(-swingTop.swingPointX, -swingTop.swingPointY);
-	
-	swingBottom.context.translate(swingBottom.swingPointX, swingBottom.swingPointY);
-	swingBottom.context.rotate(swingBottom.rotationInDegrees * Math.PI / 180);
-	swingBottom.context.translate(-swingBottom.swingPointX, -swingBottom.swingPointY);
-	
-	swingTop.degreesSwung -= swingTop.rotationInDegrees;
-	swingBottom.degreesSwung += swingBottom.rotationInDegrees;
-
-	swingTop.context.drawImage(swingTop.image,swingTop.position.X,swingTop.position.Y);
-	swingBottom.context.drawImage(swingBottom.image,0,0);
-	
-	if (swingTop.isStillOnPage && swingTop.degreesSwung > 40) 
-	{
-		swingTop.isStillOnPage = false;
-	};
-	
-	if (swingBottom.isStillOnPage && swingBottom.degreesSwung > 30) 
-	{
-		swingBottom.isStillOnPage = false;
-	};
-
-	if (!swingTop.isStillOnPage && !swingBottom.isStillOnPage)
-	{
-		swingTop.hasReachedBreakPoint = true;
-	};
+    drawPhoto();
+    drawText();
+    
+    if (photo.alpha < 0)
+    {
+        photoCounter++;
+        document.getElementById("photo1Canvas").style="display: none;";
+//        swapCanvases();
+        resizeCanvas();
+        transitionState = IN;
+    };
 };
 
-function drawTitle() 
+function swapCanvases()
 {
-	title.context.drawImage(title.image,65,100,350,127);
+    if (photoCanvas == document.getElementById("left")) {
+        photoCanvas = document.getElementById("right");
+    } else {
+        photoCanvas = document.getElementById("left");
+    };
+
+    if (textCanvas == document.getElementById("right")) {
+        textCanvas = document.getElementById("left");
+    } else {
+        getCanvas = document.getElementById("right");
+    };
+};
+
+function fadeIn()
+{
+    let photo = getCurrentPhoto();
+
+    photo.alpha += .005;
+
+
+    drawPhoto();
+    drawText();
+    
+    if (photo.alpha > 1) 
+    {
+        transitionState = OUT;
+        transitionIsComplete = true;
+        firstPhotoLoaded = true;
+
+    };
+};
+
+function drawPhoto()
+{
+    let photo = getCurrentPhoto();
+
+    clear(photo);
+    photo.context.imageSmoothingEnabled = true;
+    photo.context.globalAlpha = photo.alpha;
+    photo.context.drawImage(photo.image,0,0,photo.canvas.width,(photo.canvas.width * (photo.image.height / photo.image.width)));
+};
+
+function drawText()
+{
+    let photo = getCurrentPhoto();
+    let line = text[photoCounter-2];
+    let textDrawing = animationElements["textElement"];
+
+    clear(textDrawing);  
+    textDrawing.context.globalAlpha = photo.alpha;
+    textDrawing.context.font = "30px Arial";
+    textDrawing.context.fillText(line,textDrawing.canvas.width/2,textDrawing.canvas.height/2);
+};
+
+function getCurrentPhoto()
+{
+    let element = "photo" + photoCounter;
+    return animationElements[element];
+};
+
+function resizeCanvas()
+{
+    let canvas = null;
+    const text = animationElements["textElement"].canvas;
+    if (photoCounter == 1) 
+    {
+        canvas = document.getElementById("photo1Canvas");
+    } else {
+        canvas = photoCanvas;
+    };
+
+    canvas.width = window.innerWidth;
+
+    if (photoCounter > 1)
+    {
+        canvas.width = (canvas.width / 2) - 10;
+    }
+
+    text.width = canvas.width;
+    canvas.height = canvas.width * (animationElements["photo"+photoCounter].image.height/animationElements["photo"+photoCounter].image.width);
+
+    text.height = canvas.height;
 };

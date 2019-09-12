@@ -2,40 +2,32 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+        minimum-scale=1, maximmum-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 
-		<div class="container-fluid">
-            <div style="display: none">
-                <img id="imgTop" src="assets/image_top.png"></img>
-                <img id="imgMiddle" src="assets/image_middle.png"></img>
-                <img id="imgBottom" src="assets/image_bottom.png"></img>
-				<img id="textTopImg" src="assets/text.png"></img>
-				<img id="underConstruction" src="assets/underconstruction.png"></img>
-				<img id="stencilImg" src="assets/stencil.png"></img>
-				<img id="photo1SwingTop" src="assets/image_top_swing.png"></img>
-				<img id="photo1SwingBottom" src="assets/image_bottom_swing.png"></img>
-				<img id="bigRedImg" src="assets/big_red_scaled.png"></img>
-				<img id="titleImg" src="assets/title.png"></img>
-				<img id="nowOnlineImg" src="assets/nowonline.png"></img>
-			</div>
-            <div id="canvas">
-				<canvas id="sky" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id="line" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
-                <canvas id="road" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 6;"></canvas>
-                <canvas id="textTop" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
-                <canvas id="textBottom" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 15;"></canvas>
-            	<canvas id="stencilCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 13;"></canvas>
-				
-				<canvas id="skySwingCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 13;"></canvas>
-				<canvas id="roadSwingCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 12;"></canvas>
-				<canvas id="titleCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 11;"></canvas>
-				<canvas id="bigRedCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 10;"></canvas>
-			</div>
+		<div id="container" class="container-fluid" style="padding:0; margin:0;">
+            <div style="display: none; padding:0; margin:0;">
+                <img id="photo1" src="assets/photos/01.jpg"></img>
+                <img id="photo2" src="assets/photos/02.jpg"></img>
+                <img id="photo3" src="assets/photos/03.jpg"></img>
+            </div>
+            <nav class="navbar navbar-inverse"style="padding:0; margin:0">
+                <div class="navbar-header" style="padding:0; margin:0">
+                       <a class="navbar-brand" href="#">Ron Stern</a>
+                </div>
+                <ul class="nav navbar-nav" >
+                    <li><a
+                    href="mailto:ronsternimagery@gmail.com">Contact: ronsternimagery@gmail.com</a></li>
+                </ul>
+            </nav>            
+            <canvas id="photo1Canvas" style="padding:0; margin:0;"></canvas>
+			<canvas id="left"></canvas>
+            <canvas id="right"></canvas>
 		</div>
 		<script src="utilsDev.js"></script>
 		<script src="animateDev.js"></script>
