@@ -12,7 +12,7 @@ let textCanvas = document.getElementById("right");
 
 const totalPhotos = 3;
 
-const photoDuration = 100;
+const photoDuration = 500;
 
 const text = [
     "The first line of text goes here.",
