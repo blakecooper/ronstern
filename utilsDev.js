@@ -10,13 +10,13 @@ let transitionState = IN;
 let photoCanvas = document.getElementById("left");
 let textCanvas = document.getElementById("right");
 
-const totalPhotos = 3;
+const totalPhotos = 17;
 
-const photoDuration = 500;
+const photoDuration = 100;
 
 const text = [
-    "The first line of text goes here.",
-    "And the second line of text goes here.",
+    "Ron Stern is a master photographer and the nephew & protege of famed 20th century photographer, Bert Stern.",
+    "...the second line of text goes here.",
     "And so on, and so on."
 ];
 
@@ -35,16 +35,10 @@ function getElements()
             "alpha": 0,
             "heightRatio": .5943,
             },
-	    "photo2": {
+	    "slideshowPhoto": {
             "canvas": photoCanvas,
             "context": photoCanvas.getContext("2d"),
             "image": document.getElementById("photo2"),
-            "alpha": 0,
-        },
-	    "photo3": {
-            "canvas": photoCanvas,
-            "context": photoCanvas.getContext("2d"),
-            "image": document.getElementById("photo3"),
             "alpha": 0,
         },
 	};
