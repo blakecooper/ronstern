@@ -8,36 +8,53 @@ window.onload = function()
     drawTitleAndCurtains();
 };
 
+let animateCurtainVar;
+
+animate();
+
 function drawTitleAndCurtains()
 {
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
 };
-//setInterval(animate,30);
 
 /* ANIMATION FUNCTIONS: */
 function animate() 
 {
-    transitionCurtain();
+	console.log("animate");
+	transitionCurtain();
 };
 
 function transitionCurtain()
 {
-    //setInterval(animateCurtains,30)
-    //how to timeout?
+	console.log("start transition");
+	animateCurtainVar = setInterval(animateCurtains,30)
 };
 
 function animateCurtains()
 {
+	console.log("updating canvas");
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
 
     //update position
-    image.curtainTop.offsetPosition -= curtainDriftOffset;
+    image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
     image.curtainBottom.offsetPosition += curtainDriftOffset;
-    //redraw
-    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)-image.curtainTop.offsetPosition);
-    canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.height/(image.curtainTop.photo.width/canvas.curtain.width)-image.curtainBottom.offsetPosition);
+
+	//update fade
+	
+	let alpha = curtainAlphaOffset;
+	curtainAlphaOffset -= .005;
+	canvas.curtain.getContext("2d").globalAlpha = alpha;
+
+	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
+	{
+		clearTimeout(animateCurtainVar);
+	};
+
+	//redraw
+    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
 
 };
 
@@ -188,10 +205,10 @@ function sizeCanvas()
 {
     //TODO: subtract height of navbar from the height of the canvas
     document.getElementById("curtainCanvas").width = window.innerWidth;
-    document.getElementById("curtainCanvas").height = window.innerHeight;
+    document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
 
     document.getElementById("titleCanvas").width = window.innerWidth;
-    document.getElementById("titleCanvas").height = window.innerHeight;
+    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
 
     document.getElementById("slideshowCanvas").width = window.innerWidth;
     document.getElementById("slideshowCanvas").height = window.innerHeight;

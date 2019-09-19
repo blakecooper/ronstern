@@ -35,7 +35,8 @@ const image = {
     "title": document.getElementById("titleImg"),
 };
 
-const curtainDriftOffset = .05;
+const curtainDriftOffset = 4;
+let curtainAlphaOffset = 1;
 
 function getElements() 
 {
