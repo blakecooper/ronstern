@@ -7,9 +7,6 @@ const IN = 1;
 
 let transitionState = IN;
 
-let photoCanvas = document.getElementById("left");
-let textCanvas = document.getElementById("right");
-
 const totalPhotos = 17;
 
 const photoDuration = 100;
@@ -20,24 +17,44 @@ const text = [
     "And so on, and so on."
 ];
 
+const canvas = {
+    "curtain": document.getElementById("curtainCanvas"),
+    "title": document.getElementById("titleCanvas"),
+    "slideshow": document.getElementById("slideshowCanvas"), 
+};
+
+const image = {
+    "curtainTop": {
+        "photo": document.getElementById("curtainTopImg"),
+        "offsetPosition": 0,
+    },
+    "curtainBottom": {
+        "photo": document.getElementById("curtainBottomImg"),
+        "offsetPosition": 0,
+    },
+    "title": document.getElementById("titleImg"),
+};
+
+const curtainDriftOffset = .05;
+
 function getElements() 
 {
 	return	{
         "textElement": {
-            "canvas": textCanvas,
-            "context": textCanvas.getContext("2d"),
+            "canvas": document.getElementById("slideshowCanvas"),
+            "context": document.getElementById("slideshowCanvas").getContext("2d"),
             "alpha": 0,
         },
         "photo1": {
-            "canvas": document.getElementById("photo1Canvas"),
-            "context": document.getElementById("photo1Canvas").getContext("2d"),
+            "canvas": document.getElementById("curtainCanvas"),
+            "context": document.getElementById("curtainCanvas").getContext("2d"),
             "image": document.getElementById("photo1"),
             "alpha": 0,
             "heightRatio": .5943,
             },
 	    "slideshowPhoto": {
-            "canvas": photoCanvas,
-            "context": photoCanvas.getContext("2d"),
+            "canvas": document.getElementById("slideshowCanvas"),
+            "context": document.getElementById("slideshowCanvas").getContext("2d"),
             "image": document.getElementById("photo2"),
             "alpha": 0,
         },
@@ -47,7 +64,7 @@ function getElements()
 /* ANIMATION UTILITIES: */
 function clear(element) 
 {
-	element.context.clearRect(0,0,element.canvas.width, element.canvas.height);
+	element.getContext("2d").clearRect(0,0,element.canvas.width, element.canvas.height);
 };
 
 function draw(element, posX, posY) 
