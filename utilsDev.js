@@ -36,7 +36,11 @@ const image = {
 };
 
 const curtainDriftOffset = 4;
-let curtainAlphaOffset = 1;
+
+let alpha = {
+	"curtain": 1,
+	"title": 1,
+};
 
 function getElements() 
 {

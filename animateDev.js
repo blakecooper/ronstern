@@ -1,6 +1,7 @@
 const animationElements = getElements();
 
 let firstPhotoLoaded = false;
+let animationStep = 1;
 
 window.onload = function() 
 {
@@ -19,44 +20,61 @@ function drawTitleAndCurtains()
     canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
 };
 
+setInterval(animate(),30);
+
 /* ANIMATION FUNCTIONS: */
 function animate() 
 {
-	console.log("animate");
-	transitionCurtain();
+	if (animationStep === 1)
+	{
+		transitionCurtain();
+	};
+
+	if (animationStep === 2)
+	{
+		fadeTitle();
+	};
+};
+
+function fadeTitle() 
+{
+    canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+	
+	let alphaTemp = alpha.title;
+	alpha.title -= .005;
+
+	if (alpha.title < 0)
+	{
+		animationStep++;
+	};
+	//redraw
+    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.title.width,image.title.height/(image.title.width/canvas.title.width));
 };
 
 function transitionCurtain()
 {
-	console.log("start transition");
-	animateCurtainVar = setInterval(animateCurtains,30)
-};
-
-function animateCurtains()
-{
-	console.log("updating canvas");
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
 
     //update position
     image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
-    image.curtainBottom.offsetPosition += curtainDriftOffset;
-
+    image.curtainBottom.offsetPosition += curtainDriftOffset;	
+	
 	//update fade
 	
-	let alpha = curtainAlphaOffset;
-	curtainAlphaOffset -= .005;
-	canvas.curtain.getContext("2d").globalAlpha = alpha;
+	let alphaTemp = alpha.curtain;
+	alpha.curtain -= .005;
+	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
 
 	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
 	{
-		clearTimeout(animateCurtainVar);
+		animationStep++;
 	};
 
 	//redraw
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-
 };
+
 
 function throwaway()
 {
