@@ -11,7 +11,7 @@ window.onload = function()
 
 let animateCurtainVar;
 
-animate();
+setInterval(animate,10);
 
 function drawTitleAndCurtains()
 {
@@ -19,8 +19,6 @@ function drawTitleAndCurtains()
     canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
 };
-
-setInterval(animate(),30);
 
 /* ANIMATION FUNCTIONS: */
 function animate() 
@@ -34,27 +32,17 @@ function animate()
 	{
 		fadeTitle();
 	};
-};
 
-function fadeTitle() 
-{
-    canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
-	
-	let alphaTemp = alpha.title;
-	alpha.title -= .005;
-
-	if (alpha.title < 0)
-	{
-		animationStep++;
-	};
-	//redraw
-    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.title.width,image.title.height/(image.title.width/canvas.title.width));
+    if (animationStep === 3)
+    {
+        slideShow();
+    };
 };
 
 function transitionCurtain()
 {
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
-
+    console.log("transitionCuratin() is firing");
     //update position
     image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
     image.curtainBottom.offsetPosition += curtainDriftOffset;	
@@ -74,6 +62,182 @@ function transitionCurtain()
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
 };
+
+function fadeTitle() 
+{
+    timer++;
+
+    if (timer > photoDuration) 
+    {
+    canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+
+	let alphaTemp = alpha.title;
+	alpha.title -= .005;
+	canvas.title.getContext("2d").globalAlpha = alphaTemp;
+
+	if (alpha.title < 0)
+	{
+		animationStep++;
+        timer = 0;
+    };
+    //redraw
+    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.title.width,image.title.height/(image.title.width/canvas.title.width));
+
+    canvas.title.getContext("2d").restore();
+    };
+};
+
+function slideShow()
+{
+
+    canvas.slideshow.getContext("2d").clearRect(0,0,canvas.slideshow.width, canvas.slideshow.height);
+
+    //for each numbered photo in slideshow
+    var photo = image.slideshow[photoCounter];
+
+    //if the photo hasn't been drawn yet, size it and save the drawing
+    if (photo.hasNotBeenDrawnYet)
+    {
+        console.log("drawing photo #:" + photoCounter + " for first time");
+        photo.drawHeight = canvas.slideshow.height;
+        photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+
+        photo.x = canvas.slideshow.width * photo.initialPosition[X];
+        photo.y = canvas.slideshow.height * photo.initialPosition[Y];
+        photo.hasNotBeenDrawnYet = false;
+    };
+    
+    //position on side of canvas as desired
+    canvas.slideshow.getContext("2d").drawImage(photo.photo,photo.x,photo.y,photo.drawWidth,photo.drawHeight);
+
+    if (photo.transitionInIsComplete) {
+    //once transition is complete, start timer and mark transition complete
+        timer++;
+    } else {
+    //update position according to final position desired
+        photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
+        photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y]));
+
+        //fade in text at the same time
+        drawText();
+
+        if (photo.initialPosition === LEFT)
+        {
+            if (photo.x > photo.finalPosition[X])
+            {
+                photo.transitionInIsComplete = true;
+        console.log("transition in is complete");
+            };
+        } else if (photo.initialPosition === RIGHT)
+        {
+            if (photo.x < photo.finalPosition[X])
+            {
+                photo.transitionInIsComplete = true;
+        console.log("transition in is complete");
+            };
+        } else if (photo.initialPosition === UP)
+        {
+            if (photo.y > photo.finalPosition[Y]) 
+            {
+                photo.transitionInIsComplete = true;
+        console.log("transition in is complete");
+            };
+        } else if (photo.initialPosition === DOWN)
+        {
+            if (photo.y < photo.finalPosition[Y])
+            {
+                photo.transitionInIsComplete = true;
+        console.log("transition in is complete");
+            };
+        };
+    };
+
+    //after timer, advance slideshow by one
+    if (timer > photoDuration && !photo.transitionOutIsComplete)
+    {
+        //TODO: right now this only works for sideways transitions
+        if ((photo.x > (0-canvas.slideshow.width) && photo.x < canvas.slideshow.width))
+        {
+                photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
+                photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y])); 
+        } else {
+            photo.transitionOutIsComplete = true;
+            console.log("transition out complete");
+        };
+    };
+
+    if (photo.transitionOutIsComplete)
+    {
+        if (photoCounter < totalPhotos)
+        {
+        console.log("getting new photo");
+        photoCounter++;
+        timer = 0;
+        };
+    };
+};
+
+function drawText()
+{
+	let line = text[photoCounter].line;
+    let alphaTemp = text[photoCounter].alpha;
+
+    if (!text[photoCounter].transitionInIsComplete)
+    {
+        text[photoCounter].alpha += .005;
+    
+        if (text[photoCounter].alpha > 1)
+        {
+            text[photoCounter].transitionInIsComplete = true;
+        };
+    } else {
+        textTimer++;
+    };
+
+    if (textTimer > textDuration)
+    {
+        if (!text[photoCounter].transitionOutIsComplete)
+        {
+            text[photoCounter].alpha -= .005;
+
+            if (text[photoCounter].alpha < 0)
+            {
+                text[photoCounter].transitionOutIsComplete = true;
+            };
+        };
+    };
+
+    if (!text[photoCounter].transitionOutIsComplete)
+    {
+        canvas.text.getContext("2d").globalAlpha = alphaTemp;
+        canvas.text.getContext("2d").font = "30px Arial";
+
+		if (line.lenth > text[photoCounter].widthInChars && (line.length * 30) > (canvas.text.width - text[photoCounter].x)) 
+		{
+			let separateLines = (line.length) / text[photoCounter].widthInChars;
+			let beginningOfSubstr = 0;
+            let endOfSubstr = text[photoCounter].widthInChars;
+
+            for (let i = 0; i < separateLines; i++) 
+			{
+				beginningOfSubstr = beginningOfSubstr + (i * text[photoCounter].widthInChars);
+				endOfSubstr = beginningOfSubstr + text[photoCounter].widthInChars;
+				while (endOfSubstr > beginningOfSubstr  && line.charAt(endOfSubstr) !== ' ')
+				{
+					endOfSubstr--;
+				}
+
+				canvas.text.getContext("2d").fillText(line.substr(beginningOfSubstr, endOfSubstr), text[photoCounter].x,text[photoCounter].y);
+				text[photoCounter].y += 30;
+			}
+		} else {
+  		  	canvas.text.getContext("2d").fillText(line,text[photoCounter].x,text[photoCounter].y);
+		};
+	};
+
+    canvas.text.getContext("2d").restore();
+};
+
 
 
 function throwaway()
@@ -168,44 +332,6 @@ function drawPhoto()
     photo.context.drawImage(photo.image,0,0,photo.canvas.width,(photo.canvas.width * (photo.image.height / photo.image.width)));
 };
 
-function drawText()
-{
-    let photo = getCurrentPhoto();
-    if (photoCounter > 1 && (photoCounter) < text.length+1)
-	{
-		let line = text[photoCounter-2];
-    	let textDrawing = animationElements["textElement"];
-
-    	clear(textDrawing);  
-    	textDrawing.context.globalAlpha = photo.alpha;
-    	textDrawing.context.font = "30px Arial";
-	
-		let heightOfCanvas = textDrawing.canvas.height/2;
-		let widthOfCanvas = (textDrawing.canvas.width/2)-200;
-
-		if ((line.length * 30) > (textDrawing.canvas.width -widthOfCanvas)) 
-		{
-			let separateLines = (line.length * 30) / (textDrawing.canvas.width - widthOfCanvas);
-			let roughCharsPerLine = line.length / separateLines;
-			let begOfNewSubstr = 0;
-			for (let i = 0; i < separateLines; i++) 
-			{
-				let beginningOfSubstr = begOfNewSubstr;
-				let endOfSubstr = (i+1) * roughCharsPerLine;
-				while (endOfSubstr > (i * roughCharsPerLine)  && line.charAt(endOfSubstr) !== ' ')
-				{
-					endOfSubstr--;
-				}
-				begOfNewSubstr = endOfSubstr + 1;
-
-				textDrawing.context.fillText(line.substr(beginningOfSubstr, endOfSubstr), widthOfCanvas, heightOfCanvas);
-				heightOfCanvas += 30;
-			}
-		} else {
-  		  	textDrawing.context.fillText(line,textDrawing.canvas.width/2,textDrawing.canvas.height/2);
-		};
-	};
-};
 
 function getCurrentPhoto()
 {
@@ -230,4 +356,7 @@ function sizeCanvas()
 
     document.getElementById("slideshowCanvas").width = window.innerWidth;
     document.getElementById("slideshowCanvas").height = window.innerHeight;
+    
+    document.getElementById("textCanvas").width = window.innerWidth;
+    document.getElementById("textCanvas").height = window.innerHeight;
 };
