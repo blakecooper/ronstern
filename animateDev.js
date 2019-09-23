@@ -1,7 +1,8 @@
 const animationElements = getElements();
-
+let textTop = animationElements["textTop"];
 let firstPhotoLoaded = false;
 let animationStep = 1;
+const scrollingText = document.getElementById("scrollText");
 
 window.onload = function() 
 {
@@ -39,8 +40,31 @@ function animate()
     };
 };
 
+function updateTextTop()
+{
+	textTop.context.clearRect(0,0,textTop.canvas.width,textTop.canvas.height);
+	//TODO: figure out why custom draw() function isn't working
+			textTop.context.drawImage(textTop.image,textTop.position.X-100,textTop.position.Y);
+			
+			//The opacity of the scrolling top text is a function of its vertcal position on the page.
+			textTop.context.globalAlpha = textTop.position.Y / textTop.canvas.height;
+			
+			move(textTop, -0.1, -1.1);	
+
+			if (!textTop.hasReachedBreakPoint && textTop.position.Y < textTop.canvas.height/2) 
+			{
+				textTop.hasReachedBreakPoint = true;
+			} else if (textTop.position.Y < -500) {
+				textTop.isStillOnPage = false;
+			};
+};
 function transitionCurtain()
 {
+		updateTextTop();
+
+		timer++;
+
+		if (timer > photoDuration) {
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
     console.log("transitionCuratin() is firing");
     //update position
@@ -55,12 +79,14 @@ function transitionCurtain()
 
 	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
 	{
+		timer = 0;
 		animationStep++;
 	};
 
 	//redraw
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+};
 };
 
 function fadeTitle() 
@@ -119,7 +145,7 @@ function slideShow()
         photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y]));
 
         //fade in text at the same time
-        drawText();
+//        drawText();
 
         if (photo.initialPosition === LEFT)
         {
