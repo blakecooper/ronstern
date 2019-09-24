@@ -60,7 +60,7 @@ function updateTextTop()
 };
 function transitionCurtain()
 {
-		updateTextTop();
+//		updateTextTop();
 
 		timer++;
 
@@ -149,14 +149,14 @@ function slideShow()
 
         if (photo.initialPosition === LEFT)
         {
-            if (photo.x > photo.finalPosition[X])
+            if (photo.x >= 0)
             {
                 photo.transitionInIsComplete = true;
         console.log("transition in is complete");
             };
         } else if (photo.initialPosition === RIGHT)
         {
-            if (photo.x < photo.finalPosition[X])
+            if (photo.x <= 0)
             {
                 photo.transitionInIsComplete = true;
         console.log("transition in is complete");
