@@ -145,7 +145,7 @@ function slideShow()
         photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y]));
 
         //fade in text at the same time
-//        drawText();
+        drawText();
 
         if (photo.initialPosition === LEFT)
         {
@@ -237,6 +237,7 @@ function drawText()
     {
         canvas.text.getContext("2d").globalAlpha = alphaTemp;
         canvas.text.getContext("2d").font = "30px Arial";
+		canvas.text.getContext("2d").fillStyle = 'white';
 
 		if (line.lenth > text[photoCounter].widthInChars && (line.length * 30) > (canvas.text.width - text[photoCounter].x)) 
 		{
