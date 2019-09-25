@@ -3,320 +3,45 @@ let timer = 1;
 let textTimer = 1;
 let transitionIsComplete = true;
 
-const OUT = 0;
-const IN = 1;
-
-const LEFT = [-1,0];
-const RIGHT = [1,0];
-const UP = [0,-1];
-const DOWN = [0,1];
-
-const X = 0;
-const Y = 1;
 
 let transitionState = IN;
 
-const totalPhotos = 17;
+const animationElements = getElements();
+let textTop = animationElements["textTop"];
+let firstPhotoLoaded = false;
+let animationStep = 1;
+const scrollingText = document.getElementById("scrollText");
 
-const photoDuration = 500;
-const textDuration = 200;
-
-const canvas = {
-    "curtain": document.getElementById("curtainCanvas"),
-    "title": document.getElementById("titleCanvas"),
-    "slideshow": document.getElementById("slideshowCanvas"), 
-    "text": document.getElementById("textCanvas"),
+window.onload = function() 
+{
+    sizeCanvas();
+    drawTitleAndCurtains();
 };
 
-const text = {
-    "1": {
-        "line": "'Ron Stern is the finest portrait photographer I've ever known.' ~Scott Rubin, longest serving editor of the National Lampoon",
-        "alpha": 1,
-        "widthInChars": 100,
-        "x": canvas.text.width/2,
-        "y": canvas.text.height/2,
-        "transitionInIsComplete": false,
-        "transitionOutIsComplete": false,
-    },
-    "2": {
-        "line": "...the second line of text goes here.",
-        "alpha": 1,
-        "widthInChars": 100,
-        "x": canvas.slideshow.width/2,
-        "y": canvas.text.height/2,
-        "transitionInIsComplete": false,
-        "transitionOutIsComplete": false,
-    },
-    "3": {
-        "line": "And so on, and so on.",
-        "alpha": 1,
-        "widthInChars": 100,
-        "x": canvas.slideshow.width/2,
-        "y": canvas.text.height/2,
-        "transitionInIsComplete": false,
-        "transitionOutIsComplete": false,
-    },
+let animateCurtainVar;
+
+function drawTitleAndCurtains()
+{
+    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
 };
 
-const image = {
-    "curtainTop": {
-        "photo": document.getElementById("curtainTopImg"),
-        "offsetPosition": 0,
-    },
-    "curtainBottom": {
-        "photo": document.getElementById("curtainBottomImg"),
-        "offsetPosition": 0,
-    },
-    "title": document.getElementById("titleImg"),
-    "slideshow": {
-        "1": {
-            "photo": document.getElementById("photo1"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo1").width,
-            "drawHeight": document.getElementById("photo1").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "2": {
-            "photo": document.getElementById("photo2"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo2").width,
-            "drawHeight": document.getElementById("photo2").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "3": {
-            "photo": document.getElementById("photo3"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo3").width,
-            "drawHeight": document.getElementById("photo3").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "4": {
-            "photo": document.getElementById("photo4"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo4").width,
-            "drawHeight": document.getElementById("photo4").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "5": {
-            "photo": document.getElementById("photo5"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo5").width,
-            "drawHeight": document.getElementById("photo5").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "6": {
-            "photo": document.getElementById("photo6"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo6").width,
-            "drawHeight": document.getElementById("photo6").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "7": {
-            "photo": document.getElementById("photo7"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo7").width,
-            "drawHeight": document.getElementById("photo7").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "8": {
-            "photo": document.getElementById("photo8"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo8").width,
-            "drawHeight": document.getElementById("photo8").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "9": {
-            "photo": document.getElementById("photo9"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo9").width,
-            "drawHeight": document.getElementById("photo9").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "10": {
-            "photo": document.getElementById("photo10"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo10").width,
-            "drawHeight": document.getElementById("photo10").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "11": {
-            "photo": document.getElementById("photo11"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo11").width,
-            "drawHeight": document.getElementById("photo11").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "12": {
-            "photo": document.getElementById("photo12"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo12").width,
-            "drawHeight": document.getElementById("photo12").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "13": {
-            "photo": document.getElementById("photo13"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo13").width,
-            "drawHeight": document.getElementById("photo13").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "14": {
-            "photo": document.getElementById("photo14"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo14").width,
-            "drawHeight": document.getElementById("photo14").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "15": {
-            "photo": document.getElementById("photo15"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo15").width,
-            "drawHeight": document.getElementById("photo15").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "16": {
-            "photo": document.getElementById("photo16"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo16").width,
-            "drawHeight": document.getElementById("photo16").height,
-            "initialPosition": RIGHT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-        "17": {
-            "photo": document.getElementById("photo17"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo17").width,
-            "drawHeight": document.getElementById("photo17").height,
-            "initialPosition": LEFT,
-            "finalPosition": [0,0],
-            "x": 0,
-            "y": 0,
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
-            "finalPosition": [canvas.slideshow.width, 0],
-        },
-    },
+function sizeCanvas()
+{
+    document.getElementById("curtainCanvas").width = window.innerWidth;
+    document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+
+    document.getElementById("titleCanvas").width = window.innerWidth;
+    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+
+    document.getElementById("slideshowCanvas").width = window.innerWidth;
+    document.getElementById("slideshowCanvas").height = window.innerHeight;
+    
+    document.getElementById("textCanvas").width = window.innerWidth;
+    document.getElementById("textCanvas").height = window.innerHeight;
 };
-
-const curtainDriftOffset = 4;
-
-let alpha = {
-	"curtain": 1,
-	"title": 1,
-};
-
+//TODO: remove and refactor code accordingly. This is deprecated!
 function getElements() 
 {
 	return	{
@@ -359,6 +84,7 @@ function clear(element)
 	element.getContext("2d").clearRect(0,0,element.canvas.width, element.canvas.height);
 };
 
+//These two draw functions below don't work... not sure why.
 function draw(element, posX, posY) 
 {
 	element.context.drawImage(element.image, posX, posY);
@@ -373,4 +99,31 @@ function move (element, x, y)
 {
 	element.position.X += x;
 	element.position.Y += y;
+};
+
+function wrapText(line)
+{
+	let lines = [""];
+	let lineNumber = 0;
+
+	let lineWidth = canvas.text.width - text[photoCounter].x;
+	let spaceLeft = lineWidth;
+
+	let words = line.split(" ");
+	let spaceWidth = 1 * 30;
+
+	for (word in words)
+	{
+		if (((word.length * 30) + spaceWidth) > spaceLeft)
+		{
+			lineNumber++;
+			spaceLeft = lineWidth - ((word.length * 30) + spaceWidth);
+		} else {
+			spaceLeft = spaceLeft - ((word.length * 30) + spaceWidth);
+		};
+
+		lines[lineNumber] = lines[lineNumber] + word + " ";
+	};
+	
+	return lines;
 };

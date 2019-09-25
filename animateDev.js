@@ -1,25 +1,5 @@
-const animationElements = getElements();
-let textTop = animationElements["textTop"];
-let firstPhotoLoaded = false;
-let animationStep = 1;
-const scrollingText = document.getElementById("scrollText");
-
-window.onload = function() 
-{
-    sizeCanvas();
-    drawTitleAndCurtains();
-};
-
-let animateCurtainVar;
 
 setInterval(animate,10);
-
-function drawTitleAndCurtains()
-{
-    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
-};
 
 /* ANIMATION FUNCTIONS: */
 function animate() 
@@ -239,151 +219,14 @@ function drawText()
         canvas.text.getContext("2d").font = "30px Arial";
 		canvas.text.getContext("2d").fillStyle = 'white';
 
-		if (line.lenth > text[photoCounter].widthInChars && (line.length * 30) > (canvas.text.width - text[photoCounter].x)) 
+		const lines = wrapText(line);
+			
+		let lineNumber = 1;
+		for (line in lines)
 		{
-			let separateLines = (line.length) / text[photoCounter].widthInChars;
-			let beginningOfSubstr = 0;
-            let endOfSubstr = text[photoCounter].widthInChars;
-
-            for (let i = 0; i < separateLines; i++) 
-			{
-				beginningOfSubstr = beginningOfSubstr + (i * text[photoCounter].widthInChars);
-				endOfSubstr = beginningOfSubstr + text[photoCounter].widthInChars;
-				while (endOfSubstr > beginningOfSubstr  && line.charAt(endOfSubstr) !== ' ')
-				{
-					endOfSubstr--;
-				}
-
-				canvas.text.getContext("2d").fillText(line.substr(beginningOfSubstr, endOfSubstr), text[photoCounter].x,text[photoCounter].y);
-				text[photoCounter].y += 30;
-			}
-		} else {
-  		  	canvas.text.getContext("2d").fillText(line,text[photoCounter].x,text[photoCounter].y);
-		};
+			canvas.text.getContext("2d").fillText(line, (text[photoCounter].x + (30 * lineNumber)), text[photoCounter].y); 
+			lineNumber++;
+		}
+		;
 	};
-
-    canvas.text.getContext("2d").restore();
-};
-
-
-
-function throwaway()
-{
-    if (transitionIsComplete) 
-    {
-        if (timer > photoDuration)
-        {
-            timer = 0;
-            transitionIsComplete = false;
-        } else {
-            drawPhoto();
-            drawText();
-            timer++;
-        };
-    } else {
-        nextPhoto(photoCounter);
-    };
-
-};
-
-function nextPhoto(photoNumber)
-{
-    if (photoCounter < totalPhotos + 1)
-    {
-        transitionIsComplete = false;
-        if (!transitionIsComplete)
-        {
-            if (firstPhotoLoaded)
-            {
-                if (transitionState == OUT)
-                {
-                    fadeOut();
-                };
-            };
-
-            if (transitionState == IN) 
-            {
-                fadeIn();
-            };
-        };
-    };
-};
-
-function fadeOut()
-{
-    const photo = getCurrentPhoto();
-    const text = animationElements["textElement"];
-
-    photo.alpha -= .005;
-    text.alpha -= .005;
-
-    drawPhoto();
-    drawText();
-    
-    if (photo.alpha < 0)
-    {
-        photoCounter++;
-        document.getElementById("photo1Canvas").style="display: none;";
-//        swapCanvases();
-        sizeCanvas();
-        transitionState = IN;
-    };
-};
-
-function fadeIn()
-{
-    let photo = getCurrentPhoto();
-
-    photo.alpha += .005;
-
-
-    drawPhoto();
-    drawText();
-    
-    if (photo.alpha > 1) 
-    {
-        transitionState = OUT;
-        transitionIsComplete = true;
-        firstPhotoLoaded = true;
-
-    };
-};
-
-function drawPhoto()
-{
-    let photo = getCurrentPhoto();
-
-    clear(photo);
-    photo.context.imageSmoothingEnabled = true;
-    photo.context.globalAlpha = photo.alpha;
-    photo.context.drawImage(photo.image,0,0,photo.canvas.width,(photo.canvas.width * (photo.image.height / photo.image.width)));
-};
-
-
-function getCurrentPhoto()
-{
-	if (photoCounter == 1) 
-	{
-		return animationElements["photo1"];
-	} else {
-    	let element = "photo" + photoCounter;
-    	animationElements["slideshowPhoto"].image = document.getElementById(element);
-		return animationElements["slideshowPhoto"];
-	};
-};
-
-function sizeCanvas()
-{
-    //TODO: subtract height of navbar from the height of the canvas
-    document.getElementById("curtainCanvas").width = window.innerWidth;
-    document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
-
-    document.getElementById("titleCanvas").width = window.innerWidth;
-    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
-
-    document.getElementById("slideshowCanvas").width = window.innerWidth;
-    document.getElementById("slideshowCanvas").height = window.innerHeight;
-    
-    document.getElementById("textCanvas").width = window.innerWidth;
-    document.getElementById("textCanvas").height = window.innerHeight;
 };
