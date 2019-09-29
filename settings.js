@@ -36,8 +36,10 @@ let alpha = {
 
 //Canvas objects
 const canvas = {
+    "scrollText": document.getElementById("scrollTextCanvas"),
     "curtain": document.getElementById("curtainCanvas"),
     "title": document.getElementById("titleCanvas"),
+    "curtainBottom": document.getElementById("curtainBottomCanvas"),
     "slideshow": document.getElementById("slideshowCanvas"), 
     "text": document.getElementById("textCanvas"),
 };
@@ -202,6 +204,19 @@ let text = {
 
 //Images that appear onscreen, and related properties
 const image = {
+    "textTop": {
+        "canvas": document.getElementById("scrollTextCanvas"),
+        "context": document.getElementById("scrollTextCanvas").getContext("2d"),
+        "image": document.getElementById("scrollText"),
+        "isBackground": false,
+        "position": {
+            X: document.getElementById("scrollTextCanvas").width/2-100,
+            Y: document.getElementById("scrollTextCanvas").height
+        },
+        "isStillOnPage": true,
+        "hasReachedBreakPoint": false,
+        "initialPositionHasBeenSet": false,
+    },
     "curtainTop": {
         "photo": document.getElementById("curtainTopImg"),
         "offsetPosition": 0,

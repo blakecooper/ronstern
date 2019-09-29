@@ -24,28 +24,36 @@ function updateTextTop()
 {
 	textTop.context.clearRect(0,0,textTop.canvas.width,textTop.canvas.height);
 	//TODO: figure out why custom draw() function isn't working
-			textTop.context.drawImage(textTop.image,textTop.position.X-100,textTop.position.Y);
+    //
+            if(!image.textTop.initialPositionHasBeenSet) 
+            {
+                image.textTop.position.X = document.getElementById("scrollTextCanvas").width/2-100;
+                image.textTop.position.Y = document.getElementById("scrollTextCanvas").height;
+                image.textTop.initialPositionHasBeenSet = true;
+            };
+
+			canvas.scrollText.getContext("2d").drawImage(image.textTop.image,image.textTop.position.X-100,image.textTop.position.Y);
 			
 			//The opacity of the scrolling top text is a function of its vertcal position on the page.
-			textTop.context.globalAlpha = textTop.position.Y / textTop.canvas.height;
+			canvas.scrollText.getContext("2d").globalAlpha = image.textTop.position.Y / canvas.scrollText.height;
 			
-			move(textTop, -0.1, -1.1);	
+			move(image.textTop, -0.1, -1.1);	
 
-			if (!textTop.hasReachedBreakPoint && textTop.position.Y < textTop.canvas.height/2) 
+			if (!image.textTop.hasReachedBreakPoint && image.textTop.position.Y < canvas.scrollText.height/2) 
 			{
-				textTop.hasReachedBreakPoint = true;
-			} else if (textTop.position.Y < -500) {
-				textTop.isStillOnPage = false;
+				image.textTop.hasReachedBreakPoint = true;
+			} else if (image.textTop.position.Y < -500) {
+				image.textTop.isStillOnPage = false;
 			};
 };
 function transitionCurtain()
 {
-//		updateTextTop();
+		updateTextTop();
 
-		timer++;
-
-		if (timer > photoDuration) {
+		if (!image.textTop.isStillOnPage) {
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
+    canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
+
     console.log("transitionCuratin() is firing");
     //update position
     image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
@@ -56,6 +64,7 @@ function transitionCurtain()
 	let alphaTemp = alpha.curtain;
 	alpha.curtain -= .005;
 	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
+    canvas.curtainBottom.getContext("2d").globalAlpha = alphaTemp;
 
 	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
 	{
@@ -65,8 +74,8 @@ function transitionCurtain()
 
 	//redraw
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-};
+    canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    };
 };
 
 function fadeTitle() 

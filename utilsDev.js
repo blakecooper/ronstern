@@ -23,7 +23,7 @@ let animateCurtainVar;
 function drawTitleAndCurtains()
 {
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    canvas.curtain.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
 };
 
@@ -31,10 +31,15 @@ function sizeCanvas()
 {
     document.getElementById("curtainCanvas").width = window.innerWidth;
     document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
-
+ 
+    document.getElementById("curtainBottomCanvas").width = window.innerWidth;
+    document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    
     document.getElementById("titleCanvas").width = window.innerWidth;
     document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
 
+    document.getElementById("scrollTextCanvas").width = window.innerWidth;
+    document.getElementById("scrollTextCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
     document.getElementById("slideshowCanvas").width = window.innerWidth;
     document.getElementById("slideshowCanvas").height = window.innerHeight;
     
