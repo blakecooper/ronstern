@@ -54,7 +54,6 @@ function transitionCurtain()
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
     canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
 
-    console.log("transitionCuratin() is firing");
     //update position
     image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
     image.curtainBottom.offsetPosition += curtainDriftOffset;	
@@ -113,7 +112,6 @@ function slideShow()
     //if the photo hasn't been drawn yet, size it and save the drawing
     if (photo.hasNotBeenDrawnYet)
     {
-        console.log("drawing photo #:" + photoCounter + " for first time");
         photo.drawHeight = canvas.slideshow.height;
         photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
 
@@ -141,28 +139,24 @@ function slideShow()
             if (photo.x >= 0)
             {
                 photo.transitionInIsComplete = true;
-        console.log("transition in is complete");
             };
         } else if (photo.initialPosition === RIGHT)
         {
             if (photo.x <= 0)
             {
                 photo.transitionInIsComplete = true;
-        console.log("transition in is complete");
             };
         } else if (photo.initialPosition === UP)
         {
             if (photo.y > photo.finalPosition[Y]) 
             {
                 photo.transitionInIsComplete = true;
-        console.log("transition in is complete");
             };
         } else if (photo.initialPosition === DOWN)
         {
             if (photo.y < photo.finalPosition[Y])
             {
                 photo.transitionInIsComplete = true;
-        console.log("transition in is complete");
             };
         };
     };
@@ -179,7 +173,6 @@ function slideShow()
 			if (text[photoCounter].transitionOutIsComplete === true)
 			{
             	photo.transitionOutIsComplete = true;
-            	console.log("transition out complete");
         	};
 		};
     };
@@ -188,7 +181,6 @@ function slideShow()
     {
         if (photoCounter < totalPhotos)
         {
-        console.log("getting new photo");
         photoCounter++;
         timer = 0;
         };
@@ -206,7 +198,6 @@ function drawText(photo)
     
         if (text[photoCounter].alpha > 1)
         {
-			console.log("text transition (in) is complete");
             text[photoCounter].transitionInIsComplete = true;
         };
     } else {
@@ -223,13 +214,11 @@ function drawText(photo)
             {
                 text[photoCounter].transitionOutIsComplete = true;
 				textTimer = 0;
-				console.log("text transition is complete");
 			};
         };
     };
 
     canvas.text.getContext("2d").globalAlpha = text[photoCounter].alpha;
-    console.log("text alpha SHOULD BE " + canvas.text.getContext("2d").globalAlpha);
 	canvas.text.getContext("2d").font = fontSize + "px " + font;
 	canvas.text.getContext("2d").fillStyle = 'white';
 
@@ -238,7 +227,6 @@ function drawText(photo)
 	let lineNumber = 1;
 	let currentLine;
 		
-//		for (currentLine in lines)
 	for (let i = 0; i < lines.length; i++)
 	{
 		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + (fontSize * lineNumber))); 
