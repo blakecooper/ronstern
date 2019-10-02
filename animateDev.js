@@ -82,7 +82,7 @@ function fadeTitle()
 {
     timer++;
 
-    if (timer > photoDuration) 
+    if (timer > DEFAULT_PHOTO_DURATION) 
     {
     canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 
@@ -168,7 +168,7 @@ function slideShow()
     };
 
     //after timer, advance slideshow by one
-    if (timer > photoDuration && !photo.transitionOutIsComplete)
+    if (timer > photo.duration && !photo.transitionOutIsComplete)
     {
         //TODO: right now this only works for sideways transitions
         if ((photo.x > (0-canvas.slideshow.width) && photo.x < canvas.slideshow.width))
@@ -241,7 +241,7 @@ function drawText(photo)
 //		for (currentLine in lines)
 	for (let i = 0; i < lines.length; i++)
 	{
-		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + (30 * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 

@@ -115,17 +115,17 @@ function wrapText(line)
 	let spaceLeft = lineWidth;
 
 	let words = line.split(" ");
-	let spaceWidth = 1 * 30;
+	let spaceWidth = 1 * fontSize;
 	let word;
 	for (word of words)
 	{
-		if (((word.length * 30) + spaceWidth) > spaceLeft)
+		if (((word.length * fontSize) + spaceWidth) > spaceLeft)
 		{
 			lineNumber++;
 			lines[lineNumber] = "";
-			spaceLeft = lineWidth - ((word.length * 30) + spaceWidth);
+			spaceLeft = lineWidth - ((word.length * fontSize) + spaceWidth);
 		} else {
-			spaceLeft = spaceLeft - ((word.length * 30) + spaceWidth);
+			spaceLeft = spaceLeft - ((word.length * fontSize) + spaceWidth);
 		};
 
 		lines[lineNumber] = lines[lineNumber] + word + " ";

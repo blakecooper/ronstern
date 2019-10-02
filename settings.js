@@ -12,7 +12,7 @@ const Y = 1;
 
 //Font
 const font = "Merriweather";
-const fontSize = "30";
+const fontSize = "48";
 
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 4;
@@ -22,6 +22,7 @@ const totalPhotos = 17;
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
+const DEFAULT_PHOTO_DURATION = 500;
 
 //How long is the text visible? Note: should be less than photoDuration
 const textDuration = 400;
@@ -57,7 +58,7 @@ let text = {
         "transitionOutIsComplete": false,
     },
     "2": {
-        "line": "...the second line of text goes here.",
+        "line": "",
         "alpha": 0,
         "widthInChars": 100,
         "x": canvas.slideshow.width/2,
@@ -66,7 +67,7 @@ let text = {
         "transitionOutIsComplete": false,
     },
     "3": {
-        "line": "And so on, and so on.",
+        "line": "For over a decade I had the pleasure of working in New York City with some of the most famous camera men in the business. Now I'm working in Buffalo, NY, and I’d be delighted to shoot your portrait, assist with clever visual commercial endeavors or most any event you would like expressed uniquely and creatively.",
         "alpha": 0,
         "widthInChars": 100,
         "x": canvas.slideshow.width/2,
@@ -240,7 +241,9 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
-        },
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
+		},
         "2": {
             "photo": document.getElementById("photo2"),
             "hasNotBeenDrawnYet": true,
@@ -254,6 +257,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": 200,
+			"hasText": false,
         },
         "3": {
             "photo": document.getElementById("photo3"),
@@ -268,6 +273,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "4": {
             "photo": document.getElementById("photo4"),
@@ -282,6 +289,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "5": {
             "photo": document.getElementById("photo5"),
@@ -296,6 +305,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "6": {
             "photo": document.getElementById("photo6"),
@@ -310,6 +321,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "7": {
             "photo": document.getElementById("photo7"),
@@ -324,6 +337,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "8": {
             "photo": document.getElementById("photo8"),
@@ -338,6 +353,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "9": {
             "photo": document.getElementById("photo9"),
@@ -352,6 +369,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "10": {
             "photo": document.getElementById("photo10"),
@@ -366,6 +385,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "11": {
             "photo": document.getElementById("photo11"),
@@ -380,6 +401,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "12": {
             "photo": document.getElementById("photo12"),
@@ -394,6 +417,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "13": {
             "photo": document.getElementById("photo13"),
@@ -408,6 +433,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "14": {
             "photo": document.getElementById("photo14"),
@@ -422,6 +449,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "15": {
             "photo": document.getElementById("photo15"),
@@ -436,6 +465,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "16": {
             "photo": document.getElementById("photo16"),
@@ -450,6 +481,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
         "17": {
             "photo": document.getElementById("photo17"),
@@ -464,6 +497,8 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": 30,
             "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
         },
     },
 };
