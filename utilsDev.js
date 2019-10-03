@@ -119,16 +119,23 @@ function wrapText(line)
 	let word;
 	for (word of words)
 	{
-		if (((word.length * fontSize) + spaceWidth) > spaceLeft)
-		{
+		if (word !== "PARA") {
+			if (((word.length * fontSize) + spaceWidth) > spaceLeft)
+			{
+				lineNumber++;
+				lines[lineNumber] = "";
+				spaceLeft = lineWidth - ((word.length * fontSize) + spaceWidth);
+			} else {
+				spaceLeft = spaceLeft - ((word.length * fontSize) + spaceWidth);
+			};
+
+			lines[lineNumber] = lines[lineNumber] + word + " ";
+		} else {
 			lineNumber++;
 			lines[lineNumber] = "";
-			spaceLeft = lineWidth - ((word.length * fontSize) + spaceWidth);
-		} else {
-			spaceLeft = spaceLeft - ((word.length * fontSize) + spaceWidth);
+			lineNumber++;
+			lines[lineNumber] = "";
 		};
-
-		lines[lineNumber] = lines[lineNumber] + word + " ";
 	};
 	
 	return lines;
