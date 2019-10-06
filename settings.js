@@ -10,6 +10,9 @@ const DOWN = [0,1];
 const X = 0;
 const Y = 1;
 
+const LANDSCAPE = 0;
+const PORTRAIT = 1;
+
 //Font
 const font = "Merriweather";
 const fontSize = "48";
@@ -21,6 +24,8 @@ const curtainDriftOffset = 4;
 const totalPhotos = 7;
 
 let textCanvasLocation = 0;
+
+let screenOrientation = LANDSCAPE;
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
@@ -60,7 +65,7 @@ let text = {
         "transitionOutIsComplete": false,
     },
     "2": {
-        "line": "Like Bert, Ron would blossom in commercial photography, often creating brilliant artistic images from seemingly mundane subjects. PARA Not afraid to experiment, Ron's work with Revlon using a holographic camera to create completely unique, never before seen imagery,  is still considered groundbreaking. Working side by side with celebrated fashion photographer David Steinberg, then under the direction of revered New Yorks Art Director, Milton Green the team developed a new paradigm for modern photography - artistically capturing moments in three dimensions.",
+        "line": "Like Bert, Ron would blossom in commercial photography, often creating brilliant artistic images from seemingly mundane subjects. PARA Not afraid to experiment, Ron's work with Revlon using a holographic camera to create completely unique, never before seen imagery,  is still considered groundbreaking. Working side by side with celebrated fashion photographer David Steinberg, then under the direction of revered New York Art Director, Milton Green the team developed a new paradigm for modern photography - artistically capturing moments in three dimensions.",
         "alpha": 0,
         "widthInChars": 100,
         "x": canvas.slideshow.width/2,

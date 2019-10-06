@@ -39,10 +39,10 @@ function updateTextTop()
 			
 			move(image.textTop, -0.1, -1.1);	
 
-			if (!image.textTop.hasReachedBreakPoint && image.textTop.position.Y < canvas.scrollText.height/2) 
+			if (!image.textTop.hasReachedBreakPoint && image.textTop.position.Y < canvas.scrollText.height/2+100) 
 			{
 				image.textTop.hasReachedBreakPoint = true;
-			} else if (image.textTop.position.Y < -500) {
+			} else if (image.textTop.position.Y < 100) {
 				image.textTop.isStillOnPage = false;
 			};
 };
@@ -60,10 +60,10 @@ function transitionCurtain()
 	
 	//update fade
 	
-	let alphaTemp = alpha.curtain;
-	alpha.curtain -= .005;
-	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
-    canvas.curtainBottom.getContext("2d").globalAlpha = alphaTemp;
+//	let alphaTemp = alpha.curtain;
+//	alpha.curtain -= .005;
+//	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
+//  canvas.curtainBottom.getContext("2d").globalAlpha = alphaTemp;
 
 	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
 	{
@@ -86,7 +86,7 @@ function fadeTitle()
     canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 
 	let alphaTemp = alpha.title;
-	alpha.title -= .005;
+	alpha.title -= .002;
 	canvas.title.getContext("2d").globalAlpha = alphaTemp;
 
 	if (alpha.title < 0)
@@ -112,10 +112,10 @@ function slideShow()
     //if the photo hasn't been drawn yet, size it and save the drawing
     if (photo.hasNotBeenDrawnYet)
     {
-        if (window.screen.height > window.screen.width)
+        if (document.documentElement.clientHeight > document.documentElement.clientWidth)
         {
             photo.drawWidth = canvas.slideshow.width;
-            photo.drawHeight = photo.photo.height/(photo.photo.width/canvas/slideshow.width);
+            photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
         } else {
             photo.drawHeight = canvas.slideshow.height;
             photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
@@ -127,8 +127,11 @@ function slideShow()
     };
     
     //fade in text at the same time
+    if (!photo.hasNotBeenDrawnYet)
+    {
     drawText(photo);
-    
+    };
+
 	//position on side of canvas as desired
     canvas.slideshow.getContext("2d").drawImage(photo.photo,photo.x,photo.y,photo.drawWidth,photo.drawHeight);
 
@@ -197,7 +200,7 @@ function drawText(photo)
 {
 	canvas.text.getContext("2d").clearRect(0,0,canvas.text.width,canvas.text.height);
 	text[photoCounter].x = textBuffer;
-    if (window.screen.height < window.screen.width)
+    if (document.documentElement.clientHeight < document.documentElement.clientWidth)
     {
         text[photoCounter].x = text[photoCounter].x + photo.drawWidth;
     };
@@ -236,10 +239,17 @@ function drawText(photo)
 		
 	let lineNumber = 1;
 	let currentLine;
-		
-	for (let i = 0; i < lines.length; i++)
+	
+    let photoPortraitOffset = 0;
+
+    if (screenOrientation == PORTRAIT)
+    {
+        photoPortraitOffset = photo.drawHeight;
+    };
+	
+    for (let i = 0; i < lines.length; i++)
 	{
-		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + (fontSize * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 

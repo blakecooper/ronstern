@@ -14,6 +14,11 @@ const scrollingText = document.getElementById("scrollText");
 
 window.onload = function() 
 {
+    if (document.documentElement.clientHeight > document.documentElement.clientWidth)
+    {
+        screenOrientation = PORTRAIT;
+    };
+
     sizeCanvas();
     drawTitleAndCurtains();
 };
@@ -30,29 +35,22 @@ function drawTitleAndCurtains()
 function sizeCanvas()
 {
     
-    document.getElementById("curtainCanvas").width = window.innerWidth;
+    document.getElementById("curtainCanvas").width = document.documentElement.clientWidth;
     document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
  
-    document.getElementById("curtainBottomCanvas").width = window.innerWidth;
+    document.getElementById("curtainBottomCanvas").width = document.documentElement.clientWidth;
     document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
     
-    document.getElementById("titleCanvas").width = window.innerWidth;
+    document.getElementById("titleCanvas").width = document.documentElement.clientWidth;
     document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
 
-    document.getElementById("scrollTextCanvas").width = window.innerWidth;
+    document.getElementById("scrollTextCanvas").width = document.documentElement.clientWidth;
     document.getElementById("scrollTextCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
-    document.getElementById("slideshowCanvas").width = window.innerWidth;
-    document.getElementById("slideshowCanvas").height = window.innerHeight;
+    document.getElementById("slideshowCanvas").width = document.documentElement.clientWidth;
+    document.getElementById("slideshowCanvas").height = document.documentElement.clientHeight;
     
-    if (window.screen.height > window.screen.width)
-    {
-        textCanvasLocation = document.getElementById("slideshowCanvas").height;
-        document.getElementById("textCanvas").width = window.innerWidth;
-        document.getElementById("textCanvas").height = window.innerHeight - document.getElementById("slideshowCanvas").height;
-    } else {
-        document.getElementById("textCanvas").width = window.innerWidth;
-        document.getElementById("textCanvas").height = window.innerHeight;
-    };
+    document.getElementById("textCanvas").width = document.documentElement.clientWidth;
+    document.getElementById("textCanvas").height = document.documentElement.clientHeight * 2;
 };
 //TODO: remove and refactor code accordingly. This is deprecated!
 function getElements() 
@@ -118,8 +116,14 @@ function wrapText(line)
 {
 	let lines = [""];
 	let lineNumber = 0;
+    //TODO: find out why this needs the extra 1000?
+	let lineWidth = document.documentElement.clientWidth + 1000;
+    
+    if (screenOrientation == LANDSCAPE)
+    {
+        lineWidth = lineWidth - 1000 - text[photoCounter].x;
+    };
 
-	let lineWidth = canvas.text.width - text[photoCounter].x;
 	let spaceLeft = lineWidth;
 
 	let words = line.split(" ");
