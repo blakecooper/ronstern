@@ -247,7 +247,12 @@ function drawText(photo)
     {
         photoPortraitOffset = photo.drawHeight;
     };
-	
+
+    if (text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize) > canvas.text.height)
+    {
+        canvas.text.height = text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize);
+    };
+
     for (let i = 0; i < lines.length; i++)
 	{
 		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
