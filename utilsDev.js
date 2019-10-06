@@ -117,11 +117,11 @@ function wrapText(line)
 	let lines = [""];
 	let lineNumber = 0;
     //TODO: find out why this needs the extra 1000?
-	let lineWidth = document.documentElement.clientWidth + 1000;
+	let lineWidth = document.documentElement.clientWidth;
     
     if (screenOrientation == LANDSCAPE)
     {
-        lineWidth = lineWidth - 1000 - text[photoCounter].x;
+        lineWidth = lineWidth - text[photoCounter].x;
     };
 
 	let spaceLeft = lineWidth;
