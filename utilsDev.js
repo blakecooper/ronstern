@@ -16,6 +16,7 @@ window.onload = function()
 {
     if (document.documentElement.clientHeight > document.documentElement.clientWidth)
     {
+        fontSize = fontSize /2;
         screenOrientation = PORTRAIT;
     };
 
