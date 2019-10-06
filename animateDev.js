@@ -112,8 +112,14 @@ function slideShow()
     //if the photo hasn't been drawn yet, size it and save the drawing
     if (photo.hasNotBeenDrawnYet)
     {
-        photo.drawHeight = canvas.slideshow.height;
-        photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+        if (window.screen.height > window.screen.width)
+        {
+            photo.drawWidth = canvas.slideshow.width;
+            photo.drawHeight = photo.photo.height/(photo.photo.width/canvas/slideshow.width);
+        } else {
+            photo.drawHeight = canvas.slideshow.height;
+            photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+        };
 
         photo.x = canvas.slideshow.width * photo.initialPosition[X];
         photo.y = canvas.slideshow.height * photo.initialPosition[Y];
@@ -190,7 +196,11 @@ function slideShow()
 function drawText(photo)
 {
 	canvas.text.getContext("2d").clearRect(0,0,canvas.text.width,canvas.text.height);
-	text[photoCounter].x = photo.drawWidth + textBuffer;
+	text[photoCounter].x = textBuffer;
+    if (window.screen.height < windows.screen.width)
+    {
+        text[photoCounter].x = text[photoCounter].x + photo.drawWidth;
+    };
 
     if (!text[photoCounter].transitionInIsComplete)
     {

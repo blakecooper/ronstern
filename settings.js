@@ -20,6 +20,8 @@ const curtainDriftOffset = 4;
 //Total number of slideshow photos
 const totalPhotos = 7;
 
+let textCanvasLocation = 0;
+
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
 const DEFAULT_PHOTO_DURATION = 500;

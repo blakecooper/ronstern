@@ -29,6 +29,7 @@ function drawTitleAndCurtains()
 
 function sizeCanvas()
 {
+    
     document.getElementById("curtainCanvas").width = window.innerWidth;
     document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
  
@@ -43,8 +44,15 @@ function sizeCanvas()
     document.getElementById("slideshowCanvas").width = window.innerWidth;
     document.getElementById("slideshowCanvas").height = window.innerHeight;
     
-    document.getElementById("textCanvas").width = window.innerWidth;
-    document.getElementById("textCanvas").height = window.innerHeight;
+    if (window.screen.height > window.screen.width)
+    {
+        textCanvasLocation = document.getElementById("slideshowCanvas").height;
+        document.getElementById("textCanvas").width = window.innerWidth;
+        document.getElementById("textCanvas").height = window.innerHeight - document.getElementById("slideshowCanvas").height;
+    } else {
+        document.getElementById("textCanvas").width = window.innerWidth;
+        document.getElementById("textCanvas").height = window.innerHeight;
+    };
 };
 //TODO: remove and refactor code accordingly. This is deprecated!
 function getElements() 
