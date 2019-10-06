@@ -15,7 +15,7 @@ const PORTRAIT = 1;
 
 //Font
 const font = "Merriweather";
-const fontSize = "48";
+let fontSize = "48";
 
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 4;
