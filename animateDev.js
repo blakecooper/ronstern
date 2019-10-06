@@ -48,7 +48,8 @@ function updateTextTop()
 };
 function transitionCurtain()
 {
-		updateTextTop();
+//		updateTextTop();
+        image.textTop.isStillOnPage = false;
 
 		if (!image.textTop.isStillOnPage) {
     canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
