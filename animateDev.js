@@ -197,7 +197,7 @@ function drawText(photo)
 {
 	canvas.text.getContext("2d").clearRect(0,0,canvas.text.width,canvas.text.height);
 	text[photoCounter].x = textBuffer;
-    if (window.screen.height < windows.screen.width)
+    if (window.screen.height < window.screen.width)
     {
         text[photoCounter].x = text[photoCounter].x + photo.drawWidth;
     };
