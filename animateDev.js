@@ -18,6 +18,12 @@ function animate()
     {
         slideShow();
     };
+	
+	if (animationStep === 4)
+	{
+		document.getElementById("canvases").style["display"] = "none";
+		document.getElementById("gallery").style["display"] = "inline";
+	};
 };
 
 function updateTextTop()
@@ -199,6 +205,11 @@ function slideShow()
         timer = 0;
         };
     };
+	
+	if (photoCounter === totalPhotos)
+	{
+		animationStep++;
+	};
 };
 
 function drawText(photo)
