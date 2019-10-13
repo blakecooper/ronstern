@@ -18,10 +18,10 @@ const font = "Merriweather";
 let fontSize = "48";
 
 //Curtain rising factor... higher number means faster reveal
-const curtainDriftOffset = 4;
+const curtainDriftOffset = 2;
 
 //Total number of slideshow photos
-const totalPhotos = 7;
+const totalPhotos = 9;
 
 let textCanvasLocation = 0;
 
@@ -29,10 +29,11 @@ let screenOrientation = LANDSCAPE;
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
-const DEFAULT_PHOTO_DURATION = 500;
+const DEFAULT_PHOTO_DURATION = 250;
 
+const DEFAULT_PHOTO_TRANSITION_SPEED = 10;
 //How long is the text visible? Note: should be less than photoDuration
-const textDuration = 400;
+const textDuration = 300;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -118,6 +119,15 @@ let text = {
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
     },
+    "8": {
+        "line": "",
+        "alpha": 0,
+        "widthInChars": 100,
+        "x": canvas.slideshow.width/2,
+        "y": canvas.text.height/2,
+        "transitionInIsComplete": false,
+        "transitionOutIsComplete": false,
+    },
 };
 
 //Images that appear onscreen, and related properties
@@ -156,7 +166,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
@@ -172,9 +182,9 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": 200,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
         },
         "3": {
@@ -188,7 +198,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
@@ -204,7 +214,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
@@ -220,7 +230,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
@@ -236,7 +246,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
@@ -252,7 +262,23 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": 30,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
+            "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": true,
+        },
+        "8": {
+            "photo": document.getElementById("photo8"),
+            "hasNotBeenDrawnYet": true,
+            "drawWidth": document.getElementById("photo8").width,
+            "drawHeight": document.getElementById("photo8").height,
+            "initialPosition": LEFT,
+            "finalPosition": [0,0],
+            "x": 0,
+            "y": 0,
+            "transitionInIsComplete": false,
+            "transitionOutIsComplete": false,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,

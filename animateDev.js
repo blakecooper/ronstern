@@ -1,5 +1,5 @@
 
-setInterval(animate,10);
+setInterval(animate,33);
 
 /* ANIMATION FUNCTIONS: */
 function animate() 
@@ -57,7 +57,7 @@ function transitionCurtain()
 //		updateTextTop();
         timer++;
 
-        if (timer > 500)
+        if (timer > 100)
         {
         image.textTop.isStillOnPage = false;
         };
@@ -97,7 +97,7 @@ function fadeTitle()
     canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 
 	let alphaTemp = alpha.title;
-	alpha.title -= .002;
+	alpha.title -= .005;
 	canvas.title.getContext("2d").globalAlpha = alphaTemp;
 
 	if (alpha.title < 0)
@@ -223,13 +223,13 @@ function drawText(photo)
 
     if (!text[photoCounter].transitionInIsComplete)
     {
-        text[photoCounter].alpha += .005;
+        text[photoCounter].alpha += .006;
     
         if (text[photoCounter].alpha > 1)
         {
             text[photoCounter].transitionInIsComplete = true;
         };
-    } else {
+     else {
         textTimer++;
     };
 
