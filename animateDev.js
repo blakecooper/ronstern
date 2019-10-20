@@ -215,7 +215,6 @@ function slideShow()
 function drawText(photo)
 {
 	canvas.text.getContext("2d").clearRect(0,0,canvas.text.width,canvas.text.height);
-	text[photoCounter].x = textBuffer;
     if (document.documentElement.clientHeight < document.documentElement.clientWidth)
     {
         text[photoCounter].x = text[photoCounter].x + photo.drawWidth;
@@ -229,7 +228,7 @@ function drawText(photo)
         {
             text[photoCounter].transitionInIsComplete = true;
         };
-     else {
+	} else {
         textTimer++;
     };
 
@@ -253,15 +252,19 @@ function drawText(photo)
 
 	const lines = wrapText(text[photoCounter].line);
 		
-	let lineNumber = 1;
-	let currentLine;
-	
+	let lineNumber = 1;	
     let photoPortraitOffset = 0;
+	let photoLandscapeOffset = 0;
 
     if (screenOrientation == PORTRAIT)
     {
         photoPortraitOffset = photo.drawHeight;
     };
+
+	if (screenOrientation == LANDSCAPE)
+	{
+		photoLandscapeOffset = photo.drawWidth;
+	};
 
     if (text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize) > canvas.text.height)
     {
@@ -270,7 +273,7 @@ function drawText(photo)
 
     for (let i = 0; i < lines.length; i++)
 	{
-		canvas.text.getContext("2d").fillText(lines[i], text[photoCounter].x, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 
