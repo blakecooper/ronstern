@@ -2,30 +2,228 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+        minimum-scale=1, maximum-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
-	<body>
-		<div class="container-fluid">
-            <div id="canvas">
-				<canvas id="sky" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-                <canvas id="line" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 5;"></canvas>
-                <canvas id="road" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 6;"></canvas>
-                <canvas id="textTop" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
-                <canvas id="textBottom" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
-            	<canvas id="stencilCanvas" width="925" height="547" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+	<body style="background-color: #000000;">
+
+		<div id="container" class="container" style="padding:0; margin:0;">
+            <div style="display: none; padding:0; margin:0;">
+                <img id="curtainTopImg" src="assets/photos/curtain_top.png"></img>
+                <img id="curtainBottomImg" src="assets/photos/curtain_bottom.png"></img>
+				<img id="scrollText" src="assets/text.png"></img>
+				<img id="titleImg" src="assets/photos/title.jpg"></img>
+                <img id="photo1" src="assets/photos/01.jpg"></img>
+                <img id="photo2" src="assets/photos/02.jpg"></img>
+                <img id="photo3" src="assets/photos/03.jpg"></img>
+                <img id="photo4" src="assets/photos/04.jpg"></img>
+                <img id="photo5" src="assets/photos/05.jpg"></img>
+                <img id="photo6" src="assets/photos/06.jpg"></img>
+                <img id="photo7" src="assets/photos/07.jpg"></img>
+                <img id="photo8" src="assets/photos/08.jpg"></img>
+            </div>
+			<div id="canvases">
+			<canvas id="scrollTextCanvas" style="padding:0; margin:0; position:
+            absolute; left: 0; top: 0;
+            z-index:5"></canvas>
+            <canvas id="curtainCanvas" style="padding:0; margin:0; position:
+            absolute; left: 0; top: 0;
+            z-index:4"></canvas>
+            <canvas id="curtainBottomCanvas" style="padding:0; margin:0; position:
+            absolute; left: 0; top: 0;
+            z-index:6"></canvas>
+			<canvas id="titleCanvas" style="padding:0; margin:0; position:
+            absolute; left: 0; top: 0;
+            z-index:3"></canvas>
+            <canvas id="slideshowCanvas" style="padding:0; margin:0; position:
+            absolute; left: 0; top: 0;
+            z-index:1"></canvas>
+            <canvas id="textCanvas" style="padding:0; margin:0; position:
+            absolute; left: 0; top: {textCanvasLocation};
+            z-index:2"></canvas>
+			</div>	
+			<div id="gallery" style="display: none;">
+				<div class="container">
+					<h1 style="font-family: 'Merriweather'; color:white;">Contact me</h1>
+							<p style="color:white; font-size:48px;"><b>(716) 844-1924</b>
+							<p style="color:white; font-size:48px;"><b>ronsternimagery@gmail.com</b>
+					<div class="row">
+							<div class="col-sm-6" style="font-family:
+                            'Merriweather';">
+							<p style="color:white; font-size:48px;">I've been visually creative for most of my life, capturing images of cars, children, people and actors.
+							<br style="color:white; font-size:48px;">I'm convenient to all of West New York and I'd be delighted to shoot your portrait, assist with clever visual commercial endeavors or most any event you would like expressed uniquely and creatively.
+							<br style="color:white; font-size:48px;">As a model, I've spent significant time on the other side of the camera, so if you're self conscious, camera-shy, or a bit inhibited, you'll find me with lots of patience; while trying to make laugh, loosen up or just be comfortable in the moment, where l guarantee you'll look your best.
+						</div>
+						<div class="col-sm-6">
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/01.jpg">
+                                            <img
+                                        src="assets/photos/gallery/01.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/02.jpg">
+                                            <img
+                                        src="assets/photos/gallery/02.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/03.jpg">
+                                            <img
+                                        src="assets/photos/gallery/03.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/04.jpg">
+                                            <img
+                                        src="assets/photos/gallery/04.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/05.jpg">
+                                            <img
+                                        src="assets/photos/gallery/05.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/06.jpg">
+                                            <img
+                                        src="assets/photos/gallery/06.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/07.jpg">
+                                            <img
+                                        src="assets/photos/gallery/07.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/08.jpg">
+                                            <img
+                                        src="assets/photos/gallery/08.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/09.jpg">
+                                            <img
+                                        src="assets/photos/gallery/09.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-12">
+                                    <div class="thumbnail">
+                                        <a href="assets/photos/gallery/10.jpg">
+                                            <img
+                                        src="assets/photos/gallery/10.jpg"
+                                        style="width:100%">
+                                            <div class="caption">
+                                                <p>My style and techniques vary
+                                            depending on what I'm
+                                            photographing.</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
 			</div>
-            <div style="display: none">
-                <img id="imgTop" src="assets/image_top.png"></img>
-                <img id="imgMiddle" src="assets/image_middle.png"></img>
-                <img id="imgBottom" src="assets/image_bottom.png"></img>
-				<img id="textTopImg" src="assets/text.png"></img>
-				<img id="underConstruction" src="assets/underconstruction.png"></img>
-				<img id="stencilImg" src="assets/stencil.png"></img>
 			</div>
-		</div>
+		<script src="settings.js"></script>
 		<script src="utils.js"></script>
 		<script src="animate.js"></script>
 	</body>

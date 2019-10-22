@@ -1,133 +1,280 @@
-const animationElements = getElements();
-const textTop = animationElements["textTop"];
-const textBottom = animationElements["textBottom"];
-const stencil = animationElements["stencil"];
 
-window.onload = function() 
-{
-	drawBackground();
-};
-
-setInterval(animate,30);
-
-
+setInterval(animate,33);
 
 /* ANIMATION FUNCTIONS: */
-function drawBackground() 
-{
-	for (let element in animationElements) 
-	{
-		if (animationElements[element].isBackground) 
-		{
-			animationElements[element].context.drawImage(animationElements[element].image,0,0);
-		};
-	};
-};
-
 function animate() 
 {
-	if (textTop.isStillOnPage) 
+	if (animationStep === 1)
 	{
-		updateTextTop();
+		transitionCurtain();
 	};
 
-	if (textTop.hasReachedBreakPoint) 
+	if (animationStep === 2)
 	{
-		flipSkyAndRoad();		
-		updateTextBottom();
+		fadeTitle();
 	};
 
-	if (textBottom.hasReachedBreakPoint)
-	{	
-		updateStencil();
-	};				
+    if (animationStep === 3)
+    {
+        slideShow();
+    };
+	
+	if (animationStep === 4)
+	{
+		document.getElementById("canvases").style["display"] = "none";
+		document.getElementById("gallery").style["display"] = "inline";
+	};
 };
 
 function updateTextTop()
 {
-	clear(textTop);
+	textTop.context.clearRect(0,0,textTop.canvas.width,textTop.canvas.height);
 	//TODO: figure out why custom draw() function isn't working
-	textTop.context.drawImage(textTop.image,textTop.position.X-100,textTop.position.Y);
-	
-	//The opacity of the scrolling top text is a function of its vertcal position on the page.
-	textTop.context.globalAlpha = textTop.position.Y / textTop.canvas.height;
-	
-	move(textTop, -0.1, -1.1);	
+    //
+            if(!image.textTop.initialPositionHasBeenSet) 
+            {
+                image.textTop.position.X = document.getElementById("scrollTextCanvas").width/2-100;
+                image.textTop.position.Y = document.getElementById("scrollTextCanvas").height;
+                image.textTop.initialPositionHasBeenSet = true;
+            };
 
-	if (!textTop.hasReachedBreakPoint && textTop.position.Y < textTop.canvas.height/2) 
-	{
-		textTop.hasReachedBreakPoint = true;
-	} else if (textTop.position.Y < -500) {
-		textTop.isStillOnPage = false;
-	};
+			canvas.scrollText.getContext("2d").drawImage(image.textTop.image,image.textTop.position.X-100,image.textTop.position.Y);
+			
+			//The opacity of the scrolling top text is a function of its vertcal position on the page.
+			canvas.scrollText.getContext("2d").globalAlpha = image.textTop.position.Y / canvas.scrollText.height;
+			
+			move(image.textTop, -0.1, -1.1);	
+
+			if (!image.textTop.hasReachedBreakPoint && image.textTop.position.Y < canvas.scrollText.height/2+100) 
+			{
+				image.textTop.hasReachedBreakPoint = true;
+			} else if (image.textTop.position.Y < 100) {
+				image.textTop.isStillOnPage = false;
+			};
 };
-
-function flipSkyAndRoad() 
+function transitionCurtain()
 {
-	animationElements.sky.canvas.style.zIndex = "4";
-	animationElements.road.canvas.style.zIndex = "2";
-};
+//		updateTextTop();
+        timer++;
 
-function updateTextBottom() {
-	clear(textBottom);
+        if (timer > 100)
+        {
+        image.textTop.isStillOnPage = false;
+        };
+		if (!image.textTop.isStillOnPage) {
+    canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
+    canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
 
-    if(!textBottom.hasBeenDrawn) 
-	{
-        textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-        textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-        textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
-        textBottom.rotationInDegrees = 0;
-        textBottom.hasBeenDrawn = true;
-    }
-
-	textBottom.context.drawImage(textBottom.image,textBottom.position.X,textBottom.position.Y,textBottom.width,textBottom.height);
+    //update position
+    image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
+    image.curtainBottom.offsetPosition += curtainDriftOffset;	
 	
-	if (!textBottom.reachedBottomOfCanvas && textBottom.canvas.height - textBottom.position.Y > 40) 
+	//update fade
+	
+//	let alphaTemp = alpha.curtain;
+//	alpha.curtain -= .005;
+//	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
+//  canvas.curtainBottom.getContext("2d").globalAlpha = alphaTemp;
+
+	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
 	{
-		textBottom.position.Y += .3;
-	} else {
-		textBottom.reachedBottomOfCanvas = true;
-        if (textBottom.totalSwingCounter < textBottom.degreesToSwing) 
-		{
-            textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-            textBottom.rotationInDegrees += .01;    
-            textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-            textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-            textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
-		} else {
-			if (!textBottom.hasBounced) 
+		timer = 0;
+		animationStep++;
+	};
+
+	//redraw
+    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    };
+};
+
+function fadeTitle() 
+{
+    timer++;
+
+    if (timer > DEFAULT_PHOTO_DURATION) 
+    {
+    canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+
+	let alphaTemp = alpha.title;
+	alpha.title -= .005;
+	canvas.title.getContext("2d").globalAlpha = alphaTemp;
+
+	if (alpha.title < 0)
+	{
+		animationStep++;
+        timer = 0;
+    };
+    //redraw
+    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.title.width,image.title.height/(image.title.width/canvas.title.width));
+
+    canvas.title.getContext("2d").restore();
+    };
+};
+
+function slideShow()
+{
+
+    canvas.slideshow.getContext("2d").clearRect(0,0,canvas.slideshow.width, canvas.slideshow.height);
+
+    //for each numbered photo in slideshow
+    var photo = image.slideshow[photoCounter];
+
+    //if the photo hasn't been drawn yet, size it and save the drawing
+    if (photo.hasNotBeenDrawnYet)
+    {
+        if (document.documentElement.clientHeight > document.documentElement.clientWidth)
+        {
+            photo.drawWidth = canvas.slideshow.width;
+            photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
+        } else {
+            photo.drawHeight = canvas.slideshow.height;
+            photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+        };
+
+        photo.x = canvas.slideshow.width * photo.initialPosition[X];
+        photo.y = canvas.slideshow.height * photo.initialPosition[Y];
+        photo.hasNotBeenDrawnYet = false;
+    };
+    
+    //fade in text at the same time
+    if (!photo.hasNotBeenDrawnYet)
+    {
+    drawText(photo);
+    };
+
+	//position on side of canvas as desired
+    canvas.slideshow.getContext("2d").drawImage(photo.photo,photo.x,photo.y,photo.drawWidth,photo.drawHeight);
+
+    if (photo.transitionInIsComplete) {
+    //once transition is complete, start timer and mark transition complete
+        timer++;
+    } else {
+    //update position according to final position desired
+        photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
+        photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y]));
+
+        if (photo.initialPosition === LEFT)
+        {
+            if (photo.x >= 0)
+            {
+                photo.transitionInIsComplete = true;
+            };
+        } else if (photo.initialPosition === RIGHT)
+        {
+            if (photo.x <= 0)
+            {
+                photo.transitionInIsComplete = true;
+            };
+        } else if (photo.initialPosition === UP)
+        {
+            if (photo.y > photo.finalPosition[Y]) 
+            {
+                photo.transitionInIsComplete = true;
+            };
+        } else if (photo.initialPosition === DOWN)
+        {
+            if (photo.y < photo.finalPosition[Y])
+            {
+                photo.transitionInIsComplete = true;
+            };
+        };
+    };
+
+    //after timer, advance slideshow by one
+    if (timer > photo.duration && !photo.transitionOutIsComplete)
+    {
+        //TODO: right now this only works for sideways transitions
+        if ((photo.x > (0-canvas.slideshow.width) && photo.x < canvas.slideshow.width))
+        {
+                photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
+                photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y])); 
+        } else {
+			if (text[photoCounter].transitionOutIsComplete === true)
 			{
-				textBottom.rotationInDegrees = 0;
-				textBottom.hasBounced = true;
-				console.log("totalSwingCounter before first bounce = " + textBottom.totalSwingCounter);
-			};
-			if (textBottom.numberOfBounces < 1) 
-			{
-				textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-				textBottom.rotationInDegrees -= .10;    
-				textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-        	   	textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-    	       	textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));
-		
-				if (textBottom.totalSwingCounter < textBottom.degreesToSwing) 
-				{
-					textBottom.numberOfBounces++;
-					console.log("totalSwingCounter beginning bounce number " + textBottom.numberOfBounces + " = " + textBottom.totalSwingCounter);
-				};
-			} else {
-				textBottom.hasReachedBreakPoint = true;
-			};
-    	};
+            	photo.transitionOutIsComplete = true;
+        	};
+		};
+    };
+
+    if (photo.transitionOutIsComplete)
+    {
+        if (photoCounter < totalPhotos)
+        {
+        photoCounter++;
+        timer = 0;
+        };
+    };
+	
+	if (photoCounter === totalPhotos)
+	{
+		animationStep++;
 	};
 };
 
-function updateStencil() {
-	clear(stencil);
-	stencil.context.globalAlpha = stencil.alpha;
-	stencil.context.drawImage(stencil.image,35,0);	
-					
-	if(stencil.alpha < 1) 
+function drawText(photo)
+{
+	canvas.text.getContext("2d").clearRect(0,0,canvas.text.width,canvas.text.height);
+    if (document.documentElement.clientHeight < document.documentElement.clientWidth)
+    {
+        text[photoCounter].x = text[photoCounter].x + photo.drawWidth;
+    };
+
+    if (!text[photoCounter].transitionInIsComplete)
+    {
+        text[photoCounter].alpha += .006;
+    
+        if (text[photoCounter].alpha > 1)
+        {
+            text[photoCounter].transitionInIsComplete = true;
+        };
+	} else {
+        textTimer++;
+    };
+
+    if (textTimer > textDuration && text[photoCounter].transitionInIsComplete)
+    {
+        if (!text[photoCounter].transitionOutIsComplete)
+        {
+            text[photoCounter].alpha -= .005;
+
+            if (text[photoCounter].alpha < 0)
+            {
+                text[photoCounter].transitionOutIsComplete = true;
+				textTimer = 0;
+			};
+        };
+    };
+
+    canvas.text.getContext("2d").globalAlpha = text[photoCounter].alpha;
+	canvas.text.getContext("2d").font = fontSize + "px " + font;
+	canvas.text.getContext("2d").fillStyle = 'white';
+
+	const lines = wrapText(text[photoCounter].line);
+		
+	let lineNumber = 1;	
+    let photoPortraitOffset = 0;
+	let photoLandscapeOffset = 0;
+
+    if (screenOrientation == PORTRAIT)
+    {
+        photoPortraitOffset = photo.drawHeight;
+    };
+
+	if (screenOrientation == LANDSCAPE)
 	{
-		stencil.alpha += .03;
+		photoLandscapeOffset = photo.drawWidth;
 	};
+
+    if (text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize) > canvas.text.height)
+    {
+        canvas.text.height = text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize);
+    };
+
+    for (let i = 0; i < lines.length; i++)
+	{
+		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
+		lineNumber++;
+	};
+
 };

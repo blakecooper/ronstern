@@ -1,87 +1,93 @@
+let photoCounter = 1;
+let timer = 1;
+let textTimer = 1;
+let transitionIsComplete = true;
+
+
+let transitionState = IN;
+
+const animationElements = getElements();
+let textTop = animationElements["textTop"];
+let firstPhotoLoaded = false;
+let animationStep = 1;
+const scrollingText = document.getElementById("scrollText");
+
+window.onload = function() 
+{
+    if (window.innerHeight > window.innerWidth)
+    {
+        fontSize = fontSize /2;
+        screenOrientation = PORTRAIT;
+    };
+
+    sizeCanvas();
+	sizeText();
+	drawTitleAndCurtains();
+};
+
+
+let animateCurtainVar;
+
+function drawTitleAndCurtains()
+{
+    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
+};
+
+function sizeCanvas()
+{
+    
+    document.getElementById("curtainCanvas").width = window.innerWidth;
+    document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+ 
+    document.getElementById("curtainBottomCanvas").width = window.innerWidth;
+    document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    
+    document.getElementById("titleCanvas").width = window.innerWidth;
+    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+
+    document.getElementById("scrollTextCanvas").width = window.innerWidth;
+    document.getElementById("scrollTextCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    document.getElementById("slideshowCanvas").width = window.innerWidth;
+    document.getElementById("slideshowCanvas").height = window.innerHeight;
+    
+    document.getElementById("textCanvas").width = window.innerWidth;
+    document.getElementById("textCanvas").height = window.innerHeight * 2;
+};
+//TODO: remove and refactor code accordingly. This is deprecated!
 function getElements() 
 {
 	return	{
-		"sky": {
-			"canvas": document.getElementById("sky"),
-			"context": document.getElementById("sky").getContext("2d"),
-			"image": document.getElementById("imgTop"),
-			"isBackground": true,
-		},
-		"line": {
-			"canvas": document.getElementById("line"),
-			"context": document.getElementById("line").getContext("2d"),
-			"image": document.getElementById("imgMiddle"),
-			"isBackground": true,
-		},
-		"road": {
-			"canvas": document.getElementById("road"),
-			"context": document.getElementById("road").getContext("2d"),
-			"image": document.getElementById("imgBottom"),
-			"isBackground": true,
-		},
+        "textElement": {
+            "canvas": document.getElementById("slideshowCanvas"),
+            "context": document.getElementById("slideshowCanvas").getContext("2d"),
+            "alpha": 0,
+        },
+        "photo1": {
+            "canvas": document.getElementById("curtainCanvas"),
+            "context": document.getElementById("curtainCanvas").getContext("2d"),
+            "image": document.getElementById("photo1"),
+            "alpha": 0,
+            "heightRatio": .5943,
+            },
+	    "slideshowPhoto": {
+            "canvas": document.getElementById("slideshowCanvas"),
+            "context": document.getElementById("slideshowCanvas").getContext("2d"),
+            "image": document.getElementById("photo2"),
+            "alpha": 0,
+        },
 		"textTop": {
-			"canvas": document.getElementById("textTop"),
-			"context": document.getElementById("textTop").getContext("2d"),
-			"image": document.getElementById("textTopImg"),
+			"canvas": document.getElementById("scrollTextCanvas"),
+			"context": document.getElementById("scrollTextCanvas").getContext("2d"),
+			"image": document.getElementById("scrollText"),
 			"isBackground": false,
 			"position": {
-				X: document.getElementById("textTop").width/2-100,
-				Y: document.getElementById("textTop").height
+				X: document.getElementById("scrollTextCanvas").width/2-100,
+				Y: document.getElementById("scrollTextCanvas").height
 			},
 			"isStillOnPage": true,
 			"hasReachedBreakPoint": false,
-		},
-		"textBottom": {
-			"canvas": document.getElementById("textBottom"),
-			"context": document.getElementById("textBottom").getContext("2d"),
-			"image": document.getElementById("underConstruction"),
-			"isBackground": false,
-            "hasBeenDrawn": false,
-			"reachedBottomOfCanvas": false,
-			"position": {
-				X: (document.getElementById("textBottom").width/2 + 100),
-				Y: document.getElementById("textBottom").height-130,
-            },
-            "width": 304,
-			"height": 37,
-            "rotationInDegrees": -10,
-            "totalSwingCounter": 0,
-			"degreesToSwing": 9,
-			"hasBounced": false,
-			"numberOfBounces": 0,
-			"hasReachedBreakPoint": false,
-		},
-		"stencil": {
-			"canvas": document.getElementById("stencilCanvas"),
-			"context": document.getElementById("stencilCanvas").getContext("2d"),
-			"image": document.getElementById("stencilImg"),
-			"isBackground": false,
-			"alpha": 0,
-		},
-		"bigRed": {
-			"canvas": document.getElementById("bigRedCanvas"),
-			"context": document.getElementById("bigRedCanvas").getContext("2d"),
-			"image": document.getElementById("bigRedImg"),
-			"isBackground": true,
-		},
-		"title": {
-			"canvas": document.getElementById("titleCanvas"),
-			"context": document.getElementById("titleCanvas").getContext("2d"),
-			"image": document.getElementById("titleImg"),
-			"isBackground": false,
-			"alpha": 0,
-		},
-		"skySwing": {
-			"canvas": document.getElementById("skySwingCanvas"),
-			"context": document.getElementById("skySwingCanvas").getContext("2d"),
-			"image": document.getElementById("photo1SwingTop"),
-			"isBackground": true,
-		},
-		"roadSwing": {
-			"canvas": document.getElementById("roadSwingCanvas"),
-			"context": document.getElementById("roadSwingCanvas").getContext("2d"),
-			"image": document.getElementById("photo1SwingBottom"),
-			"isBackground": true,
 		},
 	};
 };
@@ -89,9 +95,10 @@ function getElements()
 /* ANIMATION UTILITIES: */
 function clear(element) 
 {
-	element.context.clearRect(0,0,element.canvas.width, element.canvas.height);
+	element.getContext("2d").clearRect(0,0,element.canvas.width, element.canvas.height);
 };
 
+//These two draw functions below don't work... not sure why.
 function draw(element, posX, posY) 
 {
 	element.context.drawImage(element.image, posX, posY);
@@ -108,15 +115,57 @@ function move (element, x, y)
 	element.position.Y += y;
 };
 
-function tiltTextBottom()
+function wrapText(line)
 {
-	textBottom.context.translate(textBottom.position.X,textBottom.position.Y);
-    textBottom.context.rotate(textBottom.rotationInDegrees * Math.PI / 180);
-    textBottom.context.translate(-(textBottom.position.X),-(textBottom.position.Y));    
+	let lines = [""];
+	let lineNumber = 0;
+    //TODO: find out why this needs the extra 1000?
+	let lineWidth = window.innerWidth;
+
+    
+    if (screenOrientation == LANDSCAPE)
+    {
+        lineWidth = canvas.text.width - 100;
+    };
+
+	let spaceLeft = lineWidth;
+
+	let words = line.split(" ");
+	let spaceWidth = 1 * fontSize;
+	let word;
+	for (word of words)
+	{
+		if (word !== "PARA") {
+			if (((word.length * fontSize) + spaceWidth) > spaceLeft)
+			{
+				lineNumber++;
+				lines[lineNumber] = "";
+				spaceLeft = lineWidth;
+			};
+
+			spaceLeft = spaceLeft - ((word.length * fontSize) + spaceWidth);
+			lines[lineNumber] = lines[lineNumber] + word + " ";
+		} else {
+			lineNumber++;
+			lines[lineNumber] = "";
+			lineNumber++;
+			lines[lineNumber] = "";
+			spaceLeft = lineWidth;
+		};
+	};
+	
+	return lines;
 };
 
-function updateTextBottomTilt(degrees) 
+function sizeText()
 {
-    textBottom.totalSwingCounter += textBottom.rotationInDegrees;
-    textBottom.rotationInDegrees += degrees;    
+	if (screenOrientation == PORTRAIT)
+	{
+		fontSize = window.innerHeight / 35;
+	};
+
+	if (screenOrientation == LANDSCAPE)
+	{
+		fontSize = window.innerWidth / 50;
+	};
 };
