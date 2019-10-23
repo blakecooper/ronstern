@@ -115,17 +115,17 @@ function move (element, x, y)
 	element.position.Y += y;
 };
 
-function wrapText(line)
+function wrapText(line, photoWidth)
 {
 	let lines = [""];
 	let lineNumber = 0;
-    //TODO: find out why this needs the extra 1000?
-	let lineWidth = window.innerWidth;
+    //TODO: find out why this needs the extra 100?
+	let lineWidth = window.innerWidth + 100;
 
     
     if (screenOrientation == LANDSCAPE)
     {
-        lineWidth = canvas.text.width - 100;
+        lineWidth = lineWidth - photoWidth;
     };
 
 	let spaceLeft = lineWidth;
@@ -166,6 +166,6 @@ function sizeText()
 
 	if (screenOrientation == LANDSCAPE)
 	{
-		fontSize = window.innerWidth / 50;
+		fontSize = window.innerWidth / 60;
 	};
 };

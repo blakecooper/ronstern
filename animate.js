@@ -66,7 +66,7 @@ function transitionCurtain()
     canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
 
     //update position
-    image.curtainTop.offsetPosition -= curtainDriftOffset * 2;
+    image.curtainTop.offsetPosition -= curtainDriftOffset * 4;
     image.curtainBottom.offsetPosition += curtainDriftOffset;	
 	
 	//update fade
@@ -97,7 +97,7 @@ function fadeTitle()
     canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 
 	let alphaTemp = alpha.title;
-	alpha.title -= .008;
+	alpha.title -= .01;
 	canvas.title.getContext("2d").globalAlpha = alphaTemp;
 
 	if (alpha.title < 0)
@@ -250,7 +250,7 @@ function drawText(photo)
 	canvas.text.getContext("2d").font = fontSize + "px " + font;
 	canvas.text.getContext("2d").fillStyle = 'white';
 
-	const lines = wrapText(text[photoCounter].line);
+	const lines = wrapText(text[photoCounter].line, photo.drawWidth);
 		
 	let lineNumber = 1;	
     let photoPortraitOffset = 0;
