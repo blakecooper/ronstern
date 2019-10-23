@@ -97,7 +97,7 @@ function fadeTitle()
     canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 
 	let alphaTemp = alpha.title;
-	alpha.title -= .008;
+	alpha.title -= .005;
 	canvas.title.getContext("2d").globalAlpha = alphaTemp;
 
 	if (alpha.title < 0)
@@ -272,12 +272,11 @@ function drawText(photo)
     };
 
 	//TODO: use a better indicated that '80' for the max number of characters in a line
-//	if (20 + photoLandscapeOffset + (80 * fontSize) > canvas.text.width)
-//	{
-//		canvas.text.width = 20 + photoLandscapeOffset + (80 * fontSize);
-//	};
-    
-	for (let i = 0; i < lines.length; i++)
+	if (20 + photoLandscapeOffset + (80 * fontSize) > canvas.text.width)
+	{
+		canvas.text.width = 20 + photoLandscapeOffset + (80 * fontSize);
+	};
+    for (let i = 0; i < lines.length; i++)
 	{
 		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
