@@ -20,6 +20,13 @@ window.onload = function()
         screenOrientation = PORTRAIT;
     };
 
+	if (DEMOMODE === true)
+	{
+		DEFAULT_PHOTO_DURATION = DEFAULT_PHOTO_DURATION / 2;
+		DEFAULT_PHOTO_TRANSITION_SPEED = DEFAULT_PHOTO_TRANSITION_SPEED / 2;
+		textDuration = textDuration / 2;
+
+	};
     sizeCanvas();
 	sizeText();
 	drawTitleAndCurtains();
@@ -32,7 +39,7 @@ function drawTitleAndCurtains()
 {
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.curtain.width,image.title.height/(image.title.width/canvas.title.width));
+    canvas.title.getContext("2d").drawImage(image.title.photo,0,0,canvas.curtain.width,image.title.photo.height/(image.title.photo.width/canvas.title.width));
 };
 
 function sizeCanvas()
@@ -166,6 +173,32 @@ function sizeText()
 
 	if (screenOrientation == LANDSCAPE)
 	{
-		fontSize = window.innerWidth / 60;
+		fontSize = window.innerWidth / 55;
 	};
+};
+
+//TODO: Refactor so this is a generic "fade out" function that came take any image/canvas and redraw it while fading
+function fadeTitle() 
+{
+    timer++;
+
+    if (timer > image.title.duration) 
+    {
+    	canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+
+		let alphaTemp = alpha.title;
+		alpha.title -= .01;
+		canvas.title.getContext("2d").globalAlpha = alphaTemp;
+
+		if (alpha.title < 0)
+		{
+			animationStep++;
+        	timer = 0;
+    	};
+    
+		//redraw
+    	canvas.title.getContext("2d").drawImage(image.title.photo,0,0,canvas.title.width,image.title.photo.height/(image.title.photo.width/canvas.title.width));
+
+    	canvas.title.getContext("2d").restore();
+    };
 };

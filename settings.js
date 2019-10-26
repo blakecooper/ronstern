@@ -1,3 +1,5 @@
+const DEMOMODE = 0;
+
 //These are technical definitions to make the code more readable. Changing these could affect the app in weird ways!
 const OUT = 0;
 const IN = 1;
@@ -14,14 +16,16 @@ const LANDSCAPE = 0;
 const PORTRAIT = 1;
 
 //Font
-const font = "Merriweather";
+const FONT = "Merriweather";
 let fontSize = "48";
 
+const TEXT_FADE_SPEED = .006;
+const FONT_COLOR = 'white';
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 2;
 
 //Total number of slideshow photos
-const totalPhotos = 9;
+const totalPhotos = 10;
 
 let textCanvasLocation = 0;
 
@@ -29,11 +33,11 @@ let screenOrientation = LANDSCAPE;
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
-const DEFAULT_PHOTO_DURATION = 250;
+let DEFAULT_PHOTO_DURATION = 250;
 
-const DEFAULT_PHOTO_TRANSITION_SPEED = 10;
+let DEFAULT_PHOTO_TRANSITION_SPEED = 10;
 //How long is the text visible? Note: should be less than photoDuration
-const textDuration = 300;
+let textDuration = 300;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -128,6 +132,15 @@ let text = {
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
     },
+    "9": {
+        "line": "",
+        "alpha": 0,
+        "widthInChars": 100,
+        "x": canvas.slideshow.width/2,
+        "y": canvas.text.height/2,
+        "transitionInIsComplete": false,
+        "transitionOutIsComplete": false,
+    },
 };
 
 //Images that appear onscreen, and related properties
@@ -148,13 +161,19 @@ const image = {
     "curtainTop": {
         "photo": document.getElementById("curtainTopImg"),
         "offsetPosition": 0,
+		"alpha": 1,
     },
     "curtainBottom": {
         "photo": document.getElementById("curtainBottomImg"),
         "offsetPosition": 0,
+		"alpha": 1,
     },
-    "title": document.getElementById("titleImg"),
-    "slideshow": {
+    "title": {
+		"photo": document.getElementById("titleImg"),
+		"duration": 150, //"three Blake Coopers" 
+    	"alpha": 1,
+	},
+	"slideshow": {
         "1": {
             "photo": document.getElementById("photo1"),
             "hasNotBeenDrawnYet": true,
@@ -170,6 +189,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
+			"textOnRight": true,
+			"extraWide": true,
 		},
         "2": {
             "photo": document.getElementById("photo2"),
@@ -186,6 +207,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
+			"textOnRight": true,
+			"extraWide": false,
         },
         "3": {
             "photo": document.getElementById("photo3"),
@@ -202,6 +225,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
+			"textOnRight": false,
+			"extraWide": false,
         },
         "4": {
             "photo": document.getElementById("photo4"),
@@ -218,6 +243,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION/2,
 			"hasText": true,
+			"textOnRight": true,
+			"extraWide": false,
         },
         "5": {
             "photo": document.getElementById("photo5"),
@@ -234,6 +261,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
+			"textOnRight": true,
+			"extraWide": true,
         },
         "6": {
             "photo": document.getElementById("photo6"),
@@ -250,6 +279,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION/2,
 			"hasText": true,
+			"textOnRight": true,
+			"extraWide": false,
         },
         "7": {
             "photo": document.getElementById("photo7"),
@@ -266,6 +297,8 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
+			"textOnRight": true,
+			"extraWide": false,
         },
         "8": {
             "photo": document.getElementById("photo8"),
@@ -282,6 +315,26 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
+			"textOnRight": true,
+			"extraWide": false,
+        },
+        "9": {
+            "photo": document.getElementById("photo9"),
+            "hasNotBeenDrawnYet": true,
+            "drawWidth": document.getElementById("photo8").width,
+            "drawHeight": document.getElementById("photo8").height,
+            "initialPosition": LEFT,
+            "finalPosition": [0,0],
+            "x": 0,
+            "y": 0,
+            "transitionInIsComplete": false,
+            "transitionOutIsComplete": false,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
+            "finalPosition": [canvas.slideshow.width, 0],
+        	"duration": DEFAULT_PHOTO_DURATION,
+			"hasText": false,
+			"textOnRight": true,
+			"extraWide": false,
         },
     },
 };

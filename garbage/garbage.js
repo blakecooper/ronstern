@@ -1,3 +1,12 @@
+
+	//update fade code for tree "curtains"
+	
+//	let alphaTemp = alpha.curtain;
+//	alpha.curtain -= .005;
+//	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
+//  canvas.curtainBottom.getContext("2d").globalAlpha = alphaTemp;
+
+
 function throwaway()
 {
     if (transitionIsComplete) 

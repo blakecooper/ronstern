@@ -26,6 +26,48 @@ function animate()
 	};
 };
 
+function transitionCurtain()
+{
+//	updateTextTop();
+    timer++;
+
+	//TODO: shouldn't this be related to the position of the text on the page, not an arbitrary timing?
+    if (timer > 100)
+    {
+       image.textTop.isStillOnPage = false;
+    };
+	
+	if (!image.textTop.isStillOnPage) 
+	{
+   		canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
+   		canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
+		
+		//update position
+   		image.curtainTop.offsetPosition -= curtainDriftOffset * 4;
+   		image.curtainBottom.offsetPosition += curtainDriftOffset;	
+
+		if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
+		{
+			timer = 0;
+			animationStep++;
+		};
+		//redraw
+   		canvas.curtain.getContext("2d").drawImage(
+			image.curtainTop.photo,
+			0,
+			image.curtainTop.offsetPosition,
+			canvas.curtain.width,
+			image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)
+		);
+   		canvas.curtainBottom.getContext("2d").drawImage(
+			image.curtainBottom.photo,
+			0,
+			image.curtainBottom.offsetPosition,
+			canvas.curtain.width,
+			image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)
+		);
+   	};
+};
 function updateTextTop()
 {
 	textTop.context.clearRect(0,0,textTop.canvas.width,textTop.canvas.height);
@@ -52,65 +94,7 @@ function updateTextTop()
 				image.textTop.isStillOnPage = false;
 			};
 };
-function transitionCurtain()
-{
-//		updateTextTop();
-        timer++;
 
-        if (timer > 100)
-        {
-        image.textTop.isStillOnPage = false;
-        };
-		if (!image.textTop.isStillOnPage) {
-    canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
-    canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
-
-    //update position
-    image.curtainTop.offsetPosition -= curtainDriftOffset * 4;
-    image.curtainBottom.offsetPosition += curtainDriftOffset;	
-	
-	//update fade
-	
-//	let alphaTemp = alpha.curtain;
-//	alpha.curtain -= .005;
-//	canvas.curtain.getContext("2d").globalAlpha = alphaTemp;
-//  canvas.curtainBottom.getContext("2d").globalAlpha = alphaTemp;
-
-	if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
-	{
-		timer = 0;
-		animationStep++;
-	};
-
-	//redraw
-    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,image.curtainTop.offsetPosition,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,image.curtainBottom.offsetPosition,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
-    };
-};
-
-function fadeTitle() 
-{
-    timer++;
-
-    if (timer > DEFAULT_PHOTO_DURATION) 
-    {
-    canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
-
-	let alphaTemp = alpha.title;
-	alpha.title -= .01;
-	canvas.title.getContext("2d").globalAlpha = alphaTemp;
-
-	if (alpha.title < 0)
-	{
-		animationStep++;
-        timer = 0;
-    };
-    //redraw
-    canvas.title.getContext("2d").drawImage(image.title,0,0,canvas.title.width,image.title.height/(image.title.width/canvas.title.width));
-
-    canvas.title.getContext("2d").restore();
-    };
-};
 
 function slideShow()
 {
@@ -123,14 +107,21 @@ function slideShow()
     //if the photo hasn't been drawn yet, size it and save the drawing
     if (photo.hasNotBeenDrawnYet)
     {
-        if (document.documentElement.clientHeight > document.documentElement.clientWidth)
+        if (screenOrientation === PORTRAIT)
         {
             photo.drawWidth = canvas.slideshow.width;
             photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
         } else {
             photo.drawHeight = canvas.slideshow.height;
-            photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
-        };
+			photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+        
+
+			if (photo.extraWide === true)
+			{
+				photo.drawHeight = photo.drawHeight * .75;
+				photo.drawWidth = photo.drawWidth * .75;
+			};
+		};
 
         photo.x = canvas.slideshow.width * photo.initialPosition[X];
         photo.y = canvas.slideshow.height * photo.initialPosition[Y];
@@ -143,8 +134,22 @@ function slideShow()
     drawText(photo);
     };
 
+	let photoXPos = photo.x;
+
+	if (screenOrientation === LANDSCAPE && photo.textOnRight === false)
+	{
+		//TODO: replace with an actual relative text width offset
+		photoXPos = photoXPos + 500;
+	};
+	
 	//position on side of canvas as desired
-    canvas.slideshow.getContext("2d").drawImage(photo.photo,photo.x,photo.y,photo.drawWidth,photo.drawHeight);
+    canvas.slideshow.getContext("2d").drawImage(
+		photo.photo,
+		photoXPos,
+		photo.y,
+		photo.drawWidth,
+		photo.drawHeight
+	);
 
     if (photo.transitionInIsComplete) {
     //once transition is complete, start timer and mark transition complete
@@ -215,19 +220,14 @@ function slideShow()
 function drawText(photo)
 {
 	canvas.text.getContext("2d").clearRect(0,0,canvas.text.width,canvas.text.height);
-    if (document.documentElement.clientHeight < document.documentElement.clientWidth)
+    if (screenOrientation === LANDSCAPE)
     {
         text[photoCounter].x = text[photoCounter].x + photo.drawWidth;
     };
 
     if (!text[photoCounter].transitionInIsComplete)
     {
-        text[photoCounter].alpha += .006;
-    
-        if (text[photoCounter].alpha > 1)
-        {
-            text[photoCounter].transitionInIsComplete = true;
-        };
+    	fadeInText();
 	} else {
         textTimer++;
     };
@@ -236,19 +236,13 @@ function drawText(photo)
     {
         if (!text[photoCounter].transitionOutIsComplete)
         {
-            text[photoCounter].alpha -= .005;
-
-            if (text[photoCounter].alpha < 0)
-            {
-                text[photoCounter].transitionOutIsComplete = true;
-				textTimer = 0;
-			};
-        };
+        	fadeOutText();
+		};
     };
 
     canvas.text.getContext("2d").globalAlpha = text[photoCounter].alpha;
-	canvas.text.getContext("2d").font = fontSize + "px " + font;
-	canvas.text.getContext("2d").fillStyle = 'white';
+	canvas.text.getContext("2d").font = fontSize + "px " + FONT;
+	canvas.text.getContext("2d").fillStyle = FONT_COLOR;
 
 	const lines = wrapText(text[photoCounter].line, photo.drawWidth);
 		
@@ -261,7 +255,7 @@ function drawText(photo)
         photoPortraitOffset = photo.drawHeight;
     };
 
-	if (screenOrientation == LANDSCAPE)
+	if (screenOrientation == LANDSCAPE && photo.textOnRight === true)
 	{
 		photoLandscapeOffset = photo.drawWidth;
 	};
@@ -283,4 +277,29 @@ function drawText(photo)
 		lineNumber++;
 	};
 
+};
+
+function fadeInText()
+{
+	text[photoCounter].alpha += TEXT_FADE_SPEED;
+    
+    if (text[photoCounter].alpha > 1)
+    {
+        text[photoCounter].transitionInIsComplete = true;
+	};
+};
+
+function fadeOutText()
+{
+    text[photoCounter].alpha -= TEXT_FADE_SPEED;
+
+    if (text[photoCounter].alpha < 0)
+    {
+        text[photoCounter].transitionOutIsComplete = true;
+		textTimer = 0;
+	};
+};
+
+function setTextStyle()
+{
 };
