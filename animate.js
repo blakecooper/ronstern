@@ -139,9 +139,9 @@ function slideShow()
 	if (screenOrientation === LANDSCAPE && photo.textOnRight === false)
 	{
 		//TODO: replace with an actual relative text width offset
-		photoXPos = photoXPos + 500;
+		photoXPos = photoXPos + 600;
 	};
-	
+
 	//position on side of canvas as desired
     canvas.slideshow.getContext("2d").drawImage(
 		photo.photo,
@@ -161,15 +161,30 @@ function slideShow()
 
         if (photo.initialPosition === LEFT)
         {
-            if (photo.x >= 0)
+            //Ron wants these two photos centered
+            if (photoCounter === 4 || photoCounter === 6)
             {
-                photo.transitionInIsComplete = true;
+                if (photo.x >= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
+                    photo.transitionInIsComplete = true;
+                }
+            } else {
+                if (photo.x >= 0)
+                {
+                    photo.transitionInIsComplete = true;
+                };
             };
         } else if (photo.initialPosition === RIGHT)
         {
-            if (photo.x <= 0)
+            if (photoCounter === 4 || photoCounter === 6)
             {
-                photo.transitionInIsComplete = true;
+                if (photo.x <= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
+                    photo.transitionInIsComplete = true;
+                };
+            } else {
+                if (photo.x <= 0)
+                {
+                    photo.transitionInIsComplete = true;
+                };
             };
         } else if (photo.initialPosition === UP)
         {
