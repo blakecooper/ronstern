@@ -14,16 +14,31 @@ function animate()
 		fadeTitle();
 	};
 
-    if (animationStep === 3)
+	if (animationStep === 3)
+	{
+		pauseFor(150);
+	};
+
+    if (animationStep === 4)
     {
         slideShow();
     };
 	
-	if (animationStep === 4)
+	if (animationStep === 5)
 	{
 		document.getElementById("canvases").style["display"] = "none";
 		document.getElementById("gallery").style["display"] = "inline";
 	};
+};
+
+function pauseFor(time) 
+{
+	timer++;
+		if (timer > time)
+		{
+			timer = 0;
+				animationStep++;
+		};
 };
 
 function transitionCurtain()
@@ -43,7 +58,7 @@ function transitionCurtain()
    		canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
 		
 		//update position
-   		image.curtainTop.offsetPosition -= curtainDriftOffset * 4;
+   		image.curtainTop.offsetPosition -= curtainDriftOffset * 1.5;
    		image.curtainBottom.offsetPosition += curtainDriftOffset;	
 
 		if (image.curtainTop.offsetPosition + canvas.curtain.height < 0)
@@ -109,17 +124,31 @@ function slideShow()
     {
         if (screenOrientation === PORTRAIT)
         {
-            photo.drawWidth = canvas.slideshow.width;
-            photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
-        } else {
-            photo.drawHeight = canvas.slideshow.height;
-			photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
-        
-
-			if (photo.extraWide === true)
+			if (photo.fullScreen === true)
 			{
-				photo.drawHeight = photo.drawHeight * .75;
-				photo.drawWidth = photo.drawWidth * .75;
+				photo.drawHeight = canvas.slideshow.height;
+				photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+
+			} else {
+				photo.drawWidth = canvas.slideshow.width;
+           		photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
+        	};
+		} else {
+        	if (photo.fullScreen === true)
+			{
+				photo.drawWidth = canvas.slideshow.width;
+           		photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
+			} else {
+
+				photo.drawHeight = canvas.slideshow.height;
+				photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+        
+	
+				if (photo.extraWide === true)
+				{
+					photo.drawHeight = photo.drawHeight * .75;
+					photo.drawWidth = photo.drawWidth * .75;
+				};
 			};
 		};
 

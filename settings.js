@@ -191,6 +191,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": true,
+			"fullScreen": false,
 		},
         "2": {
             "photo": document.getElementById("photo2"),
@@ -209,6 +210,7 @@ const image = {
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
+			"fullScreen": false,
         },
         "3": {
             "photo": document.getElementById("photo3"),
@@ -227,6 +229,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": false,
 			"extraWide": false,
+			"fullScreen": false,
         },
         "4": {
             "photo": document.getElementById("photo4"),
@@ -245,6 +248,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
+			"fullScreen": false,
         },
         "5": {
             "photo": document.getElementById("photo5"),
@@ -263,6 +267,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": true,
+			"fullScreen": false,
         },
         "6": {
             "photo": document.getElementById("photo6"),
@@ -281,6 +286,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
+			"fullScreen": false,
         },
         "7": {
             "photo": document.getElementById("photo7"),
@@ -299,6 +305,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
+			"fullScreen": false,
         },
         "8": {
             "photo": document.getElementById("photo8"),
@@ -317,7 +324,8 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
-        },
+			"fullScreen": true,
+		},
         "9": {
             "photo": document.getElementById("photo9"),
             "hasNotBeenDrawnYet": true,
@@ -335,6 +343,7 @@ const image = {
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
+			"fullScreen": false,
         },
     },
 };
