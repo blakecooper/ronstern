@@ -37,7 +37,7 @@ let DEFAULT_PHOTO_DURATION = 250;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 10;
 //How long is the text visible? Note: should be less than photoDuration
-let textDuration = 300;
+let textTimingOffset = -95;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -170,7 +170,7 @@ const image = {
     },
     "title": {
 		"photo": document.getElementById("titleImg"),
-		"duration": 150, //"three Blake Coopers" 
+		"duration": 50, //"three Blake Coopers" 
     	"alpha": 1,
 	},
 	"slideshow": {
@@ -187,7 +187,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION,
+        	"duration": 250,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": true,

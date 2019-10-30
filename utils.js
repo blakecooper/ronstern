@@ -173,7 +173,7 @@ function sizeText()
 
 	if (screenOrientation == LANDSCAPE)
 	{
-		fontSize = window.innerWidth / 55;
+		fontSize = window.innerWidth / 50;
 	};
 };
 
@@ -192,6 +192,7 @@ function fadeTitle()
 
 		if (alpha.title < 0)
 		{
+			document.getElementById("titleCanvas").style="display: none";
 			animationStep++;
         	timer = 0;
     	};

@@ -16,7 +16,7 @@ function animate()
 
 	if (animationStep === 3)
 	{
-		pauseFor(150);
+		pauseFor(50);
 	};
 
     if (animationStep === 4)
@@ -47,7 +47,7 @@ function transitionCurtain()
     timer++;
 
 	//TODO: shouldn't this be related to the position of the text on the page, not an arbitrary timing?
-    if (timer > 100)
+    if (timer > 150)
     {
        image.textTop.isStillOnPage = false;
     };
@@ -272,15 +272,24 @@ function drawText(photo)
     if (!text[photoCounter].transitionInIsComplete)
     {
     	fadeInText();
+    	if (text[photoCounter].alpha > 1)
+    	{
+        	text[photoCounter].transitionInIsComplete = true;
+		};
 	} else {
         textTimer++;
     };
 
-    if (textTimer > textDuration && text[photoCounter].transitionInIsComplete)
+    if (textTimer > (photo.duration + textTimingOffset) && text[photoCounter].transitionInIsComplete)
     {
         if (!text[photoCounter].transitionOutIsComplete)
         {
         	fadeOutText();
+    		if (text[photoCounter].alpha < 0)
+    		{
+        		text[photoCounter].transitionOutIsComplete = true;
+				textTimer = 0;
+			};
 		};
     };
 
@@ -293,6 +302,7 @@ function drawText(photo)
 	let lineNumber = 1;	
     let photoPortraitOffset = 0;
 	let photoLandscapeOffset = 0;
+	let textY = getTextY(lines, photo);
 
     if (screenOrientation == PORTRAIT)
     {
@@ -304,7 +314,7 @@ function drawText(photo)
 		photoLandscapeOffset = photo.drawWidth;
 	};
 
-    if (text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize) > canvas.text.height)
+    if (textY + photoPortraitOffset + (lines.length * fontSize) > canvas.text.height)
     {
         canvas.text.height = text[photoCounter].y + photoPortraitOffset + (lines.length * fontSize);
     };
@@ -317,31 +327,34 @@ function drawText(photo)
     
 	for (let i = 0; i < lines.length; i++)
 	{
-		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (text[photoCounter].y + photoPortraitOffset + (fontSize * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (textY + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 
+};
+
+function getTextY(lines, photo)
+{
+	let retVal = text[photoCounter].y;
+
+	if ((lines.length * fontSize) < photo.drawHeight)
+	{
+		retVal = retVal + ((photo.drawHeight-(lines.length*fontSize))/2);
+	};
+
+	return retVal;
 };
 
 function fadeInText()
 {
 	text[photoCounter].alpha += TEXT_FADE_SPEED;
     
-    if (text[photoCounter].alpha > 1)
-    {
-        text[photoCounter].transitionInIsComplete = true;
-	};
 };
 
 function fadeOutText()
 {
     text[photoCounter].alpha -= TEXT_FADE_SPEED;
 
-    if (text[photoCounter].alpha < 0)
-    {
-        text[photoCounter].transitionOutIsComplete = true;
-		textTimer = 0;
-	};
 };
 
 function setTextStyle()
