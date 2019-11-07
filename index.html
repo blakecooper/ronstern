@@ -7,35 +7,17 @@
 <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">        
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
-		<script src="settings.js" defer></script>
 		<script src="utils.js" defer></script>
 		<script src="animate.js" defer></script>
     </head>
 	<body style="background-color: #000000;">
 
 		<div id="container" class="container" style="padding:0; margin:0;">
-            <div style="display: none; padding:0; margin:0;">
+            <div id="photoContainer" style="display: none; padding:0; margin:0;">
                 <img id="curtainTopImg" src="assets/photos/curtain_top.png"></img>
                 <img id="curtainBottomImg" src="assets/photos/curtain_bottom.png"></img>
 				<img id="scrollText" src="assets/text.png"></img>
 				<img id="titleImg" src="assets/photos/title.jpg"></img>
-                <img id="photo1" src="assets/photos/01.jpg"></img>
-                <img id="photo2" src="assets/photos/02.jpg"></img>
-                <img id="photo3" src="assets/photos/03.jpg"></img>
-                <img id="photo4" src="assets/photos/04.jpg"></img>
-                <img id="photo5" src="assets/photos/05.jpg"></img>
-                <img id="photo6" src="assets/photos/06.jpg"></img>
-                <img id="photo7" src="assets/photos/07.jpg"></img>
-                <img id="photo8" src="assets/photos/08.jpg"></img>				
-		<img id="photo9" src="assets/photos/09.jpg"></img>
-		<img id="photo10" src="assets/photos/10.jpg"></img>
-		<img id="photo11" src="assets/photos/11.jpg"></img>
-		<img id="photo12" src="assets/photos/12.jpg"></img>
-		<img id="photo13" src="assets/photos/13.jpg"></img>
-		<img id="photo14" src="assets/photos/14.jpg"></img>
-		<img id="photo15" src="assets/photos/15.jpg"></img>
-		<img id="photo16" src="assets/photos/16.jpg"></img>
-		<img id="photo17" src="assets/photos/17.jpg"></img>
 			</div>
 			<div id="canvases">
 			<canvas id="scrollTextCanvas" style="padding:0; margin:0; position:
@@ -57,162 +39,6 @@
             absolute; left: 0; top: {textCanvasLocation};
             z-index:2"></canvas>
 			</div>	
-			<div id="gallery" style="display: none;">
-				<div class="container">
-					<h1 style="font-family: 'Merriweather'; color:white;">Contact me</h1>
-							<p style="color:white; font-size:24px;"><b>(716) 844-1924</b>
-							<p style="color:white; font-size:24px;"><b>ronsternimagery@gmail.com</b>
-					<div class="row">
-							<div class="col-sm-6" style="font-family:
-                            'Merriweather';">
-							<p style="color:white; font-size:24px;">
-							<br style="color:white; font-size:24px;">
-							<br style="color:white; font-size:24px;">
-							</div>
-						<div class="col-sm-6">
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/01.jpg">
-                                            <img
-                                        src="assets/photos/gallery/01.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/02.jpg">
-                                            <img
-                                        src="assets/photos/gallery/02.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/03.jpg">
-                                            <img
-                                        src="assets/photos/gallery/03.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/04.jpg">
-                                            <img
-                                        src="assets/photos/gallery/04.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/05.jpg">
-                                            <img
-                                        src="assets/photos/gallery/05.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/06.jpg">
-                                            <img
-                                        src="assets/photos/gallery/06.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/07.jpg">
-                                            <img
-                                        src="assets/photos/gallery/07.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/08.jpg">
-                                            <img
-                                        src="assets/photos/gallery/08.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/09.jpg">
-                                            <img
-                                        src="assets/photos/gallery/09.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-							<div class="row">
-                                <div class="col-md-12">
-                                    <div class="thumbnail">
-                                        <a href="assets/photos/gallery/10.jpg">
-                                            <img
-                                        src="assets/photos/gallery/10.jpg"
-                                        style="width:100%">
-                                            <div class="caption">
-                                            <p></p>
-											</div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-						</div>
-					</div>
-				</div>
 			</div>
 			</div>
 	</body>
