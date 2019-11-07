@@ -24,11 +24,6 @@ function animate()
         slideShow();
     };
 	
-	if (animationStep === 5)
-	{
-		document.getElementById("canvases").style["display"] = "none";
-		document.getElementById("gallery").style["display"] = "inline";
-	};
 };
 
 function pauseFor(time) 
@@ -191,7 +186,7 @@ function slideShow()
         if (photo.initialPosition === LEFT)
         {
             //Ron wants these two photos centered
-            if (photoCounter === 4 || photoCounter === 6)
+            if (!photo.hasText)
             {
                 if (photo.x >= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
                     photo.transitionInIsComplete = true;
@@ -204,7 +199,7 @@ function slideShow()
             };
         } else if (photo.initialPosition === RIGHT)
         {
-            if (photoCounter === 4 || photoCounter === 6)
+            if (!photo.hasText)
             {
                 if (photo.x <= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
                     photo.transitionInIsComplete = true;
