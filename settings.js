@@ -1,5 +1,8 @@
 const DEMOMODE = 0;
 
+//This is a (temporary?) global variable used to reference the width of a line of text on the canvas. We need it to move photos out of the way in a few instances
+let textLineWidth = 0;
+
 //These are technical definitions to make the code more readable. Changing these could affect the app in weird ways!
 const OUT = 0;
 const IN = 1;

@@ -158,18 +158,10 @@ function slideShow()
     drawText(photo);
     };
 
-	let photoXPos = photo.x;
-
-	if (screenOrientation === LANDSCAPE && photo.textOnRight === false)
-	{
-		//TODO: replace with an actual relative text width offset
-		photoXPos = photoXPos + 600;
-	};
-
 	//position on side of canvas as desired
     canvas.slideshow.getContext("2d").drawImage(
 		photo.photo,
-		photoXPos,
+		photo.x,
 		photo.y,
 		photo.drawWidth,
 		photo.drawHeight
@@ -192,7 +184,15 @@ function slideShow()
                     photo.transitionInIsComplete = true;
                 }
             } else {
-                if (photo.x >= 0)
+	
+				let finalPosition = 0;
+
+				if (screenOrientation === LANDSCAPE && photo.textOnRight === false)
+				{
+					finalPosition += textLineWidth;	
+				};
+
+                if (photo.x >= finalPosition)
                 {
                     photo.transitionInIsComplete = true;
                 };
@@ -319,9 +319,14 @@ function drawText(photo)
 //	{
 //		canvas.text.width = 20 + photoLandscapeOffset + (80 * fontSize);
 //	};
-    
+
 	for (let i = 0; i < lines.length; i++)
 	{
+		if ((lines[i].length * fontSize) > textLineWidth)
+		{
+			textLineWidth = (lines[i].length * fontSize) * .6;
+		};
+
 		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (textY + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
