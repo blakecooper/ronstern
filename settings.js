@@ -455,7 +455,7 @@ const image = {
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
-			"fullScreen": true,
+			"fullScreen": false,
 			"hasCaption": false,
 			"captionID": "",
 		},
