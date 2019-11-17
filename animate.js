@@ -147,6 +147,10 @@ function slideShow()
 			};
 		};
 
+		if (photo.hasCaption)
+		{
+			captionLocation = photo.drawHeight;
+		};
         photo.x = canvas.slideshow.width * photo.initialPosition[X];
         photo.y = canvas.slideshow.height * photo.initialPosition[Y];
         photo.hasNotBeenDrawnYet = false;
@@ -155,8 +159,9 @@ function slideShow()
     //fade in text at the same time
     if (!photo.hasNotBeenDrawnYet)
     {
-    drawText(photo);
-    };
+    	drawText(photo);
+		
+	};
 
 	//position on side of canvas as desired
     canvas.slideshow.getContext("2d").drawImage(
@@ -168,7 +173,8 @@ function slideShow()
 	);
 
     if (photo.transitionInIsComplete) {
-    //once transition is complete, start timer and mark transition complete
+	
+	//once transition is complete, start timer and mark transition complete
         timer++;
     } else {
     //update position according to final position desired
@@ -195,6 +201,11 @@ function slideShow()
                 if (photo.x >= finalPosition)
                 {
                     photo.transitionInIsComplete = true;
+		
+					if (photo.hasCaption)
+					{
+						viewCaption(photo);
+					};
                 };
             };
         } else if (photo.initialPosition === RIGHT)
@@ -203,11 +214,19 @@ function slideShow()
             {
                 if (photo.x <= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
                     photo.transitionInIsComplete = true;
+					if (photo.hasCaption)
+					{
+						viewCaption(photo);
+					};
                 };
             } else {
                 if (photo.x <= 0)
                 {
                     photo.transitionInIsComplete = true;
+					if (photo.hasCaption)
+					{
+						viewCaption(photo);
+					};
                 };
             };
         } else if (photo.initialPosition === UP)
@@ -215,12 +234,20 @@ function slideShow()
             if (photo.y > photo.finalPosition[Y]) 
             {
                 photo.transitionInIsComplete = true;
+					if (photo.hasCaption)
+					{
+						viewCaption(photo);
+					};
             };
         } else if (photo.initialPosition === DOWN)
         {
             if (photo.y < photo.finalPosition[Y])
             {
                 photo.transitionInIsComplete = true;
+					if (photo.hasCaption)
+					{
+						viewCaption(photo);
+					};
             };
         };
     };
@@ -228,15 +255,22 @@ function slideShow()
     //after timer, advance slideshow by one
     if (timer > photo.duration && !photo.transitionOutIsComplete)
     {
+
+		if (photo.hasCaption) 
+		{
+			hideCaption(photo);
+		};
+
         //TODO: right now this only works for sideways transitions
         if ((photo.x > (0-canvas.slideshow.width) && photo.x < canvas.slideshow.width))
         {
                 photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
                 photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y])); 
-        } else {
+		} else {
 			if (text[photoCounter].transitionOutIsComplete === true)
 			{
             	photo.transitionOutIsComplete = true;
+				
         	};
 		};
     };
@@ -253,6 +287,28 @@ function slideShow()
 	if (photoCounter === totalPhotos)
 	{
 		animationStep++;
+	};
+};
+
+function viewCaption (photo)
+{
+	let caption = document.getElementById("caption" + photo.captionID);
+	
+	caption.style.top = (photo.drawHeight * .85) + 'px';
+	caption.style.right = (window.innerWidth - photo.drawWidth) + 'px';
+
+	if (caption.style.display === "none")
+	{
+		caption.style.display = "inline";
+	};
+};
+
+function hideCaption (photo)
+{
+	let caption = document.getElementById("caption" + photo.captionID);
+	if (caption.style.display === "inline")
+	{
+		caption.style.display = "none";
 	};
 };
 
@@ -327,7 +383,7 @@ function drawText(photo)
 			textLineWidth = (lines[i].length * fontSize) * .6;
 		};
 
-		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (textY + photoPortraitOffset + (fontSize * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (20 + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 
