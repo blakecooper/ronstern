@@ -16,7 +16,7 @@ function animate()
 
 	if (animationStep === 3)
 	{
-		pauseFor(50);
+		pauseFor(35);
 	};
 
     if (animationStep === 4)
@@ -192,7 +192,6 @@ function slideShow()
             } else {
 	
 				let finalPosition = 0;
-
 				if (screenOrientation === LANDSCAPE && photo.textOnRight === false)
 				{
 					finalPosition += textLineWidth;	
@@ -279,8 +278,8 @@ function slideShow()
     {
         if (photoCounter < totalPhotos)
         {
-        photoCounter++;
-        timer = 0;
+    	    photoCounter++;
+        	timer = 0;
         };
     };
 	
@@ -294,8 +293,8 @@ function viewCaption (photo)
 {
 	let caption = document.getElementById("caption" + photo.captionID);
 	
-	caption.style.top = (photo.drawHeight * .85) + 'px';
-	caption.style.right = (window.innerWidth - photo.drawWidth) + 'px';
+	caption.style.top = photo.drawHeight + 'px';
+	caption.style.right = (window.innerWidth - photo.drawWidth + 20) + 'px';
 
 	if (caption.style.display === "none")
 	{
@@ -322,7 +321,7 @@ function drawText(photo)
 
     if (!text[photoCounter].transitionInIsComplete)
     {
-    	fadeInText();
+    	fadeInText(photo);
     	if (text[photoCounter].alpha > 1)
     	{
         	text[photoCounter].transitionInIsComplete = true;
@@ -335,7 +334,7 @@ function drawText(photo)
     {
         if (!text[photoCounter].transitionOutIsComplete)
         {
-        	fadeOutText();
+        	fadeOutText(photo);
     		if (text[photoCounter].alpha < 0)
     		{
         		text[photoCounter].transitionOutIsComplete = true;
@@ -383,7 +382,7 @@ function drawText(photo)
 			textLineWidth = (lines[i].length * fontSize) * .6;
 		};
 
-		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (20 + photoPortraitOffset + (fontSize * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (10 + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 
@@ -401,16 +400,26 @@ function getTextY(lines, photo)
 	return retVal;
 };
 
-function fadeInText()
+function fadeInText(photo)
 {
-	text[photoCounter].alpha += TEXT_FADE_SPEED;
+	if (photo.slowTextTransition)
+	{
+		text[photoCounter].alpha += TEXT_FADE_SPEED/2;
+	} else {	
+		text[photoCounter].alpha += TEXT_FADE_SPEED;
+	};
     
 };
 
-function fadeOutText()
+function fadeOutText(photo)
 {
-    text[photoCounter].alpha -= TEXT_FADE_SPEED;
+	if (photo.slowTextTransition)
+	{
+    	text[photoCounter].alpha -= TEXT_FADE_SPEED/2;
+	} else {
 
+    	text[photoCounter].alpha -= TEXT_FADE_SPEED;
+	};
 };
 
 function setTextStyle()

@@ -239,7 +239,7 @@ const image = {
     },
     "title": {
 		"photo": document.getElementById("titleImg"),
-		"duration": 50, //"three Blake Coopers" 
+		"duration": 67, //"three Blake Coopers" 
     	"alpha": 1,
 	},
 	"slideshow": {
@@ -264,6 +264,7 @@ const image = {
             "centered": false,
 			"hasCaption": false,
 			"captionID": "",
+			"slowTextTransition": true,
 		},
         "2": {
             "photo": document.getElementById("photo2"),
@@ -278,7 +279,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED *.9,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION + 165,
+        	"duration": DEFAULT_PHOTO_DURATION + 167,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
@@ -292,7 +293,7 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo3").width,
             "drawHeight": document.getElementById("photo3").height,
-            "initialPosition": LEFT,
+            "initialPosition": RIGHT,
             "finalPosition": [0,0],
             "x": 0,
             "y": 0,
@@ -335,13 +336,13 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo5").width,
             "drawHeight": document.getElementById("photo5").height,
-            "initialPosition": LEFT,
+			"initialPosition": LEFT,
             "finalPosition": [0,0],
             "x": 0,
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED/1.6,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
