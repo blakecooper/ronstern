@@ -256,7 +256,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED / 2,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": 250,
+        	"duration": 267,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": true,
