@@ -8,6 +8,7 @@ body {
 	background-color: #000000;
 	font-family: 'American Typewriter Bold';
 	font-size: '18px';
+	line-height: 150%;
 }
 
 canvas {
