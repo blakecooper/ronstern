@@ -241,7 +241,7 @@ const image = {
     },
     "title": {
 		"photo": document.getElementById("titleImg"),
-		"duration": 67, //"three Blake Coopers" 
+		"duration": 20,  
     	"alpha": 1,
 	},
 	"titleRealistic": {
