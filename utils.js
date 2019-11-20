@@ -40,6 +40,7 @@ function drawTitleAndCurtains()
     canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
     canvas.title.getContext("2d").drawImage(image.title.photo,0,0,canvas.curtain.width,image.title.photo.height/(image.title.photo.width/canvas.title.width));
+	canvas.titleRealistic.getContext("2d").drawImage(image.titleRealistic.photo,0,0,canvas.curtain.width,image.titleRealistic.photo.height/(image.titleRealistic.photo.width/canvas.titleRealistic.width));
 };
 
 function sizeCanvas()
@@ -54,7 +55,10 @@ function sizeCanvas()
     document.getElementById("titleCanvas").width = window.innerWidth;
     document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
 
-    document.getElementById("scrollTextCanvas").width = window.innerWidth;
+    document.getElementById("titleRealisticCanvas").width = window.innerWidth;
+    document.getElementById("titleRealisticCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    
+	document.getElementById("scrollTextCanvas").width = window.innerWidth;
     document.getElementById("scrollTextCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
     document.getElementById("slideshowCanvas").width = window.innerWidth;
     document.getElementById("slideshowCanvas").height = window.innerHeight;
@@ -180,26 +184,41 @@ function sizeText()
 //TODO: Refactor so this is a generic "fade out" function that came take any image/canvas and redraw it while fading
 function fadeTitle() 
 {
-    timer++;
+	if (alpha.titleRealistic > 0)
+	{
 
-    if (timer > image.title.duration) 
-    {
-    	canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+    	canvas.titleRealistic.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+		
+		let alphaRealisticTemp = alpha.titleRealistic;
+		alpha.titleRealistic -= .006;
+		canvas.titleRealistic.getContext("2d").globalAlpha = alphaRealisticTemp;
+		canvas.titleRealistic.getContext("2d").drawImage(image.titleRealistic.photo,0,0,canvas.titleRealistic.width,image.titleRealistic.photo.height/(image.titleRealistic.photo.width/canvas.titleRealistic.width));
 
-		let alphaTemp = alpha.title;
-		alpha.title -= .01;
-		canvas.title.getContext("2d").globalAlpha = alphaTemp;
+    		canvas.titleRealistic.getContext("2d").restore();
+	} else {
 
-		if (alpha.title < 0)
-		{
-			document.getElementById("titleCanvas").style="display: none";
-			animationStep++;
-        	timer = 0;
-    	};
+		timer++;
+    	if (timer > image.title.duration) 
+    	{
+    		canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
+
+			let alphaTemp = alpha.title;
+			alpha.title -= .01;
+			canvas.title.getContext("2d").globalAlpha = alphaTemp;
+
+			if (alpha.title < 0)
+			{
+				document.getElementById("titleCanvas").style="display: none";
+				document.getElementById("titleRealisticCanvas").style="display: none";
+				animationStep++;
+        		timer = 0;
+    		};
     
-		//redraw
-    	canvas.title.getContext("2d").drawImage(image.title.photo,0,0,canvas.title.width,image.title.photo.height/(image.title.photo.width/canvas.title.width));
+			//redraw
+    	
+			canvas.title.getContext("2d").drawImage(image.title.photo,0,0,canvas.title.width,image.title.photo.height/(image.title.photo.width/canvas.title.width));
 
-    	canvas.title.getContext("2d").restore();
-    };
+    		canvas.title.getContext("2d").restore();
+    	};
+	};
 };

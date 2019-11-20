@@ -51,6 +51,7 @@ const textBuffer = 100;
 let alpha = {
 	"curtain": 1,
 	"title": 1,
+	"titleRealistic": 1,
 };
 
 //Canvas objects
@@ -58,7 +59,8 @@ const canvas = {
     "scrollText": document.getElementById("scrollTextCanvas"),
     "curtain": document.getElementById("curtainCanvas"),
     "title": document.getElementById("titleCanvas"),
-    "curtainBottom": document.getElementById("curtainBottomCanvas"),
+	"titleRealistic": document.getElementById("titleRealisticCanvas"),
+	"curtainBottom": document.getElementById("curtainBottomCanvas"),
     "slideshow": document.getElementById("slideshowCanvas"), 
     "text": document.getElementById("textCanvas"),
 };
@@ -242,6 +244,11 @@ const image = {
 		"duration": 67, //"three Blake Coopers" 
     	"alpha": 1,
 	},
+	"titleRealistic": {
+		"photo": document.getElementById("titleRealisticImg"),
+		"duration": 35,
+		"alpha": 1,
+	},
 	"slideshow": {
         "1": {
             "photo": document.getElementById("photo1"),
@@ -264,7 +271,7 @@ const image = {
             "centered": false,
 			"hasCaption": false,
 			"captionID": "",
-			"slowTextTransition": true,
+			"slowTextTransition": false,
 		},
         "2": {
             "photo": document.getElementById("photo2"),

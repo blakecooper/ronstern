@@ -11,15 +11,20 @@ function animate()
 
 	if (animationStep === 2)
 	{
-		fadeTitle();
+		pauseFor(70);
 	};
 
 	if (animationStep === 3)
 	{
+		fadeTitle();
+	};
+
+	if (animationStep === 4)
+	{
 		pauseFor(35);
 	};
 
-    if (animationStep === 4)
+    if (animationStep === 5)
     {
         slideShow();
     };
