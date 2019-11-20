@@ -130,9 +130,15 @@ function slideShow()
 				photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
 
 			} else {
-				photo.drawWidth = canvas.slideshow.width;
-           		photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
-        	};
+				if (photo.extraTall === true)
+				{
+					photo.drawHeight = canvas.slideshow.height;
+				photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+				} else {
+					photo.drawWidth = canvas.slideshow.width;
+           			photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
+        		};
+			};
 		} else {
         	if (photo.fullScreen === true)
 			{
