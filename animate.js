@@ -11,7 +11,7 @@ function animate()
 
 	if (animationStep === 2)
 	{
-		pauseFor(65);
+		pauseFor(150);
 	};
 
 	if (animationStep === 3)
