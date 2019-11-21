@@ -22,7 +22,7 @@ const PORTRAIT = 1;
 const FONT = "Merriweather";
 let fontSize = "48";
 
-const TEXT_FADE_SPEED = .009;
+const TEXT_FADE_SPEED = .006;
 const FONT_COLOR = 'white';
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 2;
@@ -43,7 +43,7 @@ let DEFAULT_PHOTO_DURATION = 250;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 10;
 //How long is the text visible? Note: should be less than photoDuration
-let textTimingOffset = 0;
+let textTimingOffset = 50;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -76,6 +76,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "2": {
         "line": "Like Bert, Ron would blossom in commercial photography, often creating brilliant artistic images from seemingly mundane subjects. PARA Not afraid to experiment, Ron's work with Revlon using a holographic camera to create completely unique, never before seen imagery,  is still considered groundbreaking. Working side by side with celebrated fashion photographer David Steinberg, then under the direction of revered New York Art Director, Milton Green the team developed a new paradigm for modern photography - artistically capturing moments in three dimensions.",
@@ -85,6 +86,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": -60,
     },
     "3": {
         "line": "",
@@ -94,6 +96,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "4": {
         "line": "From his work on Madison ave, it wasn't long before Hollywood came calling. Like his Uncle's breathtaking portraits of Marilyn Monroe, Ron's photographic studies of celebrated actors and writers are often considered their finest photographs of their careers. PARA 90's Miramax film star Mel Gorham, believes her shoots with Ron to be her greatest.",
@@ -103,6 +106,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "5": {
         "line": "",
@@ -112,6 +116,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "6": {
         "line": "",
@@ -121,6 +126,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "7": {
         "line": "Writer/actor Scott Rubin, the longest serving Editor in Chief of National Lampoon, is convinced that Ron Stern is the finest portrait photographer he's ever worked with.",
@@ -130,6 +136,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": -55,
     },
     "8": {
         "line": "",
@@ -139,6 +146,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "9": {
         "line": "",
@@ -148,6 +156,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "10": {
         "line": "",
@@ -157,6 +166,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "11": {
         "line": "",
@@ -166,6 +176,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "12": {
         "line": "",
@@ -175,6 +186,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "13": {
         "line": "",
@@ -184,6 +196,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "14": {
         "line": "After years of capturing magical imagery, Ron has decided to show his photographs at museums and festivals. You can view a select group of photos for the first time at the 2019 Allentown Art Festival -- America's largest regional art show.",
@@ -193,6 +206,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": -10,
     },
     "15": {
         "line": "",
@@ -202,6 +216,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "16": {
         "line": "",
@@ -211,6 +226,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "17": {
         "line": "",
@@ -220,6 +236,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
 };
 
@@ -363,9 +380,9 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED/1.2,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.3,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION,
+        	"duration": DEFAULT_PHOTO_DURATION * .65,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -450,15 +467,15 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo9").width,
             "drawHeight": document.getElementById("photo9").height,
-            "initialPosition": RIGHT,
+            "initialPosition": LEFT,
             "finalPosition": [0,0],
             "x": 0,
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION * .3,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -478,9 +495,9 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION * .3,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -500,9 +517,9 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION * .3,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -522,13 +539,15 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION * .3,
 			"hasText": false,
-			"textOnRight": true,
+			"textOnRight": false,
 			"extraWide": false,
-			"fullScreen": false,
+			"extraTall": true,
+			"fullScreen": true,
+            "centered": true,
 			"hasCaption": false,
 			"captionID": "",
 			"longDurationForText": false,
@@ -560,7 +579,7 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo9").width,
             "drawHeight": document.getElementById("photo9").height,
-            "initialPosition": LEFT,
+            "initialPosition": RIGHT,
             "finalPosition": [0,0],
             "x": 0,
             "y": 0,
@@ -626,7 +645,7 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo17").width,
             "drawHeight": document.getElementById("photo17").height,
-            "initialPosition": RIGHT,
+            "initialPosition": LEFT,
             "finalPosition": [0,0],
             "x": 0,
             "y": 0,

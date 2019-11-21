@@ -168,10 +168,12 @@ function slideShow()
     };
     
     //fade in text at the same time
-    if (!photo.hasNotBeenDrawnYet && photo.hasText)
+    if (!photo.hasNotBeenDrawnYet && image.slideshow[photoCounter].hasText)
     {
     	drawText(photo);
 		
+	} else {
+		text[photoCounter].transitionOutIsComplete = true;
 	};
 
 	//position on side of canvas as desired
@@ -347,7 +349,7 @@ function drawText(photo)
         textTimer++;
     };
 
-	let totalTextDuration = photo.duration + textTimingOffset;
+	let totalTextDuration = photo.duration + textTimingOffset + text[photoCounter].timingOffset;
 
 
 	if (photoCounter === 4)
