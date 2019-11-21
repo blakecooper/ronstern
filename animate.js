@@ -164,7 +164,12 @@ function slideShow()
 		};
         photo.x = canvas.slideshow.width * photo.initialPosition[X];
         photo.y = canvas.slideshow.height * photo.initialPosition[Y];
-        photo.hasNotBeenDrawnYet = false;
+        
+		//Ron wants the picture of the three kids lower on the screen
+		if (photoCounter === 13 && screenOrientation === PORTRAIT) {
+			photo.y + (photo.drawHeight/2);
+		};
+		photo.hasNotBeenDrawnYet = false;
     };
     
     //fade in text at the same time
@@ -197,7 +202,7 @@ function slideShow()
         if (photo.initialPosition === LEFT)
         {
             //Ron wants these two photos centered
-            if (!photo.hasText)
+            if (photo.centered)
             {
                 if (photo.x >= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
                     photo.transitionInIsComplete = true;
@@ -362,10 +367,24 @@ function drawText(photo)
         if (!text[photoCounter].transitionOutIsComplete)
         {
         	fadeOutText(photo);
+
+			//Ron wants only Scott's text to "slide left"
+			//UPDATE: Ron just asked for it for the chauffer too
+			if (photoCounter === 7)
+			{
+				scottsTextSliding -= .3;
+			} else if (photoCounter === 1)
+			{
+				scottsTextSliding += .5;
+			} else {
+				scottsTextSliding = 0;
+			};
+
     		if (text[photoCounter].alpha < 0)
     		{
         		text[photoCounter].transitionOutIsComplete = true;
 				textTimer = 0;
+				scottsTextSliding = 0;
 			};
 		};
     };
@@ -409,7 +428,7 @@ function drawText(photo)
 			textLineWidth = (lines[i].length * fontSize) * .6;
 		};
 
-		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset, (10 + photoPortraitOffset + (fontSize * lineNumber))); 
+		canvas.text.getContext("2d").fillText(lines[i], 20 + photoLandscapeOffset + scottsTextSliding, (10 + photoPortraitOffset + (fontSize * lineNumber))); 
 		lineNumber++;
 	};
 

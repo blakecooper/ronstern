@@ -1,3 +1,5 @@
+let scottsTextSliding = 0;
+
 const DEMOMODE = 0;
 
 //This is a (temporary?) global variable used to reference the width of a line of text on the canvas. We need it to move photos out of the way in a few instances
@@ -22,7 +24,7 @@ const PORTRAIT = 1;
 const FONT = "Merriweather";
 let fontSize = "48";
 
-const TEXT_FADE_SPEED = .006;
+const TEXT_FADE_SPEED = .007;
 const FONT_COLOR = 'white';
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 2;
@@ -43,7 +45,7 @@ let DEFAULT_PHOTO_DURATION = 250;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 10;
 //How long is the text visible? Note: should be less than photoDuration
-let textTimingOffset = 50;
+let textTimingOffset = -110;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -76,7 +78,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": 0,
+		"timingOffset": 10,
     },
     "2": {
         "line": "Like Bert, Ron would blossom in commercial photography, often creating brilliant artistic images from seemingly mundane subjects. PARA Not afraid to experiment, Ron's work with Revlon using a holographic camera to create completely unique, never before seen imagery,  is still considered groundbreaking. Working side by side with celebrated fashion photographer David Steinberg, then under the direction of revered New York Art Director, Milton Green the team developed a new paradigm for modern photography - artistically capturing moments in three dimensions.",
@@ -136,7 +138,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": -55,
+		"timingOffset": -100,
     },
     "8": {
         "line": "",
@@ -149,7 +151,7 @@ let text = {
 		"timingOffset": 0,
     },
     "9": {
-        "line": "",
+        "line": "After years of capturing magical imagery, Ron has decided to show his photographs at museums and festivals. You can view a select group of photos for the first time at the 2019 Allentown Art Festival -- America's largest regional art show.",
         "alpha": 0,
         "widthInChars": 100,
         "x": canvas.slideshow.width/2,
@@ -199,8 +201,8 @@ let text = {
 		"timingOffset": 0,
     },
     "14": {
-        "line": "After years of capturing magical imagery, Ron has decided to show his photographs at museums and festivals. You can view a select group of photos for the first time at the 2019 Allentown Art Festival -- America's largest regional art show.",
-        "alpha": 0,
+        "line": "",
+		"alpha": 0,
         "widthInChars": 100,
         "x": 10,
         "y": 10,
@@ -313,7 +315,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED *.9,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION + 167,
+        	"duration": DEFAULT_PHOTO_DURATION + 200,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
@@ -341,6 +343,7 @@ const image = {
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
+            "centered": false,
 			"hasCaption": false,
 			"captionID": "",
 			"longDurationForText": false,
@@ -473,10 +476,11 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .3,
-			"hasText": false,
+        	"duration": DEFAULT_PHOTO_DURATION * .5,
+			"hasText": true,
+            "centered": false,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -495,10 +499,11 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .3,
+        	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": false,
+            "centered": true,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -517,10 +522,11 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .3,
+        	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": false,
+            "centered": true,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -539,10 +545,11 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.35,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .3,
+        	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": false,
+            "centered": true,
 			"textOnRight": false,
 			"extraWide": false,
 			"extraTall": true,
@@ -567,6 +574,7 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
+            "centered": true,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -588,7 +596,8 @@ const image = {
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED*.8,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
-			"hasText": true,
+			"hasText": false,
+            "centered": true,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -611,6 +620,7 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
+            "centered": true,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -633,6 +643,7 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
+            "centered": false,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
@@ -655,6 +666,7 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
+            "centered": true,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
