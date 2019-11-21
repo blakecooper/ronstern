@@ -22,7 +22,7 @@ const PORTRAIT = 1;
 const FONT = "Merriweather";
 let fontSize = "48";
 
-const TEXT_FADE_SPEED = .006;
+const TEXT_FADE_SPEED = .009;
 const FONT_COLOR = 'white';
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 2;
@@ -43,7 +43,7 @@ let DEFAULT_PHOTO_DURATION = 250;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 10;
 //How long is the text visible? Note: should be less than photoDuration
-let textTimingOffset = 20;
+let textTimingOffset = 0;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -185,7 +185,7 @@ let text = {
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
     },
-    "15": {
+    "14": {
         "line": "After years of capturing magical imagery, Ron has decided to show his photographs at museums and festivals. You can view a select group of photos for the first time at the 2019 Allentown Art Festival -- America's largest regional art show.",
         "alpha": 0,
         "widthInChars": 100,
@@ -342,7 +342,7 @@ const image = {
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
-			"hasText": false,
+			"hasText": true,
 			"textOnRight": false,
 			"extraWide": false,
 			"extraTall": true,
@@ -459,7 +459,7 @@ const image = {
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION * .5,
-			"hasText": true,
+			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,

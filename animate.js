@@ -49,7 +49,7 @@ function transitionCurtain()
 	//TODO: shouldn't this be related to the position of the text on the page, not an arbitrary timing?
     if (timer > 150)
     {
-       image.textTop.isStillOnPage = false;
+      image.textTop.isStillOnPage = false;
     };
 	
 	if (!image.textTop.isStillOnPage) 
@@ -168,7 +168,7 @@ function slideShow()
     };
     
     //fade in text at the same time
-    if (!photo.hasNotBeenDrawnYet)
+    if (!photo.hasNotBeenDrawnYet && photo.hasText)
     {
     	drawText(photo);
 		
@@ -347,16 +347,12 @@ function drawText(photo)
         textTimer++;
     };
 
-	let totalTextDuration = photo.duration + photo.transitionSpeed;
+	let totalTextDuration = photo.duration + textTimingOffset;
 
-	if (photo.longDurationForText === true) 
-	{
-		totalTextDuration += textTimingOffset;
-	};
 
 	if (photoCounter === 4)
 	{
-		totalTextDuration -= 100;
+		totalTextDuration -= 175;
 	};
 	
     if (textTimer > (totalTextDuration) && text[photoCounter].transitionInIsComplete)
@@ -431,24 +427,13 @@ function getTextY(lines, photo)
 
 function fadeInText(photo)
 {
-	if (photo.slowTextTransition)
-	{
-		text[photoCounter].alpha += TEXT_FADE_SPEED/2;
-	} else {	
 		text[photoCounter].alpha += TEXT_FADE_SPEED;
-	};
     
 };
 
 function fadeOutText(photo)
 {
-	if (photo.slowTextTransition)
-	{
-    	text[photoCounter].alpha -= TEXT_FADE_SPEED/2;
-	} else {
-
     	text[photoCounter].alpha -= TEXT_FADE_SPEED;
-	};
 };
 
 function setTextStyle()
