@@ -199,7 +199,13 @@ function slideShow()
             {
                 if (photo.x >= ((canvas.slideshow.width - photo.drawWidth) / 2)) {
                     photo.transitionInIsComplete = true;
-                }
+					
+					if (photo.hasCaption)
+					{
+						viewCaption(photo);
+					};
+                
+				}
             } else {
 	
 				let finalPosition = 0;
@@ -341,7 +347,19 @@ function drawText(photo)
         textTimer++;
     };
 
-    if (textTimer > (photo.duration + textTimingOffset) && text[photoCounter].transitionInIsComplete)
+	let totalTextDuration = photo.duration + photo.transitionSpeed;
+
+	if (photo.longDurationForText === true) 
+	{
+		totalTextDuration += textTimingOffset;
+	};
+
+	if (photoCounter === 4)
+	{
+		totalTextDuration -= 100;
+	};
+	
+    if (textTimer > (totalTextDuration) && text[photoCounter].transitionInIsComplete)
     {
         if (!text[photoCounter].transitionOutIsComplete)
         {
