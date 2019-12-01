@@ -194,7 +194,13 @@ function slideShow()
 	
 	//once transition is complete, start timer and mark transition complete
         timer++;
-    } else {
+    
+	if (photoCounter === 2)
+	{
+		drawArrow(photo);
+	};
+	
+	} else {
     //update position according to final position desired
         photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
         photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y]));
@@ -278,6 +284,11 @@ function slideShow()
     //after timer, advance slideshow by one
     if (timer > photo.duration && !photo.transitionOutIsComplete)
     {
+
+		if (photoCounter === 2)
+		{
+			clearArrow();
+		};
 
 		if (photo.hasCaption) 
 		{
@@ -459,4 +470,30 @@ function fadeOutText(photo)
 
 function setTextStyle()
 {
+};
+
+function drawArrow(photo)
+{
+
+	let arrow = document.getElementById("arrowImage");
+	let arrowCanvas = document.getElementById("arrowCanvas");
+	//size canvas to photo
+	arrowCanvas.width = photo.drawWidth;
+	arrowCanvas.height = photo.drawHeight;
+	//draw arrow at bottom
+	arrowCanvas.getContext("2d").drawImage(
+		arrow,
+		(photo.drawWidth - arrow.width),
+		(photo.drawHeight - arrow.height),
+		arrow.width * .5,
+		arrow.heigh * .5,
+	);
+
+};
+
+function clearArrow()
+{
+	let arrowCanvas = document.getElementById("arrowCanvas");
+
+   	arrowCanvas.getContext("2d").clearRect(0,0,arrowCanvas.width,arrowCanvas.height);
 };
