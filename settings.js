@@ -601,8 +601,8 @@ const image = {
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
-			"hasCaption": false,
-			"captionID": "",
+			"hasCaption": true,
+			"captionID": "Don",
 			"longDurationForText": false,
         },
         "15": {
