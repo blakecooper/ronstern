@@ -24,7 +24,7 @@ const PORTRAIT = 1;
 const FONT = "Merriweather";
 let fontSize = "48";
 
-const TEXT_FADE_SPEED = .007;
+const TEXT_FADE_SPEED = .003;
 const FONT_COLOR = 'white';
 //Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 2;
@@ -43,9 +43,9 @@ let captionLocation = 0;
 const photoDuration = 500;
 let DEFAULT_PHOTO_DURATION = 250;
 
-let DEFAULT_PHOTO_TRANSITION_SPEED = 10;
+let DEFAULT_PHOTO_TRANSITION_SPEED = 3.3;
 //How long is the text visible? Note: should be less than photoDuration
-let textTimingOffset = -110;
+let textTimingOffset = -60;
 
 //Pixels between each photo and text
 const textBuffer = 100;
@@ -138,7 +138,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": -100,
+		"timingOffset": 0,
     },
     "8": {
         "line": "",
@@ -168,7 +168,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": 0,
+		"timingOffset": -30,
     },
     "11": {
         "line": "",
@@ -289,9 +289,9 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED / 1.5,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": 265,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": true,
@@ -315,7 +315,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED *.9,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION + 200,
+        	"duration": DEFAULT_PHOTO_DURATION + 220,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
@@ -343,7 +343,7 @@ const image = {
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
-            "centered": false,
+            "centered": true,
 			"hasCaption": false,
 			"captionID": "",
 			"longDurationForText": false,
@@ -390,7 +390,7 @@ const image = {
 			"textOnRight": true,
 			"extraWide": false,
 			"extraTall": true,
-			"fullScreen": true,
+			"fullScreen": false,
 			"centered": true,
 			"hasCaption": false,
 			"captionID": "",

@@ -47,13 +47,13 @@ function sizeCanvas()
 {
     
     document.getElementById("curtainCanvas").width = window.innerWidth;
-    document.getElementById("curtainCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    document.getElementById("curtainCanvas").height = image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
  
     document.getElementById("curtainBottomCanvas").width = window.innerWidth;
-    document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
     
     document.getElementById("titleCanvas").width = window.innerWidth;
-    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
 
     document.getElementById("titleRealisticCanvas").width = window.innerWidth;
     document.getElementById("titleRealisticCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
@@ -172,7 +172,7 @@ function sizeText()
 {
 	if (screenOrientation == PORTRAIT)
 	{
-		fontSize = window.innerHeight / 35;
+		fontSize = window.innerHeight / 39;
 	};
 
 	if (screenOrientation == LANDSCAPE)
