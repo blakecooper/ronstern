@@ -1,9 +1,10 @@
 
-setInterval(animate,33);
+window.requestAnimationFrame(animate);
 
 /* ANIMATION FUNCTIONS: */
 function animate() 
 {
+	window.requestAnimationFrame(animate);
 	if (animationStep === 1)
 	{
 		transitionCurtain();
