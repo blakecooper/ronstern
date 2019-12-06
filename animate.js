@@ -62,7 +62,7 @@ function transitionCurtain()
    		image.curtainTop.offsetPosition -= curtainDriftOffset * 1.5;
    		image.curtainBottom.offsetPosition += curtainDriftOffset;	
 		//TODO: change that 40 to something relative to size of curtainTop
-		if (image.curtainTop.offsetPosition + canvas.curtain.height +70 < 0)
+		if (image.curtainTop.offsetPosition + canvas.curtain.height +100 < 0)
 		{
 			timer = 0;
 			animationStep++;
