@@ -138,7 +138,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": 150,
+		"timingOffset": 170,
     },
     "8": {
         "line": "",
@@ -168,7 +168,7 @@ let text = {
         "y": canvas.text.height/2,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": -30,
+		"timingOffset": 0,
     },
     "11": {
         "line": "",
