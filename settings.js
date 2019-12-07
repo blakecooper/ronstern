@@ -40,7 +40,7 @@ let captionLocation = 0;
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
-let DEFAULT_PHOTO_DURATION = 250;
+let DEFAULT_PHOTO_DURATION = 500;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 3.3;
 //How long is the text visible? Note: should be less than photoDuration
@@ -313,7 +313,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED *.9,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION + 220,
 			"hasText": true,
@@ -383,7 +383,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.3,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION * .65,
 			"hasText": false,
@@ -407,7 +407,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED*1.2,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION/2 + 50,
 			"hasText": false,
@@ -430,7 +430,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.1,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION - 100,
 			"hasText": true,
@@ -453,7 +453,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED*1.2,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION/2,
 			"hasText": false,
@@ -476,7 +476,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": false,
@@ -499,7 +499,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": true,
@@ -522,7 +522,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": false,
@@ -545,7 +545,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.15,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": false,
@@ -593,7 +593,7 @@ const image = {
             "y": 0,
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED*.8,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,

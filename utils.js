@@ -9,7 +9,7 @@ let transitionState = IN;
 const animationElements = getElements();
 let textTop = animationElements["textTop"];
 let firstPhotoLoaded = false;
-let animationStep = 1;
+let animationStep = 0;
 const scrollingText = document.getElementById("scrollText");
 
 window.onload = function() 

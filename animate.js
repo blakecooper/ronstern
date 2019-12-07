@@ -5,6 +5,11 @@ window.requestAnimationFrame(animate);
 function animate() 
 {
 	window.requestAnimationFrame(animate);
+	if (animationStep === 0)
+	{
+		pauseFor(350);
+	};
+		
 	if (animationStep === 1)
 	{
 		transitionCurtain();
@@ -44,45 +49,33 @@ function pauseFor(time)
 
 function transitionCurtain()
 {
-//	updateTextTop();
-    timer++;
-
-	//TODO: shouldn't this be related to the position of the text on the page, not an arbitrary timing?
-    if (timer > 150)
-    {
-      image.textTop.isStillOnPage = false;
-    };
-	
-	if (!image.textTop.isStillOnPage) 
-	{
-   		canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
-   		canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
+   	canvas.curtain.getContext("2d").clearRect(0,0,canvas.curtain.width,canvas.curtain.height);
+   	canvas.curtainBottom.getContext("2d").clearRect(0,0,canvas.curtainBottom.width,canvas.curtainBottom.height);
 		
-		//update position
-   		image.curtainTop.offsetPosition -= curtainDriftOffset * 1.5;
-   		image.curtainBottom.offsetPosition += curtainDriftOffset;	
-		//TODO: change that 40 to something relative to size of curtainTop
-		if (image.curtainTop.offsetPosition + canvas.curtain.height +100 < 0)
-		{
-			timer = 0;
-			animationStep++;
-		};
-		//redraw
-   		canvas.curtain.getContext("2d").drawImage(
-			image.curtainTop.photo,
-			0,
-			image.curtainTop.offsetPosition,
-			canvas.curtain.width,
-			image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)
-		);
-   		canvas.curtainBottom.getContext("2d").drawImage(
-			image.curtainBottom.photo,
-			0,
-			image.curtainBottom.offsetPosition,
-			canvas.curtain.width,
-			image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)
-		);
-   	};
+	//update position
+   	image.curtainTop.offsetPosition -= curtainDriftOffset * 1.5;
+   	image.curtainBottom.offsetPosition += curtainDriftOffset;	
+	//TODO: change that 40 to something relative to size of curtainTop
+	if (image.curtainTop.offsetPosition + canvas.curtain.height +100 < 0)
+	{
+		timer = 0;
+		animationStep++;
+	};
+	//redraw
+   	canvas.curtain.getContext("2d").drawImage(
+		image.curtainTop.photo,
+		0,
+		image.curtainTop.offsetPosition,
+		canvas.curtain.width,
+		image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)
+	);
+  	canvas.curtainBottom.getContext("2d").drawImage(
+		image.curtainBottom.photo,
+		0,
+		image.curtainBottom.offsetPosition,
+		canvas.curtain.width,
+		image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width)
+	);
 };
 function updateTextTop()
 {
