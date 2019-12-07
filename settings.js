@@ -40,9 +40,9 @@ let captionLocation = 0;
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
-let DEFAULT_PHOTO_DURATION = 1000;
+let DEFAULT_PHOTO_DURATION = 500;
 
-let DEFAULT_PHOTO_TRANSITION_SPEED = 3.3;
+let DEFAULT_PHOTO_TRANSITION_SPEED = 1.15;
 //How long is the text visible? Note: should be less than photoDuration
 let textTimingOffset = -60;
 const TEXT_FADE_SPEED = .003;
@@ -315,7 +315,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION + 220,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
@@ -385,7 +385,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .65,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -409,7 +409,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION/2 + 50,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -432,7 +432,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION - 100,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": true,
@@ -455,7 +455,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION/2,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -478,7 +478,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
             "centered": true,
 			"textOnRight": false,
@@ -501,7 +501,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
             "centered": false,
 			"textOnRight": true,
@@ -524,7 +524,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
             "centered": true,
 			"textOnRight": true,
@@ -547,7 +547,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION * .5,
+        	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": false,
             "centered": true,
 			"textOnRight": false,
