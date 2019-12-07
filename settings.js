@@ -36,7 +36,7 @@ let textCanvasLocation = 0;
 let screenOrientation = LANDSCAPE;
 
 //Captions
-let captionLocation = 0;
+let captionLocation = '0px';
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
