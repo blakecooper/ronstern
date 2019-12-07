@@ -44,7 +44,7 @@ let DEFAULT_PHOTO_DURATION = 500;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 1.15;
 //How long is the text visible? Note: should be less than photoDuration
-let textTimingOffset = 0;
+let textTimingOffset = -90;
 const TEXT_FADE_SPEED = .003;
 
 //Pixels between each photo and text
@@ -269,7 +269,7 @@ const image = {
     },
     "title": {
 		"photo": document.getElementById("titleImg"),
-		"duration": 20,  
+		"duration": 40,  
     	"alpha": 1,
 	},
 	"titleRealistic": {

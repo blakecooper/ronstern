@@ -203,7 +203,7 @@ function fadeTitle()
     		canvas.title.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 
 			let alphaTemp = alpha.title;
-			alpha.title -= .01;
+			alpha.title -= .005;
 			canvas.title.getContext("2d").globalAlpha = alphaTemp;
 
 			if (alpha.title < 0)
