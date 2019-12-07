@@ -34,6 +34,11 @@ function animate()
     {
         slideShow();
     };
+
+	if (animationStep === 6)
+	{
+		showContact();
+	};
 	
 };
 
@@ -490,4 +495,16 @@ function clearArrow()
 	let arrowCanvas = document.getElementById("arrowCanvas");
 
    	arrowCanvas.getContext("2d").clearRect(0,0,arrowCanvas.width,arrowCanvas.height);
+};
+
+function showContact() 
+{
+	let contactImg = document.getElementById("contactPage");
+	let contactOriginalHeight = contactImg.height;
+	let contactOriginalWidth = contactImg.width;
+
+	contactImg.height = window.innerHeight;
+	contactImg.width = contactImg.height/(contactOriginalHeight/contactOriginalWidth);
+		
+	document.getElementById("contact").style="display:inline;";
 };
