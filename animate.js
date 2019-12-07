@@ -503,8 +503,14 @@ function showContact()
 	let contactOriginalHeight = contactImg.height;
 	let contactOriginalWidth = contactImg.width;
 
-	contactImg.height = window.innerHeight;
-	contactImg.width = contactImg.height/(contactOriginalHeight/contactOriginalWidth);
+	if (screenOrientation === LANDSCAPE)
+	{
+		contactImg.height = window.innerHeight;
+		contactImg.width = contactImg.height/(contactOriginalHeight/contactOriginalWidth);	
+	} else {
+		contactImg.weight = window.innerWidth;
+		contactImg.height = contactImg.width*(contactOriginalHeight/contactOriginalWidth);
+	};
 		
 	document.getElementById("contact").style="display:inline;";
 };

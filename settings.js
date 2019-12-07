@@ -29,7 +29,7 @@ const FONT_COLOR = 'white';
 const curtainDriftOffset = 1;
 
 //Total number of slideshow photos
-const totalPhotos = 19;
+const totalPhotos = 18;
 
 let textCanvasLocation = 0;
 
