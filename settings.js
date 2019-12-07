@@ -24,10 +24,9 @@ const PORTRAIT = 1;
 const FONT = "Merriweather";
 let fontSize = "48";
 
-const TEXT_FADE_SPEED = .003;
 const FONT_COLOR = 'white';
 //Curtain rising factor... higher number means faster reveal
-const curtainDriftOffset = 2;
+const curtainDriftOffset = 1;
 
 //Total number of slideshow photos
 const totalPhotos = 19;
@@ -46,6 +45,7 @@ let DEFAULT_PHOTO_DURATION = 250;
 let DEFAULT_PHOTO_TRANSITION_SPEED = 3.3;
 //How long is the text visible? Note: should be less than photoDuration
 let textTimingOffset = -60;
+const TEXT_FADE_SPEED = .003;
 
 //Pixels between each photo and text
 const textBuffer = 100;
