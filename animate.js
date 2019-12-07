@@ -1,6 +1,12 @@
+let windPlayed = false;
+
 function playWind()
 {
-	document.getElementById("wind").play();
+	if (!windPlayed)
+	{
+		document.getElementById("wind").play();
+		windPlayed = true;
+	};
 };
 
 let musicPlayed = false;
