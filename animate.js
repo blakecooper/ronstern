@@ -1,3 +1,4 @@
+let musicPlayed = false;
 
 window.requestAnimationFrame(animate);
 
@@ -17,6 +18,11 @@ function animate()
 
 	if (animationStep === 2)
 	{
+		if (!musicPlayed)
+		{
+			document.getElementById("music").play();
+			musicPlayed = true;
+		};
 		pauseFor(150);
 	};
 
