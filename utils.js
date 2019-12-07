@@ -190,7 +190,7 @@ function fadeTitle()
     	canvas.titleRealistic.getContext("2d").clearRect(0,0,canvas.title.width,canvas.title.height);
 		
 		let alphaRealisticTemp = alpha.titleRealistic;
-		alpha.titleRealistic -= .001;
+		alpha.titleRealistic -= .002;
 		canvas.titleRealistic.getContext("2d").globalAlpha = alphaRealisticTemp;
 		canvas.titleRealistic.getContext("2d").drawImage(image.titleRealistic.photo,0,0,canvas.titleRealistic.width,image.titleRealistic.photo.height/(image.titleRealistic.photo.width/canvas.titleRealistic.width));
 
