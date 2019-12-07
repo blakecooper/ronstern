@@ -1,3 +1,8 @@
+function playWind()
+{
+	document.getElementById("wind").play();
+};
+
 let musicPlayed = false;
 
 window.requestAnimationFrame(animate);
