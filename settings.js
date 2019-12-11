@@ -402,7 +402,7 @@ const image = {
             "drawWidth": document.getElementById("photo6").width,
             "drawHeight": document.getElementById("photo6").height,
             "initialPosition": LEFT,
-            "finalPosition": [200,0], /testing timing changes to Mel/Cole
+            "finalPosition": [200,0], //testing timing changes to Mel/Cole
             "x": 0,
             "y": 0,
             "transitionInIsComplete": false,
