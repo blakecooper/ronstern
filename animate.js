@@ -516,17 +516,16 @@ function clearArrow()
 
 function showContact() 
 {
-	let contactImg = document.getElementById("contactPage");
-	let contactOriginalHeight = contactImg.height;
-	let contactOriginalWidth = contactImg.width;
+	let contactOriginalHeight = document.getElementById("contactPage").height;
+	let contactOriginalWidth = document.getElementById("contactPage").width;
 
 	if (screenOrientation === LANDSCAPE)
 	{
-		contactImg.height = window.innerHeight;
-		contactImg.width = contactImg.height/(contactOriginalHeight/contactOriginalWidth);	
+		document.getElementById("contactPage").weight = window.innerWidth;
+		document.getElementById("contactPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
 	} else {
-		contactImg.weight = window.innerWidth;
-		contactImg.height = contactImg.width*(contactOriginalHeight/contactOriginalWidth);
+		document.getElementById("contactPage").height = window.innerHeight;
+		document.getElementById("contactPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
 	};
 		
 	document.getElementById("contact").style="display:inline;";
