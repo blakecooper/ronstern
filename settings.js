@@ -171,7 +171,7 @@ let text = {
 		"timingOffset": 0,
     },
     "11": {
-        "line": "After years of capturing magical imagery, Ron has decided to show his photographs at museums and festivals. You can view a select group of photos for the first time at the 2019 Allentown Art Festival -- America's largest regional art show.",
+        "line": "After years of capturing magical imagery, Ron has decided to show his photographs at museums and festivals. You can view a select group of photos for the first time at the 2020 Allentown Art Festival -- America's largest regional art show.",
         "alpha": 0,
         "widthInChars": 100,
         "x": canvas.slideshow.width/2,
@@ -402,7 +402,7 @@ const image = {
             "drawWidth": document.getElementById("photo6").width,
             "drawHeight": document.getElementById("photo6").height,
             "initialPosition": LEFT,
-            "finalPosition": [0,0],
+            "finalPosition": [200,0], /testing timing changes to Mel/Cole
             "x": 0,
             "y": 0,
             "transitionInIsComplete": false,
