@@ -345,7 +345,7 @@ function viewCaption (photo)
 {
 	let caption = document.getElementById("caption" + photo.captionID);
 	
-	document.getElementById("caption" + photo.captionID).style.top = photo.drawHeight + "px";
+	document.getElementById("caption" + photo.captionID).style.top = (photo.drawHeight - 20) + "px";
 
 	caption.style.right = (window.innerWidth - photo.drawWidth + 20) + 'px';
 
@@ -492,28 +492,13 @@ function setTextStyle()
 
 function drawArrow(photo)
 {
-
-	let arrow = document.getElementById("arrowImage");
-	let arrowCanvas = document.getElementById("arrowCanvas");
-	//size canvas to photo
-	arrowCanvas.width = photo.drawWidth;
-	arrowCanvas.height = photo.drawHeight;
-	//draw arrow at bottom
-	arrowCanvas.getContext("2d").drawImage(
-		arrow,
-		(photo.drawWidth - arrow.width),
-		(photo.drawHeight - arrow.height),
-		arrow.width * .5,
-		arrow.heigh * .5,
-	);
+	document.getElementById("arrowImage").style.display = "inline";
 
 };
 
 function clearArrow()
 {
-	let arrowCanvas = document.getElementById("arrowCanvas");
-
-   	arrowCanvas.getContext("2d").clearRect(0,0,arrowCanvas.width,arrowCanvas.height);
+	document.getElementById("arrowImage").style.display = "none";
 };
 
 function showContact() 
