@@ -176,7 +176,7 @@ function slideShow()
 
 		if (photo.hasCaption)
 		{
-			captionLocation = photo.drawHeight;
+			viewCaption(photo);
 		};
         photo.x = canvas.slideshow.width * photo.initialPosition[X];
         photo.y = canvas.slideshow.height * photo.initialPosition[Y];
@@ -344,7 +344,7 @@ function viewCaption (photo)
 {
 	let caption = document.getElementById("caption" + photo.captionID);
 	
-	caption.style.top = photo.drawHeight + 'px';
+	document.getElementById("caption" + photo.captionID).style.top = photo.drawHeight + "px;";
 	caption.style.right = (window.innerWidth - photo.drawWidth + 20) + 'px';
 
 	if (caption.style.display === "none")
