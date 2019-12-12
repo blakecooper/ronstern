@@ -4,6 +4,7 @@ function playWind()
 {
 	if (!windPlayed)
 	{
+		document.getElementById("camera").play();
 		document.getElementById("wind").play();
 		windPlayed = true;
 	};
