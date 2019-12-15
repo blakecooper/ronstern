@@ -40,7 +40,7 @@ let captionLocation = '0px';
 
 //How long are the photos on the screen once they transition in/out?
 const photoDuration = 500;
-let DEFAULT_PHOTO_DURATION = 500;
+let DEFAULT_PHOTO_DURATION = 250;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 1.15;
 //How long is the text visible? Note: should be less than photoDuration
