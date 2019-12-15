@@ -92,7 +92,7 @@ function drawSkyWriting() {
 		document.getElementById("skyWriting"),
 		leftmostSkyWritingXPlacement,
 		skyWritingYPlacement,
-		document.getElementById("skyWritingCanvas").width * .75,
+		document.getElementById("skyWritingCanvas").width * .80,
 		document.getElementById("skyWriting").height * (document.getElementById("skyWritingCanvas").width * .6)/skyWritingOriginalWidth,
 	);
 };
