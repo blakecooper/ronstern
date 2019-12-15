@@ -102,7 +102,7 @@ function animate()
 	window.requestAnimationFrame(animate);
 	if (animationStep === 0)
 	{
-		pauseFor(350);
+		pauseFor(150);
 	};
 		
 	if (animationStep === 1)
@@ -117,7 +117,7 @@ function animate()
 			document.getElementById("music").play();
 			musicPlayed = true;
 		};
-		pauseFor(150);
+		pauseFor(100);
 	};
 
 	if (animationStep === 3)

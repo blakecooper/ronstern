@@ -269,7 +269,7 @@ const image = {
     },
     "title": {
 		"photo": document.getElementById("titleImg"),
-		"duration": 40,  
+		"duration": 20,  
     	"alpha": 1,
 	},
 	"titleRealistic": {
