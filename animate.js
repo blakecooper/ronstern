@@ -1,4 +1,24 @@
 let windPlayed = false;
+let userClicked = false;
+
+//skywriting stuff... TODO: move this to settings
+let skyWritingIsFadedIn = false;
+let skyWritingIsFadedOut = true;
+let skyWritingPlacementIsChosen = false;
+let leftmostSkyWritingXPlacement = document.getElementById("skyWritingCanvas").width/3;
+
+let bottommostSkyWritingYPlacement = document.getElementById("skyWritingCanvas").height/5;
+let skyWritingXPlacement = 0;
+let skyWritingYPlacement = 0;
+
+window.requestAnimationFrame(animateSkyWriting);
+
+function startOnClick() 
+{
+	userClicked = true;
+	playWind();
+	window.requestAnimationFrame(animate);
+};
 
 function playWind()
 {
@@ -12,9 +32,71 @@ function playWind()
 
 let musicPlayed = false;
 
-window.requestAnimationFrame(animate);
-
 /* ANIMATION FUNCTIONS: */
+function animateSkyWriting() {
+	if (!userClicked) {
+		
+   		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);
+
+		if (skyWritingIsFadedOut) {
+			//choose a random spot in the sky
+			if (!skyWritingPlacementIsChosen) {
+				skyWritingXPlacement = Math.floor(Math.random() * leftmostSkyWritingXPlacement);
+				skyWritingYPlacement = Math.floor(Math.random() * bottommostSkyWritingYPlacement);
+				skyWritingPlacementIsChosen = true;
+			};
+				
+    		document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha += .004;
+				
+			drawSkyWriting();	
+
+
+			if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha > .99) {
+				skyWritingIsFadedIn = true;
+				skyWritingIsFadedOut = false;
+			};
+		};
+
+		if (skyWritingIsFadedIn) {
+			
+    		document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha -= .004;
+
+			drawSkyWriting();
+		
+			if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha < .01) {
+				skyWritingIsFadedIn = false;
+				skyWritingIsFadedOut = true;
+				skyWritingPlacementIsChosen = false;
+			};
+		};
+
+		window.requestAnimationFrame(animateSkyWriting);
+			
+	} else {
+		if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha > .01) {
+	   		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);
+    	
+			document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha -= .004;
+			drawSkyWriting();
+			window.requestAnimationFrame(animateSkyWriting);
+		} else {
+	   		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);	
+		};
+	};
+};
+
+function drawSkyWriting() {
+	let skyWritingOriginalWidth = document.getElementById("skyWriting").width;
+
+  	document.getElementById("skyWritingCanvas").getContext("2d").drawImage(
+		document.getElementById("skyWriting"),
+		skyWritingXPlacement,
+		skyWritingYPlacement,
+		document.getElementById("skyWritingCanvas").width * .6,
+		document.getElementById("skyWriting").height * (document.getElementById("skyWritingCanvas").width * .6)/skyWritingOriginalWidth,
+	);
+};
+
 function animate() 
 {
 	window.requestAnimationFrame(animate);

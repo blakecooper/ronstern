@@ -29,6 +29,7 @@ window.onload = function()
 	};
     sizeCanvas();
 	sizeText();
+	sizeSkyWritingText();
 	drawTitleAndCurtains();
 };
 
@@ -52,7 +53,11 @@ function sizeCanvas()
     document.getElementById("curtainBottomCanvas").width = window.innerWidth;
     document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
     
-    document.getElementById("titleCanvas").width = window.innerWidth;
+    document.getElementById("skyWritingCanvas").width = window.innerWidth;
+    document.getElementById("skyWritingCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
+
+    document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha = 0;
+	document.getElementById("titleCanvas").width = window.innerWidth;
     document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
 
     document.getElementById("titleRealisticCanvas").width = window.innerWidth;
@@ -221,4 +226,13 @@ function fadeTitle()
     		canvas.title.getContext("2d").restore();
     	};
 	};
+};
+
+function sizeSkyWritingText() {
+	let skyWritingOriginalWidth = document.getElementById("skyWriting").width;
+	let skyWritingOriginalHeight = document.getElementById("skyWriting").height;
+	
+	document.getElementById("skyWriting").width = document.getElementById("skyWritingCanvas").width * .6;
+
+	document.getElementById("skyWriting").height = (skyWritingOriginalHeight * (document.getElementById("skyWritingCanvas").width * .6))/skyWritingOriginalWidth;
 };
