@@ -141,6 +141,11 @@ function animate()
 
 	if (animationStep === 6)
 	{
+		pauseFor(250);
+	};
+
+	if (animationStep === 7)
+	{
 		showContact();
 	};
 	
