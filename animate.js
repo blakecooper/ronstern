@@ -1,5 +1,9 @@
 let windPlayed = false;
 let userClicked = false;
+let musicIsFaded = false;
+
+let contactIsShown = false;
+let contactIsFaded = false;
 
 //skywriting stuff... TODO: move this to settings
 let skyWritingIsFadedIn = false;
@@ -585,17 +589,47 @@ function clearArrow()
 
 function showContact() 
 {
-	let contactOriginalHeight = document.getElementById("contactPage").height;
-	let contactOriginalWidth = document.getElementById("contactPage").width;
+	if (!contactIsShown) {
+		let contactOriginalHeight = document.getElementById("contactPage").height;
+		let contactOriginalWidth = document.getElementById("contactPage").width;
 
-	if (screenOrientation === LANDSCAPE)
-	{
-		document.getElementById("contactPage").weight = window.innerWidth;
-		document.getElementById("contactPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
-	} else {
-		document.getElementById("contactPage").height = window.innerHeight;
-		document.getElementById("contactPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
-	};
+		if (screenOrientation === LANDSCAPE)
+		{
+			document.getElementById("contactPage").weight = window.innerWidth;
+			document.getElementById("contactPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
+		} else {
+			document.getElementById("contactPage").height = window.innerHeight;
+			document.getElementById("contactPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
+		};
 		
-	document.getElementById("contact").style="display:inline;";
+		document.getElementById("contact").style="display:inline;";
+		contactIsShown = true;
+	};
+
+	if (!contactIsFaded) {
+		fadeContact();
+		fadeMusic();
+	};
+};
+
+function fadeContact() {
+	if(!contactIsFaded) {
+		let opacity = parseFloat(document.getElementById("contact").style.opacity);
+		opacity -= .01;
+		document.getElementById("contact").style.opacity = opacity;
+		if (opacity < 0) {
+			contactIsFaded = true;
+		};
+	}; 
+};
+
+function fadeMusic() {
+	if(!musicIsFaded) {
+		let volume = parseFloat(document.getElementById("music").volume);
+		volume -= .01;
+		document.getElementById("music").volume = volume;
+		if (volume < 0) {
+			contactIsFaded = true;
+		};
+	}; 
 };
