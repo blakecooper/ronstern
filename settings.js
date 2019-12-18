@@ -411,8 +411,6 @@ const image = {
             "finalPosition": [canvas.slideshow.width, 0],
         	"duration": DEFAULT_PHOTO_DURATION / 2,
 			"hasText": false,
-			"textOnRight": true,
-			"extraWide": false,
 			"fullScreen": false,
             "centered": true,
 			"hasCaption": true,
