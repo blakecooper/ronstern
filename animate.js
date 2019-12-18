@@ -95,7 +95,7 @@ function drawSkyWriting() {
   	document.getElementById("skyWritingCanvas").getContext("2d").drawImage(
 		document.getElementById("skyWriting"),
 		leftmostSkyWritingXPlacement,
-		skyWritingYPlacement,
+		bottommostSkyWritingYPlacement,
 		document.getElementById("skyWritingCanvas").width * .80,
 		document.getElementById("skyWriting").height * (document.getElementById("skyWritingCanvas").width * .6)/skyWritingOriginalWidth,
 	);
