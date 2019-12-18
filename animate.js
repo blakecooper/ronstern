@@ -9,7 +9,7 @@ let contactIsFaded = false;
 let skyWritingIsFadedIn = false;
 let skyWritingIsFadedOut = true;
 let skyWritingPlacementIsChosen = false;
-let leftmostSkyWritingXPlacement = document.getElementById("skyWritingCanvas").width/3;
+let leftmostSkyWritingXPlacement = document.getElementById("skyWritingCanvas").width/5;
 
 let bottommostSkyWritingYPlacement = document.getElementById("skyWritingCanvas").height/5;
 let skyWritingXPlacement = 0;
