@@ -361,7 +361,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
             "finalPosition": [canvas.slideshow.width, 0],
-        	"duration": DEFAULT_PHOTO_DURATION,
+        	"duration": DEFAULT_PHOTO_DURATION * .5,
 			"hasText": true,
 			"textOnRight": false,
 			"extraWide": false,
