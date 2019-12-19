@@ -404,7 +404,7 @@ function slideShow()
 		};
 
         //TODO: right now this only works for sideways transitions
-        if ((photo.x > (0-canvas.slideshow.width) && photo.x < canvas.slideshow.width))
+        if ((photo.x > (0-canvas.slideshow.width-100) && photo.x < canvas.slideshow.width))
         {
                 photo.x = photo.x + (photo.transitionSpeed * (-1 * photo.initialPosition[X]));
                 photo.y = photo.y + (photo.transitionSpeed * (-1 * photo.initialPosition[Y])); 
