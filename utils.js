@@ -29,8 +29,8 @@ window.onload = function()
 	};
     sizeCanvas();
 	sizeText();
-	sizeSkyWritingText();
 	drawTitleAndCurtains();
+	//sizeSkyWritingText();
 };
 
 

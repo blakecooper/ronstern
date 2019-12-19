@@ -39,7 +39,6 @@ let musicPlayed = false;
 /* ANIMATION FUNCTIONS: */
 function animateSkyWriting() {
 	if (!userClicked) {
-		
    		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);
 
 		if (skyWritingIsFadedOut) {
