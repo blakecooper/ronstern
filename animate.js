@@ -11,7 +11,7 @@ let skyWritingIsFadedOut = true;
 let skyWritingPlacementIsChosen = false;
 let leftmostSkyWritingXPlacement = document.getElementById("skyWritingCanvas").width/5;
 
-let bottommostSkyWritingYPlacement = document.getElementById("skyWritingCanvas").height/5;
+let bottommostSkyWritingYPlacement = document.getElementById("skyWritingCanvas").height/5 - 10;
 let skyWritingXPlacement = 0;
 let skyWritingYPlacement = 0;
 
