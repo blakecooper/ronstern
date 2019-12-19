@@ -613,7 +613,6 @@ function showContact()
 
 	if (!contactIsFaded) {
 		fadeContact();
-		fadeMusic();
 	};
 };
 
