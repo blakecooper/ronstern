@@ -10,12 +10,14 @@ let reverseContactIsShown = false;
 let skyWritingIsFadedIn = false;
 let skyWritingIsFadedOut = true;
 let skyWritingPlacementIsChosen = false;
+let skyWritingDuration = 500;
+let skyWritingTimer = 0;
 let leftmostSkyWritingXPlacement = document.getElementById("skyWritingCanvas").width/5;
 
 let bottommostSkyWritingYPlacement = document.getElementById("skyWritingCanvas").height/5 - 10;
 let skyWritingXPlacement = 0;
 let skyWritingYPlacement = 0;
-
+let skyWritingIsInstantiated = false;
 window.requestAnimationFrame(animateSkyWriting);
 
 function startOnClick() 
@@ -39,65 +41,70 @@ let musicPlayed = false;
 
 /* ANIMATION FUNCTIONS: */
 function animateSkyWriting() {
+   	document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);
+   		
+	document.getElementById("skyWritingTapCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingTapCanvas").width,document.getElementById("skyWritingTapCanvas").height);
 	if (!userClicked) {
-   		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);
 
 		if (skyWritingIsFadedOut) {
-			//choose a random spot in the sky
-			if (!skyWritingPlacementIsChosen) {
-				skyWritingXPlacement = Math.floor(Math.random() * leftmostSkyWritingXPlacement);
-				skyWritingYPlacement = Math.floor(Math.random() * bottommostSkyWritingYPlacement);
-				skyWritingPlacementIsChosen = true;
-			};
 				
     		document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha += .004;
 				
-			drawSkyWriting();	
-
-
-			if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha > .99) {
+			if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha > .99 && skyWritingIsInstantiated) {
 				skyWritingIsFadedIn = true;
 				skyWritingIsFadedOut = false;
 			};
+
 		};
 
 		if (skyWritingIsFadedIn) {
-			
-    		document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha -= .004;
-
-			drawSkyWriting();
+			if (skyWritingTimer < skyWritingDuration) {
+				skyWritingTimer++;
+			} else {
+				if (document.getElementById("skyWritingTapCanvas").getContext("2d").globalAlpha < 1) {
+    				document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha -= .004;
+					document.getElementById("skyWritingTapCanvas").getContext("2d").globalAlpha += .004;
+				};
+			};	
+		};		
 		
-			if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha < .01) {
-				skyWritingIsFadedIn = false;
-				skyWritingIsFadedOut = true;
-				skyWritingPlacementIsChosen = false;
-			};
-		};
-
+		drawSkyWriting();
 		window.requestAnimationFrame(animateSkyWriting);
-			
+		
 	} else {
-		if (document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha > .01) {
-	   		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);
+		if (document.getElementById("skyWritingTapCanvas").getContext("2d").globalAlpha > .01 || document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha > .01) {
     	
-			document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha -= .004;
+			document.getElementById("skyWritingTapCanvas").getContext("2d").globalAlpha -= .008;	
+			document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha -= .008;
+
 			drawSkyWriting();
 			window.requestAnimationFrame(animateSkyWriting);
+
 		} else {
 	   		document.getElementById("skyWritingCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingCanvas").width,document.getElementById("skyWritingCanvas").height);	
+	   		document.getElementById("skyWritingTapCanvas").getContext("2d").clearRect(0,0,document.getElementById("skyWritingTapCanvas").width,document.getElementById("skyWritingTapCanvas").height);	
 		};
 	};
 };
 
 function drawSkyWriting() {
 	let skyWritingOriginalWidth = document.getElementById("skyWriting").width;
-
+	let skyWritingTapOriginalWidth = document.getElementById("skyWritingTap").width;
+	
   	document.getElementById("skyWritingCanvas").getContext("2d").drawImage(
 		document.getElementById("skyWriting"),
 		leftmostSkyWritingXPlacement,
-		bottommostSkyWritingYPlacement,
+		bottommostSkyWritingYPlacement + 15,
 		document.getElementById("skyWritingCanvas").width * .80,
 		document.getElementById("skyWriting").height * (document.getElementById("skyWritingCanvas").width * .6)/skyWritingOriginalWidth,
+	);
+  	
+		document.getElementById("skyWritingTapCanvas").getContext("2d").drawImage(
+		document.getElementById("skyWritingTap"),
+		leftmostSkyWritingXPlacement,
+		bottommostSkyWritingYPlacement,
+		document.getElementById("skyWritingTapCanvas").width * .80,
+		document.getElementById("skyWritingTap").height * (document.getElementById("skyWritingTapCanvas").width * .6)/skyWritingTapOriginalWidth,
 	);
 };
 

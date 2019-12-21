@@ -56,7 +56,12 @@ function sizeCanvas()
     document.getElementById("skyWritingCanvas").width = window.innerWidth;
     document.getElementById("skyWritingCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
 
+	document.getElementById("skyWritingTapCanvas").width = window.innerWidth;
+    document.getElementById("skyWritingTapCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
+
+    document.getElementById("skyWritingTapCanvas").getContext("2d").globalAlpha = 0;
     document.getElementById("skyWritingCanvas").getContext("2d").globalAlpha = 0;
+	skyWritingIsInstantiated = true;
 	document.getElementById("titleCanvas").width = window.innerWidth;
     document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
 
