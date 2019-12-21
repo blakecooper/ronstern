@@ -4,7 +4,8 @@ let musicIsFaded = false;
 
 let contactIsShown = false;
 let contactIsFaded = false;
-
+let reverseContactIsFaded = false;
+let reverseContactIsShown = false;
 //skywriting stuff... TODO: move this to settings
 let skyWritingIsFadedIn = false;
 let skyWritingIsFadedOut = true;
@@ -140,14 +141,23 @@ function animate()
 
 	if (animationStep === 6)
 	{
-		pauseFor(250);
+		pauseFor(150);
 	};
 
 	if (animationStep === 7)
 	{
 		showContact();
 	};
-	
+
+	if (animationStep === 8)
+	{
+		pauseFor(8000);
+	};
+
+	if (animationStep === 9)
+	{
+		fadeContact();
+	};
 };
 
 function pauseFor(time) 
@@ -601,31 +611,53 @@ function showContact()
 		{
 			document.getElementById("contactPage").weight = window.innerWidth;
 			document.getElementById("contactPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
+			
+			document.getElementById("contactReversedPage").weight = window.innerWidth;
+			document.getElementById("contactReversedPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
 		} else {
 			document.getElementById("contactPage").height = window.innerHeight;
 			document.getElementById("contactPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
+			
+			document.getElementById("contactReversedPage").height = window.innerHeight;
+			document.getElementById("contactReversedPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
 		};
 		
 		document.getElementById("contact").style="display:inline;";
+		document.getElementById("contactReversed").style="display:inline;";
+		
+		document.getElementById("contact").style="opacity:1;";
+		document.getElementById("contactReversed").style="opacity:1;";
+		
 		contactIsShown = true;
+		animationStep++;
 	};
 
-	if (!contactIsFaded) {
-		fadeContact();
-	};
 };
 
 function fadeContact() {
 	if(!contactIsFaded) {
 		let opacity = parseFloat(document.getElementById("contact").style.opacity);
-		opacity -= .01;
+		opacity -= .003;
 		document.getElementById("contact").style.opacity = opacity;
 		if (opacity < 0) {
 			contactIsFaded = true;
+			fadeReverseContact();
+		};
+	} else {
+		fadeReverseContact();
+	};
+};
+
+function fadeReverseContact() {
+	if(!reverseContactIsFaded) {
+		let opacity = parseFloat(document.getElementById("contactReversed").style.opacity);
+		opacity -= .001;
+		document.getElementById("contactReversed").style.opacity = opacity;
+		if (opacity < 0) {
+			reverseContactIsFaded = true;
 		};
 	}; 
 };
-
 function fadeMusic() {
 	if(!musicIsFaded) {
 		let volume = parseFloat(document.getElementById("music").volume);
