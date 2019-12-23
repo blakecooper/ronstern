@@ -158,7 +158,7 @@ function animate()
 
 	if (animationStep === 8)
 	{
-		pauseFor(8000);
+		pauseFor(80);
 	};
 
 	if (animationStep === 9)
@@ -614,26 +614,32 @@ function showContact()
 		let contactOriginalHeight = document.getElementById("contactPage").height;
 		let contactOriginalWidth = document.getElementById("contactPage").width;
 
+		let contactNewHeight = 0;
+		let contactNewWidth = 0;
 		if (screenOrientation === LANDSCAPE)
 		{
-			document.getElementById("contactPage").weight = window.innerWidth;
-			document.getElementById("contactPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
+			contactNewWidth  = window.innerWidth;
+			contactNewHeight = contactNewWidth*(contactOriginalHeight/contactOriginalWidth);
 			
-			document.getElementById("contactReversedPage").weight = window.innerWidth;
-			document.getElementById("contactReversedPage").height = document.getElementById("contactPage").width*(contactOriginalHeight/contactOriginalWidth);
 		} else {
-			document.getElementById("contactPage").height = window.innerHeight;
-			document.getElementById("contactPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
+			contactNewHeight = window.innerHeight;
+			contactNewWidth = contactNewHeight/(contactOriginalHeight/contactOriginalWidth);	
 			
-			document.getElementById("contactReversedPage").height = window.innerHeight;
-			document.getElementById("contactReversedPage").width = document.getElementById("contactPage").height/(contactOriginalHeight/contactOriginalWidth);	
 		};
-		
-		document.getElementById("contact").style="display:inline;";
-		document.getElementById("contactReversed").style="display:inline;";
+	
+		document.getElementById("contact").getContext("2d").drawImage(
+			document.getElementById("contactPage"),
+			0,
+			0,
+			contactNewWidth,
+			contactNewHeight);
 
-		document.getElementById("contact").style="opacity:1;";
-		document.getElementById("contactReversed").style="opacity:1;";
+		document.getElementById("contactReversed").getContext("2d").drawImage(
+			document.getElementById("contactReversedPage"),
+			0,
+			0,
+			contactNewWidth,
+			contactNewHeight);
 		
 		contactIsShown = true;
 		animationStep++;
@@ -643,12 +649,10 @@ function showContact()
 
 function fadeContact() {
 	if(!contactIsFaded) {
-		let opacity = document.getElementById("contact").style.opacity;
-		opacity -= .001;
-		document.getElementById("contact").style.opacity = opacity;
-		if (opacity < .1) {
+		document.getElementById("contact").getContext("2d").globalAlpha -= .01;
+		if (document.getElementById("contact").getContext("2d").globalAlpha < .01) {
 			contactIsFaded = true;
-		fadeReverseContact();
+			fadeReverseContact();
 		};
 	} else {
 		fadeReverseContact();
@@ -657,10 +661,8 @@ function fadeContact() {
 
 function fadeReverseContact() {
 	if(!reverseContactIsFaded) {
-		let opacity = parseFloat(document.getElementById("contactReversed").style.opacity);
-		opacity -= .001;
-		document.getElementById("contactReversed").style.opacity = opacity;
-		if (opacity < 0) {
+		document.getElementById("contactReversed").getContext("2d").globalAlpha -= .01;
+		if (document.getElementById("contactReversed").getContext("2d").globalAlpha < .01)) {
 			reverseContactIsFaded = true;
 		};
 	}; 

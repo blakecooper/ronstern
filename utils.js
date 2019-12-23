@@ -75,6 +75,12 @@ function sizeCanvas()
     
     document.getElementById("textCanvas").width = window.innerWidth;
     document.getElementById("textCanvas").height = window.innerHeight * 2;
+
+    document.getElementById("contact").width = window.innerWidth;
+    document.getElementById("contact").height = window.innerHeight;
+
+    document.getElementById("contactReversed").width = window.innerWidth;
+    document.getElementById("contactReversed").height = window.innerHeight;
 };
 //TODO: remove and refactor code accordingly. This is deprecated!
 function getElements() 
