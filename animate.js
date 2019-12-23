@@ -631,7 +631,7 @@ function showContact()
 		
 		document.getElementById("contact").style="display:inline;";
 		document.getElementById("contactReversed").style="display:inline;";
-		
+
 		document.getElementById("contact").style="opacity:1;";
 		document.getElementById("contactReversed").style="opacity:1;";
 		
@@ -643,12 +643,12 @@ function showContact()
 
 function fadeContact() {
 	if(!contactIsFaded) {
-		let opacity = parseFloat(document.getElementById("contact").style.opacity);
-		opacity -= .003;
+		let opacity = document.getElementById("contact").style.opacity;
+		opacity -= .001;
 		document.getElementById("contact").style.opacity = opacity;
-		if (opacity < 0) {
+		if (opacity < .1) {
 			contactIsFaded = true;
-			fadeReverseContact();
+		fadeReverseContact();
 		};
 	} else {
 		fadeReverseContact();
