@@ -6,42 +6,48 @@
         minimum-scale=1, maximum-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Merriweather|Mr+De+Haviland&display=swap" rel="stylesheet">        
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
-		<script src="settings.js" defer></script>
-		<script src="utils.js" defer></script>
-		<script src="animate.js" defer></script>
+		<script src="js/utils.js" defer></script>
+		<script src="js/animate/skywriting.js" defer></script>
+		<script src="js/animate/title.js" defer></script>
+		<script src="js/animate/curtains.js" defer></script>
+		<script src="js/animate/slideshow.js" defer></script>
+		<script src="js/animate/text.js" defer></script>
+		<script src="js/animate/captions.js" defer></script>
+		<script src="js/animate/contact.js" defer></script>
+		<script src="js/initialize.js" defer></script>
+		<script src="js/animate.js" defer></script>
     </head>
 	<body onclick="startOnClick();" style="background-color: #000000;">
-	<audio src="assets/wind.mp3" id="wind" autoplay=false></audio>		
-	<audio src="assets/music.mp3" id="music" autoplay=false></audio>
-	<audio src="assets/camera.mp3" id="camera" autoplay=false></audio>
+	<audio src="media/audio/wind.mp3" id="wind" autoplay=false></audio>		
+	<audio src="media/audio/music.mp3" id="music" autoplay=false></audio>
+	<audio src="media/audio/camera.mp3" id="camera" autoplay=false></audio>
 		<div id="container" class="container" style="padding:0; margin:0;">
             <div style="display: none; padding:0; margin:0;">
-                <img id="curtainTopImg" src="assets/photos/curtain_top.png"></img>
-                <img id="curtainBottomImg" src="assets/photos/curtain_bottom.png"></img>
-				<img id="skyWriting" src="assets/photos/skywriting.png">
-				<img id="skyWritingTap" src="assets/photos/skywriting_tap.png">
-				<img id="scrollText" src="assets/text.png"></img>
-				<img id="titleImg" src="assets/photos/title.jpg"></img>
-				<img id="titleRealisticImg" src="assets/photos/title_realistic.jpg"></img>
-				<img id="contactPage" src="contact.png"></img>
-				<img id="contactReversedPage" src="contactreversed.png"></img>
-				<img id="photo1" src="assets/photos/01.jpg"></img>
-                <img id="photo2" src="assets/photos/02.jpg"></img>
-                <img id="photo3" src="assets/photos/03.jpg"></img>
-                <img id="photo4" src="assets/photos/04.jpg"></img>
-                <img id="photo5" src="assets/photos/05.jpg"></img>
-                <img id="photo6" src="assets/photos/06.jpg"></img>
-                <img id="photo7" src="assets/photos/07.jpg"></img>
-                <img id="photo8" src="assets/photos/08.jpg"></img>				
-				<img id="photo9" src="assets/photos/09.jpg"></img>
-				<img id="photo10" src="assets/photos/10.jpg"></img>
-				<img id="photo11" src="assets/photos/11.jpg"></img>
-				<img id="photo12" src="assets/photos/12.jpg"></img>
-				<img id="photo13" src="assets/photos/13.jpg"></img>
-				<img id="photo14" src="assets/photos/14.jpg"></img>
-				<img id="photo15" src="assets/photos/15.jpg"></img>
-				<img id="photo16" src="assets/photos/16.jpg"></img>
-				<img id="photo17" src="assets/photos/17.jpg"></img>
+                <img id="curtainTopImg" src="media/images/curtain_top.png"></img>
+                <img id="curtainBottomImg" src="media/images/curtain_bottom.png"></img>
+				<img id="skywriting" src="media/images/skywriting.png">
+				<img id="skywritingTap" src="media/images/skywriting_tap.png">
+				<img id="titleImg" src="media/images/title.jpg"></img>
+				<img id="titleRealisticImg" src="media/images/title_realistic.jpg"></img>
+				<img id="contactPage" src="media/images/contact.png"></img>
+				<img id="contactReversedPage" src="media/images/contactreversed.png"></img>
+				<img id="photo1" src="media/images/01.jpg"></img>
+                <img id="photo2" src="media/images/02.jpg"></img>
+                <img id="photo3" src="media/images/03.jpg"></img>
+                <img id="photo4" src="media/images/04.jpg"></img>
+                <img id="photo5" src="media/images/05.jpg"></img>
+                <img id="photo6" src="media/images/06.jpg"></img>
+                <img id="photo7" src="media/images/07.jpg"></img>
+                <img id="photo8" src="media/images/08.jpg"></img>						  
+				<img id="photo9" src="media/images/09.jpg"></img>
+				<img id="photo10" src="media/images/10.jpg"></img>
+				<img id="photo11" src="media/images/11.jpg"></img>
+				<img id="photo12" src="media/images/12.jpg"></img>
+				<img id="photo13" src="media/images/13.jpg"></img>
+				<img id="photo14" src="media/images/14.jpg"></img>
+				<img id="photo15" src="media/images/15.jpg"></img>
+				<img id="photo16" src="media/images/16.jpg"></img>
+				<img id="photo17" src="media/images/17.jpg"></img>
 			</div>
 		
 			<div id="captionMelAndCole" style="position: absolute; left: 0px; right: 0px; top: 0px; display:none; z-index:2;">
@@ -96,8 +102,8 @@
 				<canvas id="scrollTextCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:5"></canvas>
 				<canvas id="curtainCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:5"></canvas>
         	    <canvas id="curtainBottomCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:6"></canvas>
-				<canvas id="skyWritingCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:7"></canvas>
-				<canvas id="skyWritingTapCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:7"></canvas>
+				<canvas id="skywritingCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:7"></canvas>
+				<canvas id="skywritingTapCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:7"></canvas>
 				<canvas id="titleCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:3"></canvas>
 				<canvas id="titleRealisticCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index: 4;"></canvas>
 				<canvas id="slideshowCanvas" style="padding:0; margin:0; position: absolute; left: 0; top: 0; z-index:1"></canvas>
@@ -105,7 +111,7 @@
 				<canvas id="textCanvas" style="padding:0; margin:0; position:absolute; left: 0; top: {textCanvasLocation}; z-index:2"></canvas>
 			</div>	
 			<div align="right">
-				<img id="arrowImage" src="assets/arrow.png" style="display:none; position: absolute; top: 0px;"></img>
+				<img id="arrowImage" src="media/arrow.png" style="display:none; position: absolute; top: 0px;"></img>
 		</div>
 	</body>
 </html>

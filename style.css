@@ -31,7 +31,7 @@ p {
 font-family: 'American Typewriter';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter'), url('ufonts.com_american-typewriter.woff') format('woff');
+src: local('American Typewriter'), url('media/fonts/ufonts.com_american-typewriter.woff') format('woff');
 }
 
 
@@ -39,7 +39,7 @@ src: local('American Typewriter'), url('ufonts.com_american-typewriter.woff') fo
 font-family: 'American Typewriter Condensed';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter Condensed'), url('ufonts.com_american-typewriter-condensed.woff') format('woff');
+src: local('American Typewriter Condensed'), url('media/fonts/ufonts.com_american-typewriter-condensed.woff') format('woff');
 }
 
 
@@ -47,7 +47,7 @@ src: local('American Typewriter Condensed'), url('ufonts.com_american-typewriter
 font-family: 'American Typewriter Condensed Light';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter Condensed Light'), url('ufonts.com_american-typewriter-condensed-light.woff') format('woff');
+src: local('American Typewriter Condensed Light'), url('media/fonts/ufonts.com_american-typewriter-condensed-light.woff') format('woff');
 }
 
 
@@ -55,7 +55,7 @@ src: local('American Typewriter Condensed Light'), url('ufonts.com_american-type
 font-family: 'American Typewriter Light';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter Light'), url('ufonts.com_american-typewriter-light.woff') format('woff');
+src: local('American Typewriter Light'), url('media/fonts/ufonts.com_american-typewriter-light.woff') format('woff');
 }
 
 
@@ -63,7 +63,7 @@ src: local('American Typewriter Light'), url('ufonts.com_american-typewriter-lig
 font-family: 'American Typewriter Bold';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter Bold'), url('ufonts.com_american-typewriter-bold.woff') format('woff');
+src: local('American Typewriter Bold'), url('media/fonts/ufonts.com_american-typewriter-bold.woff') format('woff');
 }
 
 
@@ -71,5 +71,5 @@ src: local('American Typewriter Bold'), url('ufonts.com_american-typewriter-bold
 font-family: 'American Typewriter Condensed Bold';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter Condensed Bold'), url('ufonts.com_american-typewriter-condensed-bold.woff') format('woff');
+src: local('American Typewriter Condensed Bold'), url('media/fonts/ufonts.com_american-typewriter-condensed-bold.woff') format('woff');
 }

@@ -1,13 +1,39 @@
-let scottsTextSliding = 0;
 
-const DEMOMODE = 0;
-
-//This is a (temporary?) global variable used to reference the width of a line of text on the canvas. We need it to move photos out of the way in a few instances
-let textLineWidth = 0;
-
-//These are technical definitions to make the code more readable. Changing these could affect the app in weird ways!
 const OUT = 0;
 const IN = 1;
+
+let scottsTextSliding = 0;
+
+const FONT = "Merriweather";
+let fontSize = "48";
+
+const FONT_COLOR = 'white';
+//Curtain rising factor... higher number means faster reveal
+const curtainDriftOffset = 1;
+
+//Total number of slideshow photos
+
+let photoCounter = 1;
+let timer = 1;
+let textTimer = 1;
+let transitionIsComplete = true;
+
+let musicPlayed = false;
+
+let transitionState = IN;
+
+let firstPhotoLoaded = false;
+let animationStep = 0;
+const scrollingText = document.getElementById("scrollText");
+
+
+const OPAQUE = .99;
+const TRANSPARENT = .01;
+
+const totalPhotos = 18;
+
+let textLineWidth = 0;
+
 
 const LEFT = [-1,0];
 const RIGHT = [1,0];
@@ -20,18 +46,6 @@ const Y = 1;
 const LANDSCAPE = 0;
 const PORTRAIT = 1;
 
-//Font
-const FONT = "Merriweather";
-let fontSize = "48";
-
-const FONT_COLOR = 'white';
-//Curtain rising factor... higher number means faster reveal
-const curtainDriftOffset = 1;
-
-//Total number of slideshow photos
-const totalPhotos = 18;
-
-let textCanvasLocation = 0;
 
 let screenOrientation = LANDSCAPE;
 
@@ -55,6 +69,24 @@ let alpha = {
 	"title": 1,
 	"titleRealistic": 1,
 };
+let windPlayed = false;
+let userClicked = false;
+let musicIsFaded = false;
+
+let contactIsShown = false;
+let contactIsFaded = false;
+let reverseContactIsFaded = false;
+let reverseContactIsShown = false;
+//skywriting stuff... TODO: move this to settings
+let skywritingIsFadedIn = false;
+let skywritingIsFadedOut = true;
+let skywritingPlacementIsChosen = false;
+let skywritingDuration = 500;
+let skywritingTimer = 0;
+let skywritingXPlacement = document.getElementById("skywritingCanvas").width/5;
+
+let skywritingYPlacement = document.getElementById("skywritingCanvas").height/5 - 10;
+let skywritingIsInstantiated = false;
 
 //Canvas objects
 const canvas = {
@@ -674,3 +706,96 @@ const image = {
         },
     },
 };
+
+window.onload = function() 
+{
+    if (window.innerHeight > window.innerWidth)
+    {
+        fontSize = fontSize /2;
+        screenOrientation = PORTRAIT;
+    };
+
+    sizeCanvas();
+	sizeText();
+	drawTitleAndCurtains();
+};
+
+function startOnClick() 
+{
+	userClicked = true;
+	playWind();
+	window.requestAnimationFrame(animate);
+};
+
+function playWind()
+{
+	if (!windPlayed)
+	{
+		document.getElementById("camera").play();
+		document.getElementById("wind").play();
+		windPlayed = true;
+	};
+};
+
+function drawTitleAndCurtains() {
+    canvas.curtain.getContext("2d").drawImage(image.curtainTop.photo,0,0,canvas.curtain.width,image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.curtainBottom.getContext("2d").drawImage(image.curtainBottom.photo,0,0,canvas.curtain.width,image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width));
+    canvas.title.getContext("2d").drawImage(image.title.photo,0,0,canvas.curtain.width,image.title.photo.height/(image.title.photo.width/canvas.title.width));
+	canvas.titleRealistic.getContext("2d").drawImage(image.titleRealistic.photo,0,0,canvas.curtain.width,image.titleRealistic.photo.height/(image.titleRealistic.photo.width/canvas.titleRealistic.width));
+};
+
+function sizeCanvas()
+{
+    
+    document.getElementById("curtainCanvas").width = window.innerWidth;
+    document.getElementById("curtainCanvas").height = image.curtainBottom.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+ 
+    document.getElementById("curtainBottomCanvas").width = window.innerWidth;
+    document.getElementById("curtainBottomCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
+    
+    document.getElementById("skywritingCanvas").width = window.innerWidth;
+    document.getElementById("skywritingCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
+
+	document.getElementById("skywritingTapCanvas").width = window.innerWidth;
+    document.getElementById("skywritingTapCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
+
+    document.getElementById("skywritingTapCanvas").getContext("2d").globalAlpha = 0;
+    document.getElementById("skywritingCanvas").getContext("2d").globalAlpha = 0;
+	skywritingIsInstantiated = true;
+
+	document.getElementById("titleCanvas").width = window.innerWidth;
+    document.getElementById("titleCanvas").height = image.curtainTop.photo.height/(image.curtainBottom.photo.width/canvas.curtain.width);
+
+    document.getElementById("titleRealisticCanvas").width = window.innerWidth;
+    document.getElementById("titleRealisticCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    
+	document.getElementById("scrollTextCanvas").width = window.innerWidth;
+    document.getElementById("scrollTextCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
+    
+	document.getElementById("slideshowCanvas").width = window.innerWidth;
+    document.getElementById("slideshowCanvas").height = window.innerHeight;
+    
+    document.getElementById("textCanvas").width = window.innerWidth;
+    document.getElementById("textCanvas").height = window.innerHeight * 2;
+
+    document.getElementById("contact").width = window.innerWidth;
+    document.getElementById("contact").height = window.innerHeight;
+
+    document.getElementById("contactReversed").width = window.innerWidth;
+    document.getElementById("contactReversed").height = window.innerHeight;
+};
+
+function sizeText()
+{
+	if (screenOrientation == PORTRAIT)
+	{
+		fontSize = window.innerHeight / 39;
+	};
+
+	if (screenOrientation == LANDSCAPE)
+	{
+		fontSize = window.innerWidth / 50;
+	};
+};
+
+window.requestAnimationFrame(animateSkywriting);
