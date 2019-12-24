@@ -158,7 +158,7 @@ function animate()
 
 	if (animationStep === 8)
 	{
-		pauseFor(80);
+		pauseFor(8000);
 	};
 
 	if (animationStep === 9)
@@ -611,6 +611,14 @@ function clearArrow()
 function showContact() 
 {
 	if (!contactIsShown) {
+		drawContact();
+		contactIsShown = true;
+		animationStep++;
+	};
+
+};
+
+function drawContact() {
 		let contactOriginalHeight = document.getElementById("contactPage").height;
 		let contactOriginalWidth = document.getElementById("contactPage").width;
 
@@ -626,33 +634,34 @@ function showContact()
 			contactNewWidth = contactNewHeight/(contactOriginalHeight/contactOriginalWidth);	
 			
 		};
-	
+
+		let centeredX = (window.innerWidth - contactNewWidth)/2;
+		
+		if (!contactIsFaded) {
 		document.getElementById("contact").getContext("2d").drawImage(
 			document.getElementById("contactPage"),
-			0,
+			centeredX,
 			0,
 			contactNewWidth,
 			contactNewHeight);
+		};
 
 		document.getElementById("contactReversed").getContext("2d").drawImage(
 			document.getElementById("contactReversedPage"),
-			0,
+			centeredX,
 			0,
 			contactNewWidth,
 			contactNewHeight);
-		
-		contactIsShown = true;
-		animationStep++;
-	};
-
-};
+};	
 
 function fadeContact() {
 	if(!contactIsFaded) {
-		document.getElementById("contact").getContext("2d").globalAlpha -= .01;
+		document.getElementById("contact").getContext("2d").clearRect(0,0,window.innerWidth,window.innerHeight);
+
+		document.getElementById("contact").getContext("2d").globalAlpha -= .004;
+		drawContact();
 		if (document.getElementById("contact").getContext("2d").globalAlpha < .01) {
 			contactIsFaded = true;
-			fadeReverseContact();
 		};
 	} else {
 		fadeReverseContact();
@@ -661,8 +670,10 @@ function fadeContact() {
 
 function fadeReverseContact() {
 	if(!reverseContactIsFaded) {
-		document.getElementById("contactReversed").getContext("2d").globalAlpha -= .01;
-		if (document.getElementById("contactReversed").getContext("2d").globalAlpha < .01)) {
+		document.getElementById("contactReversed").getContext("2d").clearRect(0,0,window.innerWidth,window.innerHeight);
+		document.getElementById("contactReversed").getContext("2d").globalAlpha -= .004;
+		drawContact();
+		if (document.getElementById("contactReversed").getContext("2d").globalAlpha < .01) {
 			reverseContactIsFaded = true;
 		};
 	}; 
