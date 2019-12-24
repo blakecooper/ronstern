@@ -615,8 +615,8 @@ const image = {
         "14": {
             "photo": document.getElementById("photo14"),
             "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo9").width,
-            "drawHeight": document.getElementById("photo9").height,
+            "drawWidth": document.getElementById("photo14").width,
+            "drawHeight": document.getElementById("photo14").height,
             "initialPosition": RIGHT,
             "finalPosition": [0,0],
             "x": 0,
