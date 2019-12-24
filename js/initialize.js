@@ -81,7 +81,7 @@ let reverseContactIsShown = false;
 let skywritingIsFadedIn = false;
 let skywritingIsFadedOut = true;
 let skywritingPlacementIsChosen = false;
-let skywritingDuration = 500;
+let skywritingDuration = 250;
 let skywritingTimer = 0;
 let skywritingXPlacement = document.getElementById("skywritingCanvas").width/5;
 
