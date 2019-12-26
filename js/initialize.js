@@ -4,18 +4,12 @@ const IN = 1;
 
 let scottsTextSliding = 0;
 
-const FONT = "Merriweather";
-let fontSize = "48";
-
-const FONT_COLOR = 'white';
-//Curtain rising factor... higher number means faster reveal
 const curtainDriftOffset = 1;
 
-//Total number of slideshow photos
-
 let photoCounter = 1;
+
 let timer = 1;
-let textTimer = 1;
+
 let transitionIsComplete = true;
 
 let musicPlayed = false;
@@ -23,17 +17,13 @@ let musicPlayed = false;
 let transitionState = IN;
 
 let firstPhotoLoaded = false;
-let animationStep = 0;
-const scrollingText = document.getElementById("scrollText");
 
+let animationStep = 0;
 
 const OPAQUE = .99;
 const TRANSPARENT = .01;
 
 const totalPhotos = 18;
-
-let textLineWidth = 0;
-
 
 const LEFT = [-1,0];
 const RIGHT = [1,0];
@@ -46,29 +36,20 @@ const Y = 1;
 const LANDSCAPE = 0;
 const PORTRAIT = 1;
 
-
 let screenOrientation = LANDSCAPE;
 
-//Captions
-let captionLocation = '0px';
-
-//How long are the photos on the screen once they transition in/out?
-const photoDuration = 500;
 let DEFAULT_PHOTO_DURATION = 500;
 
 let DEFAULT_PHOTO_TRANSITION_SPEED = 1.15;
-//How long is the text visible? Note: should be less than photoDuration
-let textTimingOffset = 5;
-const TEXT_FADE_SPEED = .003;
 
-//Pixels between each photo and text
 const textBuffer = 100;
-//How opaque do the curtain and title appear at first? 1 = totally opaque, 2 = totally transparent
+
 let alpha = {
 	"curtain": 1,
 	"title": 1,
 	"titleRealistic": 1,
 };
+
 let windPlayed = false;
 let userClicked = false;
 let musicIsFaded = false;
@@ -266,19 +247,6 @@ let text = {
 
 //Images that appear onscreen, and related properties
 const image = {
-    "textTop": {
-        "canvas": document.getElementById("scrollTextCanvas"),
-        "context": document.getElementById("scrollTextCanvas").getContext("2d"),
-        "image": document.getElementById("scrollText"),
-        "isBackground": false,
-        "position": {
-            X: document.getElementById("scrollTextCanvas").width/2-100,
-            Y: document.getElementById("scrollTextCanvas").height
-        },
-        "isStillOnPage": true,
-        "hasReachedBreakPoint": false,
-        "initialPositionHasBeenSet": false,
-    },
     "curtainTop": {
         "photo": document.getElementById("curtainTopImg"),
         "offsetPosition": 0,
@@ -722,10 +690,7 @@ function sizeCanvas()
 
     document.getElementById("titleRealisticCanvas").width = window.innerWidth;
     document.getElementById("titleRealisticCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
-    
-	document.getElementById("scrollTextCanvas").width = window.innerWidth;
-    document.getElementById("scrollTextCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
-    
+     
 	document.getElementById("slideshowCanvas").width = window.innerWidth;
     document.getElementById("slideshowCanvas").height = window.innerHeight * 2;
     
