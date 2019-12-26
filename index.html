@@ -14,6 +14,7 @@
 		<script src="js/animate/text.js" defer></script>
 		<script src="js/animate/captions.js" defer></script>
 		<script src="js/animate/contact.js" defer></script>
+		<script src="js/animate/arrow.js" defer></script>
 		<script src="js/initialize.js" defer></script>
 		<script src="js/animate.js" defer></script>
     </head>
@@ -23,7 +24,8 @@
 	<audio src="media/audio/camera.mp3" id="camera" autoplay=false></audio>
 		<div id="container" class="container" style="padding:0; margin:0;">
             <div style="display: none; padding:0; margin:0;">
-                <img id="curtainTopImg" src="media/images/curtain_top.png"></img>
+				<img id="arrowImg" src="media/images/arrow.png"></img>
+				<img id="curtainTopImg" src="media/images/curtain_top.png"></img>
                 <img id="curtainBottomImg" src="media/images/curtain_bottom.png"></img>
 				<img id="skywriting1" src="media/images/skywriting1.png">
 				<img id="skywriting2" src="media/images/skywriting2.png">
@@ -115,8 +117,5 @@
 				<canvas id="arrowCanvas" style="padding:0; margin:0; position: absolute; left:0; top: 0; z-index:2;"></canvas>
 				<canvas id="textCanvas" style="padding:0; margin:0; position:absolute; left: 0; top: {textCanvasLocation}; z-index:2"></canvas>
 			</div>	
-			<div align="right">
-				<img id="arrowImage" src="media/arrow.png" style="display:none; position: absolute; top: 0px;"></img>
-		</div>
 	</body>
 </html>

@@ -21,7 +21,7 @@ function slideShow()
         timer++;
     
 		if (photoCounter === 2) {
-			display("arrowImage");
+			sizePositionAndDisplayArrow(photo);
 		};
 		
 		if (photo.hasCaption) {
@@ -37,7 +37,7 @@ function slideShow()
     if (timer > photo.duration && !photo.transitionOutIsComplete) {
 
 		if (photoCounter === 2) {
-			hide("arrowImage");
+			hideArrow();
 		};
 
 		if (photo.hasCaption) {

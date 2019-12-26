@@ -737,6 +737,9 @@ function sizeCanvas()
 
     document.getElementById("contactReversed").width = window.innerWidth;
     document.getElementById("contactReversed").height = window.innerHeight;
+
+	document.getElementById("arrowCanvas").width = window.innerWidth;
+	document.getElementById("arrowCanvas").height = window.innerHeight * 2;
 };
 
 function sizeText()
