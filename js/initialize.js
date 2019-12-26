@@ -77,16 +77,6 @@ let contactIsShown = false;
 let contactIsFaded = false;
 let reverseContactIsFaded = false;
 let reverseContactIsShown = false;
-//skywriting stuff... TODO: move this to settings
-let skywritingIsFadedIn = false;
-let skywritingIsFadedOut = true;
-let skywritingPlacementIsChosen = false;
-let skywritingDuration = 250;
-let skywritingTimer = 0;
-let skywritingXPlacement = document.getElementById("skywritingCanvas").width/5;
-
-let skywritingYPlacement = document.getElementById("skywritingCanvas").height/5 - 10;
-let skywritingIsInstantiated = false;
 
 //Canvas objects
 const canvas = {

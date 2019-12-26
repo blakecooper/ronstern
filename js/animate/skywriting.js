@@ -1,19 +1,25 @@
+let WELCOME_TO_MY_WEBSITE = 1;
+let TO_GET_WIND_OF_MY_WORK = 2;
+
 let skywritingCanvas = document.getElementById("skywritingCanvas");
 let skywritingContext = skywritingCanvas.getContext("2d");
 
 let tapSkywritingCanvas = document.getElementById("skywritingTapCanvas");
 let tapSkywritingContext = tapSkywritingCanvas.getContext("2d");
 
-function sizeSkywritingText() {
-	let skywritingImage = docuent.getElementById("skywriting");
+let skywritingIsFadedIn = false;
+let skywritingIsFadedOut = true;
 
+let skywritingDuration = 125;
+let skywritingTimer = 0;
 
-	let skywritingOriginalWidth = skywritingImage.width;
-	let skywritingOriginalHeight = skywritingImage.height;
-	
-	skywritingImage.width = skywritingCanvas.width * .6;
-	skywritingImage.height = (skywritingOriginalHeight * (skywritingCanvas.width * .6))/skywritingOriginalWidth;
-};
+let skywritingXPlacement = document.getElementById("skywritingCanvas").width/5;
+
+let skywritingYPlacement = document.getElementById("skywritingCanvas").height/5 - 10;
+
+let skywritingIsInstantiated = false;
+
+let skywritingText = WELCOME_TO_MY_WEBSITE;
 
 function animateSkywriting() {
 
@@ -23,7 +29,7 @@ function animateSkywriting() {
 	if (!userClicked) {
 		
 		if (skywritingIsFadedOut) {
-			fadeCanvas(skywritingCanvas, .004);
+			fadeCanvas(skywritingCanvas, .006);
 			
 			if (skywritingIsInstantiated && canvasIsOpaque(skywritingCanvas)) {
 				skywritingIsFadedIn = true;
@@ -37,25 +43,34 @@ function animateSkywriting() {
 				skywritingTimer++;
 			} else {
 			
-				if (!canvasIsOpaque(tapSkywritingCanvas)) {
-					fadeCanvas(skywritingCanvas, -.004);
-					fadeCanvas(tapSkywritingCanvas, .004);
+				if (!canvasIsTransparent(skywritingCanvas)) {
+					fadeCanvas(skywritingCanvas, -.006);
+					
+					if (skywritingText === TO_GET_WIND_OF_MY_WORK && !canvasIsOpaque(tapSkywritingCanvas)) {
+						fadeCanvas(tapSkywritingCanvas, .006);
+					};
+				} else {
+					if (skywritingText === WELCOME_TO_MY_WEBSITE) {
+						skywritingText++;
+						skywritingIsFadedOut = true;
+						skywritingIsFadedIn = false;
+						skywritingTimer = 0;
+					};
 				};
-			
 			};
 		};		
 		
-		drawSkywriting();
+		drawSkywriting(skywritingText);
 		
 		window.requestAnimationFrame(animateSkywriting);
 		
 	} else {
 		
 		if (!canvasIsTransparent(tapSkywritingCanvas) || !canvasIsTransparent(skywritingCanvas)) {
-			fadeCanvas(tapSkywritingCanvas, -.008);
-			fadeCanvas(skywritingCanvas, -.008);
+			fadeCanvas(tapSkywritingCanvas, -.012);
+			fadeCanvas(skywritingCanvas, -.012);
 
-			drawSkywriting();
+			drawSkywriting(skywritingText);
 
 			window.requestAnimationFrame(animateSkywriting);
 		} else {
@@ -66,8 +81,10 @@ function animateSkywriting() {
 	};
 };
 
-function drawSkywriting() {
-	const skywritingImage = document.getElementById("skywriting");
+function drawSkywriting(text) {
+
+
+	const skywritingImage = document.getElementById(getSkywritingImageId(text));
 	const tapSkywritingImage = document.getElementById("skywritingTap");
 
 	const skywritingOriginalWidth = skywritingImage.width;
@@ -88,4 +105,12 @@ function drawSkywriting() {
 		tapSkywritingCanvas.width * .80,
 		tapSkywritingImage.height * (tapSkywritingCanvas.width * .60)/skywritingTapOriginalWidth,
 	);
+};
+
+function getSkywritingImageId(text) {
+	if (text === WELCOME_TO_MY_WEBSITE) {
+		return "skywriting1";
+	} else {
+		return "skywriting2";
+	};
 };
