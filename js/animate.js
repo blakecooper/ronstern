@@ -22,7 +22,6 @@ function animate()
 		};
 
 		pauseFor(100);
-		animationStep++;
 	};
 
 	if (animationStep === 3)
@@ -33,7 +32,6 @@ function animate()
 	if (animationStep === 4)
 	{
 		pauseFor(25);
-		animationStep++;
 	};
 
     if (animationStep === 5)
@@ -44,7 +42,6 @@ function animate()
 	if (animationStep === 6)
 	{
 		pauseFor(150);
-		animationStep++;
 	};
 
 	if (animationStep === 7)
@@ -54,8 +51,7 @@ function animate()
 
 	if (animationStep === 8)
 	{
-		pauseFor(8000);
-		animationStep++;
+		pauseFor(6000);
 	};
 
 	if (animationStep === 9)
