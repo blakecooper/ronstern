@@ -101,7 +101,7 @@ function drawSkywriting(text) {
 	tapSkywritingContext.drawImage(
 		tapSkywritingImage,
 		skywritingXPlacement,
-		skywritingYPlacement,
+		skywritingYPlacement + 15,
 		tapSkywritingCanvas.width * .80,
 		tapSkywritingImage.height * (tapSkywritingCanvas.width * .60)/skywritingTapOriginalWidth,
 	);
