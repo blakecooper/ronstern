@@ -1,3 +1,4 @@
+let cameraPlayed = false;
 
 const OUT = 0;
 const IN = 1;
@@ -644,6 +645,11 @@ window.onload = function()
 
 function startOnClick() 
 {
+	if (!cameraPlayed) {
+		document.getElementById("camera").play();
+		cameraPlayed = true;
+	};
+
 	userClicked = true;
 	playWind();
 	window.requestAnimationFrame(animate);
@@ -653,7 +659,6 @@ function playWind()
 {
 	if (!windPlayed)
 	{
-		document.getElementById("camera").play();
 		document.getElementById("wind").play();
 		windPlayed = true;
 	};
