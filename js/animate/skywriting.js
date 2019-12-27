@@ -13,7 +13,10 @@ let skywritingIsFadedOut = true;
 let skywritingDuration = 125;
 let skywritingTimer = 0;
 
-let skywritingXPlacement = document.getElementById("skywritingCanvas").width/5;
+let skywritingXPlacement = (window.innerWidth/2) - ((window.innerWidth * .80)/2);
+
+document.getElementById("skywritingCanvas").width/5;
+
 
 let skywritingYPlacement = document.getElementById("skywritingCanvas").height/5 - 10;
 

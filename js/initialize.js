@@ -720,7 +720,7 @@ function sizeText()
 	};
 };
 
-window.requestAnimationFrame(animateSkywriting);
+setTimeout(() => { window.requestAnimationFrame(animateSkywriting); }, 1600 );
 
 function pauseFor(time) 
 {
