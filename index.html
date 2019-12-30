@@ -17,7 +17,18 @@
 		<script src="js/animate/arrow.js" defer></script>
 		<script src="js/initialize.js" defer></script>
 		<script src="js/animate.js" defer></script>
-    </head>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155159356-1"></script>
+		<script>
+  			window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+
+  			gtag('config', 'UA-155159356-1');
+		</script>
+
+</head>
 	<body onclick="startOnClick();" style="background-color: #000000;">
 	<audio src="media/audio/wind.mp3" id="wind" autoplay=false></audio>		
 	<audio src="media/audio/music.mp3" id="music" autoplay=false></audio>
@@ -68,7 +79,7 @@
 				</p>
 			</div>	
 
-			<div id="captionDon" style="position:absolute; padding: 25px; left: 0px; right: 0px; top: 0px; display:none; z-index:2;">
+			<div id="captionDon" style="position:absolute; padding: 12px; left: 0px; right: 0px; top: 0px; display:none; z-index:2;">
 				<p align="center" style="font-family:'Mr De Haviland', cursive; font-weight: normal; font-size: 30px; color:#ffffff;">
 					Rancher Don, 
 					<br>Chaffee, New York
