@@ -18,9 +18,10 @@ let skywritingYPlacement = document.getElementById("skywritingCanvas").height/5 
 
 let skywritingTapXPlacement = (window.innerWidth/2) - ((window.innerWidth * .50)/2);
 let skywritingTapYPlacement = document.getElementById("skywritingCanvas").height/5;
+
 //Bottom right
-//let skywritingTapXPlacement = (window.innerWidth) - ((window.innerWidth * .50) + 20);
-//let skywritingTapYPlacement = ((document.getElementById("skywritingTapCanvas").height) * 2);
+let skywritingTapSpeedupXPlacement = (window.innerWidth) - ((window.innerWidth * .20)) - 25;
+let skywritingTapSpeedupYPlacement = ((document.getElementById("skywritingTapCanvas").height) * 2);
 
 
 let skywritingIsInstantiated = false;
@@ -73,8 +74,8 @@ function animateSkywriting() {
 	} else {
 		
 		if (!canvasIsTransparent(tapSkywritingCanvas) || !canvasIsTransparent(skywritingCanvas)) {
-			fadeCanvas(tapSkywritingCanvas, -.012);
-			fadeCanvas(skywritingCanvas, -.012);
+			fadeCanvas(tapSkywritingCanvas, -.06);
+			fadeCanvas(skywritingCanvas, -.06);
 
 			drawSkywriting(skywritingText);
 
@@ -92,12 +93,15 @@ function drawSkywriting(text) {
 
 	const skywritingImage = document.getElementById(getSkywritingImageId(text));
 	const tapSkywritingImage = document.getElementById("skywritingTap");
+	const tapSpeedupSkywritingImage = document.getElementById("skywritingTapSpeedup");
 
 	const skywritingOriginalWidth = skywritingImage.width;
 	const skywritingTapOriginalWidth = tapSkywritingImage.width;
+	const skywritingTapSpeedupOriginalWidth = tapSpeedupSkywritingImage.width;
 
 	const skywritingTapNewHeight = tapSkywritingImage.height * ((tapSkywritingCanvas.width * .50)/skywritingTapOriginalWidth);
-  	
+
+	const skywritingTapSpeedupNewHeight = tapSpeedupSkywritingImage.height * ((tapSkywritingCanvas.width * .2)/skywritingTapSpeedupOriginalWidth);
 	skywritingContext.drawImage(
 		skywritingImage,
 		skywritingXPlacement,
@@ -112,6 +116,14 @@ function drawSkywriting(text) {
 		skywritingTapYPlacement,
 		tapSkywritingCanvas.width * .50,
 		skywritingTapNewHeight,
+	);
+
+	tapSkywritingContext.drawImage(
+		tapSpeedupSkywritingImage,
+		skywritingTapSpeedupXPlacement,
+		skywritingTapSpeedupYPlacement - skywritingTapSpeedupNewHeight - 15,
+		skywritingCanvas.width * .20,
+		skywritingTapSpeedupNewHeight,
 	);
 };
 
