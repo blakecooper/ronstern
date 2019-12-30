@@ -99,7 +99,7 @@ function drawSkywriting(text) {
 	const skywritingTapOriginalWidth = tapSkywritingImage.width;
 	const skywritingTapSpeedupOriginalWidth = tapSpeedupSkywritingImage.width;
 
-	const skywritingTapNewHeight = tapSkywritingImage.height * ((tapSkywritingCanvas.width * .80)/skywritingTapOriginalWidth);
+	const skywritingTapNewHeight = tapSkywritingImage.height * ((tapSkywritingCanvas.width * .60)/skywritingTapOriginalWidth);
 
 	const skywritingTapSpeedupNewHeight = tapSpeedupSkywritingImage.height * ((tapSkywritingCanvas.width * .2)/skywritingTapSpeedupOriginalWidth);
 	skywritingContext.drawImage(
@@ -113,7 +113,7 @@ function drawSkywriting(text) {
 	tapSkywritingContext.drawImage(
 		tapSkywritingImage,
 		skywritingTapXPlacement,
-		skywritingTapYPlacement,
+		skywritingTapYPlacement + 5,
 		tapSkywritingCanvas.width * .80,
 		skywritingTapNewHeight,
 	);
