@@ -16,8 +16,11 @@ let skywritingTimer = 0;
 let skywritingXPlacement = (window.innerWidth/2) - ((window.innerWidth * .80)/2);
 let skywritingYPlacement = document.getElementById("skywritingCanvas").height/5 - 10;
 
-let skywritingTapXPlacement = (window.innerWidth) - ((window.innerWidth * .50) + 20);
-let skywritingTapYPlacement = ((document.getElementById("skywritingTapCanvas").height) * 2);
+let skywritingTapXPlacement = (window.innerWidth/2) - ((window.innerWidth * .50)/2);
+let skywritingTapYPlacement = document.getElementById("skywritingCanvas").height/5;
+//Bottom right
+//let skywritingTapXPlacement = (window.innerWidth) - ((window.innerWidth * .50) + 20);
+//let skywritingTapYPlacement = ((document.getElementById("skywritingTapCanvas").height) * 2);
 
 
 let skywritingIsInstantiated = false;
@@ -106,7 +109,7 @@ function drawSkywriting(text) {
 	tapSkywritingContext.drawImage(
 		tapSkywritingImage,
 		skywritingTapXPlacement,
-		canvas.curtain.height - skywritingTapNewHeight,
+		skywritingTapYPlacement,
 		tapSkywritingCanvas.width * .50,
 		skywritingTapNewHeight,
 	);
