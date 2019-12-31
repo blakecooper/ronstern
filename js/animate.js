@@ -1,3 +1,5 @@
+let skywritingHasFaded = false;
+
 function animate() 
 {
 	window.requestAnimationFrame(animate);
@@ -31,6 +33,12 @@ function animate()
 
 	if (animationStep === 4)
 	{
+		if (!skywritingHasFaded) {
+			document.getElementById("skywritingTapCanvas").getContext("2d").globalAlpha = 0.0;
+			document.getElementById("skywritingCanvas").getContext("2d").globalAlpha = 0.0;
+			skywritingHasFaded = true;
+		};
+
 		pauseFor(25);
 	};
 
