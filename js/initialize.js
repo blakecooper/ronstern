@@ -560,7 +560,7 @@ const image = {
 			"textOnRight": true,
 			"extraWide": false,
 			"fullScreen": false,
-			"hasCaption": true,
+			"hasCaption": false,
 			"captionID": "Don",
 			
         },
