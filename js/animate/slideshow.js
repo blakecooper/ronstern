@@ -79,8 +79,13 @@ function sizeAndPositionPhoto(photo) {
 			photo.drawWidth = canvas.slideshow.width;
            	photo.drawHeight = photo.photo.height/(photo.photo.width/canvas.slideshow.width);
 		} else {
-			photo.drawHeight = canvas.slideshow.height;
-			photo.drawWidth = photo.photo.width/(photo.photo.height/canvas.slideshow.height);
+			if (photo.hasCaption) {
+				photo.drawHeight = window.innerHeight * .8;
+			} else {
+				photo.drawHeight = window.innerHeight;
+			}
+
+			photo.drawWidth = photo.photo.width/(photo.photo.height/photo.drawHeight);
        
 			if (photo.extraWide === true) {
 				photo.drawHeight = photo.drawHeight * .75;

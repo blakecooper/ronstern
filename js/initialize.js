@@ -697,7 +697,7 @@ function sizeCanvas()
     document.getElementById("titleRealisticCanvas").height = image.curtainTop.photo.height/(image.curtainTop.photo.width/canvas.curtain.width);
      
 	document.getElementById("slideshowCanvas").width = window.innerWidth;
-    document.getElementById("slideshowCanvas").height = window.innerHeight * 2;
+	document.getElementById("slideshowCanvas").height = window.innerHeight * 2;
     
     document.getElementById("textCanvas").width = window.innerWidth;
     document.getElementById("textCanvas").height = window.innerHeight * 2;

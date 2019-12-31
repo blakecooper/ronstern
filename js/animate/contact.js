@@ -12,19 +12,9 @@ function drawContact() {
 		let contactOriginalHeight = document.getElementById("contactPage").height;
 		let contactOriginalWidth = document.getElementById("contactPage").width;
 
-		let contactNewHeight = 0;
-		let contactNewWidth = 0;
-		if (screenOrientation === LANDSCAPE)
-		{
-			contactNewWidth  = window.innerWidth;
-			contactNewHeight = contactNewWidth*(contactOriginalHeight/contactOriginalWidth);
+		let	contactNewHeight = window.innerHeight;
+		let	contactNewWidth = contactNewHeight/(contactOriginalHeight/contactOriginalWidth);	
 			
-		} else {
-			contactNewHeight = window.innerHeight;
-			contactNewWidth = contactNewHeight/(contactOriginalHeight/contactOriginalWidth);	
-			
-		};
-
 		let centeredX = (window.innerWidth - contactNewWidth)/2;
 		
 		if (!contactIsFaded) {
