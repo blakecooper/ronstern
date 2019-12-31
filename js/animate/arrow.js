@@ -1,7 +1,7 @@
 const arrowCanvas = document.getElementById("arrowCanvas");
 const arrowImage = document.getElementById("arrowImg");
 
-const arrowToScreenSizeFactor = 6;
+const arrowToScreenSizeFactor = 12;
 
 let arrowPositionX = 0;
 let arrowPositionY = 0;
@@ -17,9 +17,17 @@ function sizePositionAndDisplayArrow(photo) {
 
 
 function positionArrow(photo) {
-	arrowPositionX = (window.innerWidth / 2) - ((arrowImage.width / arrowToScreenSizeFactor) / 2);
+	//For centering:
+	//arrowPositionX = (window.innerWidth / 2) - ((arrowImage.width / arrowToScreenSizeFactor) / 2);
 
-	arrowPositionY = photo.drawHeight - arrowImage.height / arrowToScreenSizeFactor;
+	//For Right aligned:
+	arrowPositionX = (window.innerWidth) - ((arrowImage.width / arrowToScreenSizeFactor)) - 35;
+	
+	//For inside photo:
+	//arrowPositionY = photo.drawHeight - arrowImage.height / arrowToScreenSizeFactor;
+	
+	//For outside photo:
+	arrowPositionY = photo.drawHeight + (arrowImage.height / arrowToScreenSizeFactor)/2;
 };
 
 function drawArrow() {
