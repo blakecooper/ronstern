@@ -75,7 +75,7 @@ const canvas = {
 //There has to be a number of these equal to the totalPhotos... in the future, these objects should be combined with the photos to avoid bugs.
 let text = {
     "1": {
-        "line": "Ron Stern is a master photographer and the nephew & protege of famed 20th century photographer, Bert Stern. PARA At the peak of Bert's career, Ron apprenticed under the legendary commercial photographer. Soon, the young Stern would develop a keen eye for wondrous photographic composition and a unique style that even his Uncle envied.", 
+        "line": "Ron Stern is a master photographer and the nephew & protege of famed 20th century photographer, Bert Stern. PARA At the peak of Bert's career, Ron apprenticed under the legendary commercial photographer. Soon, the young Stern would develop a keen eye for wondrous photographic composition and a unique style that even his Uncle admired.", 
         "alpha": 0,
         "widthInChars": 100,
         "x": 10,
