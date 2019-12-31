@@ -118,13 +118,13 @@ function drawSkywriting(text) {
 		tapSkywritingImage.height * (tapSkywritingCanvas.width * .60)/skywritingTapOriginalWidth,
 	);
 
-	tapSkywritingContext.drawImage(
-		tapSpeedupSkywritingImage,
-		skywritingTapSpeedupXPlacement,
-		skywritingTapSpeedupYPlacement - skywritingTapSpeedupNewHeight - 15,
-		skywritingCanvas.width * .20,
-		skywritingTapSpeedupNewHeight,
-	);
+//	tapSkywritingContext.drawImage(
+//		tapSpeedupSkywritingImage,
+//		skywritingTapSpeedupXPlacement,
+//		skywritingTapSpeedupYPlacement - skywritingTapSpeedupNewHeight - 15,
+//		skywritingCanvas.width * .20,
+//		skywritingTapSpeedupNewHeight,
+//	);
 };
 
 function getSkywritingImageId(text) {
