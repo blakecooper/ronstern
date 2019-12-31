@@ -655,6 +655,8 @@ function startOnClick()
 	window.requestAnimationFrame(animate);
 	
 	//Ron requested it play at a faster speed, 'like a double tap'
+	// ...then requested it be a little bit faster
+	window.requestAnimationFrame(animate);
 	window.requestAnimationFrame(animate);
 };
 
