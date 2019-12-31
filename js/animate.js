@@ -49,7 +49,7 @@ function animate()
 
 	if (animationStep === 6)
 	{
-		pauseFor(300);
+		pauseFor(200);
 	};
 
 	if (animationStep === 7)
