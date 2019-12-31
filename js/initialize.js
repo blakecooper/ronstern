@@ -653,6 +653,9 @@ function startOnClick()
 	userClicked = true;
 	playWind();
 	window.requestAnimationFrame(animate);
+	
+	//Ron requested it play at a faster speed, 'like a double tap'
+	window.requestAnimationFrame(animate);
 };
 
 function playWind()
