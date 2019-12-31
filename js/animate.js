@@ -59,7 +59,7 @@ function animate()
 
 	if (animationStep === 8)
 	{
-		pauseFor(5000);
+		pauseFor(4750);
 	};
 
 	if (animationStep === 9)
