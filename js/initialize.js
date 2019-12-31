@@ -92,7 +92,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": -60,
+		"timingOffset": 500,
     },
     "3": {
         "line": "",
