@@ -92,7 +92,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": 500,
+		"timingOffset": 600,
     },
     "3": {
         "line": "",
@@ -300,7 +300,7 @@ const image = {
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
-        	"duration": DEFAULT_PHOTO_DURATION,
+        	"duration": DEFAULT_PHOTO_DURATION + 250,
 			"hasText": true,
 			"textOnRight": true,
 			"extraWide": false,
