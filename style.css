@@ -31,7 +31,7 @@ p {
 font-family: 'American Typewriter';
 font-style: normal;
 font-weight: normal;
-src: local('American Typewriter'), url('media/fonts/ufonts.com_american-typewriter.woff') format('woff');
+src: local('American Typewriter'), url('media/fonts/american-typewriter.ttf') format('ttf');
 }
 
 
