@@ -8,11 +8,13 @@ function slideShow()
     if (photo.hasNotBeenDrawnYet) {
 		sizeAndPositionPhoto(photo);
 	};
-    
-    if (!photo.hasNotBeenDrawnYet && image.slideshow[photoCounter].hasText) {
-    	drawText(photo);		
-	} else {
+ 
+	if (!image.slideshow[photoCounter].hasText) {		
 		text[photoCounter].transitionOutIsComplete = true;
+	} else {
+		if (!photo.hasNotBeenDrawnYet) {
+			drawText(photo);
+		};
 	};
 
 	drawPhoto(photo);
@@ -35,6 +37,8 @@ function slideShow()
     };
 
     if (timer > photo.duration && !photo.transitionOutIsComplete) {
+
+		photo.hasDisplayed = true;
 
 		if (photoCounter === 2) {
 			hideArrow();

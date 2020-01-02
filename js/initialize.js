@@ -92,7 +92,7 @@ let text = {
         "y": 10,
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
-		"timingOffset": 600,
+		"timingOffset": 100,
     },
     "3": {
         "line": "",
@@ -288,6 +288,7 @@ const image = {
             "centered": false,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 		},
         "2": {
             "photo": document.getElementById("photo2"),
@@ -308,6 +309,7 @@ const image = {
             "centered": false,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "3": {
@@ -329,6 +331,7 @@ const image = {
             "centered": true,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "4": {
@@ -351,6 +354,7 @@ const image = {
             "centered": true,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "5": {
@@ -373,6 +377,7 @@ const image = {
 			"centered": true,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "6": {
@@ -392,6 +397,7 @@ const image = {
             "centered": true,
 			"hasCaption": true,
 			"captionID": "MelAndCole",
+			"hasDisplayed": false,
 			
         },
         "7": {
@@ -413,6 +419,7 @@ const image = {
             "centered": false,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "8": {
@@ -434,6 +441,7 @@ const image = {
             "centered": true,
 			"hasCaption": true,
 			"captionID": "Scott",
+			"hasDisplayed": false,
 			
         },
         "9": {
@@ -455,6 +463,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": true,
 			"captionID": "Castle",
+			"hasDisplayed": false,
 			
 		},
         "10": {
@@ -476,6 +485,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "11": {
@@ -497,6 +507,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "12": {
@@ -520,6 +531,7 @@ const image = {
             "centered": true,
 			"hasCaption": false,
 			"captionID": "",
+			"hasDisplayed": false,
 			
         },
         "13": {
@@ -541,6 +553,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": true,
 			"captionID": "Kids",
+			"hasDisplayed": false,
 			
         },
         "14": {
@@ -562,6 +575,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": false,
 			"captionID": "Don",
+			"hasDisplayed": false,
 			
         },
         "15": {
@@ -583,6 +597,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": true,
 			"captionID": "Theatre",
+			"hasDisplayed": false,
 			
         },
         "16": {
@@ -604,6 +619,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": true,
 			"captionID": "Family",
+			"hasDisplayed": false,
 			
         },
         "17": {
@@ -625,6 +641,7 @@ const image = {
 			"fullScreen": false,
 			"hasCaption": true,
 			"captionID": "Flower",
+			"hasDisplayed": false,
 			
         },
     },

@@ -29,7 +29,7 @@ function drawText(photo) {
 
 	let totalTextDuration = photo.duration + textTimingOffset + text[photoCounter].timingOffset;
 
-    if (textTimer > (totalTextDuration) && text[photoCounter].transitionInIsComplete) {
+    if (photo.hasDisplayed && textTimer > (totalTextDuration) && text[photoCounter].transitionInIsComplete) {
         if (!text[photoCounter].transitionOutIsComplete) {
         	fadeOutText(photo);
 
