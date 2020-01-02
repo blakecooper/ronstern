@@ -1,7 +1,7 @@
 const arrowCanvas = document.getElementById("arrowCanvas");
 const arrowImage = document.getElementById("arrowImg");
 
-const arrowToScreenSizeFactor = 6;
+const arrowToScreenSizeFactor = 8;
 
 let arrowPositionX = 0;
 let arrowPositionY = 0;
