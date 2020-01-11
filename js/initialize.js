@@ -24,7 +24,7 @@ let animationStep = 0;
 const OPAQUE = .99;
 const TRANSPARENT = .01;
 
-const totalPhotos = 18;
+const totalPhotos = 17;
 
 const LEFT = [-1,0];
 const RIGHT = [1,0];
@@ -196,16 +196,6 @@ let text = {
     },
     "13": {
         "line": "",
-        "alpha": 0,
-        "widthInChars": 100,
-        "x": canvas.slideshow.width/2,
-        "y": canvas.text.height/2,
-        "transitionInIsComplete": false,
-        "transitionOutIsComplete": false,
-		"timingOffset": 0,
-    },
-    "14": {
-        "line": "",
 		"alpha": 0,
         "widthInChars": 100,
         "x": 10,
@@ -213,6 +203,16 @@ let text = {
         "transitionInIsComplete": false,
         "transitionOutIsComplete": false,
 		"timingOffset": -10,
+    },
+    "14": {
+        "line": "",
+        "alpha": 0,
+        "widthInChars": 100,
+        "x": canvas.slideshow.width/2,
+        "y": canvas.text.height/2,
+        "transitionInIsComplete": false,
+        "transitionOutIsComplete": false,
+		"timingOffset": 0,
     },
     "15": {
         "line": "",
@@ -225,16 +225,6 @@ let text = {
 		"timingOffset": 0,
     },
     "16": {
-        "line": "",
-        "alpha": 0,
-        "widthInChars": 100,
-        "x": canvas.slideshow.width/2,
-        "y": canvas.text.height/2,
-        "transitionInIsComplete": false,
-        "transitionOutIsComplete": false,
-		"timingOffset": 0,
-    },
-    "17": {
         "line": "",
         "alpha": 0,
         "widthInChars": 100,
@@ -539,28 +529,6 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo13").width,
             "drawHeight": document.getElementById("photo13").height,
-            "initialPosition": LEFT,
-            "finalPosition": [canvas.slideshow.width, 0],
-			"currentPosition": [0,0],
-            "transitionInIsComplete": false,
-            "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
-        	"duration": DEFAULT_PHOTO_DURATION / 2,
-			"hasText": false,
-            "centered": true,
-			"textOnRight": true,
-			"extraWide": false,
-			"fullScreen": false,
-			"hasCaption": true,
-			"captionID": "Kids",
-			"hasDisplayed": false,
-			
-        },
-        "14": {
-            "photo": document.getElementById("photo14"),
-            "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo14").width,
-            "drawHeight": document.getElementById("photo14").height,
             "initialPosition": RIGHT,
             "finalPosition": [canvas.slideshow.width, 0],
 			"currentPosition": [0,0],
@@ -578,11 +546,11 @@ const image = {
 			"hasDisplayed": false,
 			
         },
-        "15": {
-            "photo": document.getElementById("photo15"),
+        "14": {
+            "photo": document.getElementById("photo14"),
             "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo15").width,
-            "drawHeight": document.getElementById("photo15").height,
+            "drawWidth": document.getElementById("photo14").width,
+            "drawHeight": document.getElementById("photo14").height,
             "initialPosition": LEFT,
             "finalPosition": [canvas.slideshow.width, 0],
 			"currentPosition": [0,0],
@@ -600,11 +568,11 @@ const image = {
 			"hasDisplayed": false,
 			
         },
-        "16": {
-            "photo": document.getElementById("photo16"),
+        "15": {
+            "photo": document.getElementById("photo15"),
             "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo16").width,
-            "drawHeight": document.getElementById("photo16").height,
+            "drawWidth": document.getElementById("photo15").width,
+            "drawHeight": document.getElementById("photo15").height,
             "initialPosition": RIGHT,
             "finalPosition": [canvas.slideshow.width, 0],
 			"currentPosition": [0,0],
@@ -622,11 +590,11 @@ const image = {
 			"hasDisplayed": false,
 			
         },
-        "17": {
-            "photo": document.getElementById("photo17"),
+        "16": {
+            "photo": document.getElementById("photo16"),
             "hasNotBeenDrawnYet": true,
-            "drawWidth": document.getElementById("photo17").width,
-            "drawHeight": document.getElementById("photo17").height,
+            "drawWidth": document.getElementById("photo16").width,
+            "drawHeight": document.getElementById("photo16").height,
             "initialPosition": LEFT,
             "finalPosition": [canvas.slideshow.width, 0],
 			"currentPosition": [0,0],
