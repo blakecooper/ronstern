@@ -279,13 +279,15 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 		},
         "2": {
             "photo": document.getElementById("photo2"),
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo2").width,
             "drawHeight": document.getElementById("photo2").height,
-            "initialPosition": LEFT,
+            "initialPosition": RIGHT,
             "finalPosition": [canvas.slideshow.width, 0],
 			"currentPosition": [0,0],
             "transitionInIsComplete": false,
@@ -300,7 +302,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
-			
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,		
         },
         "3": {
             "photo": document.getElementById("photo3"),
@@ -322,7 +325,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
-			
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
         },
         "4": {
             "photo": document.getElementById("photo4"),
@@ -334,18 +338,18 @@ const image = {
 			"currentPosition": [0,0],
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.5,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.75,
         	"duration": DEFAULT_PHOTO_DURATION / 2,
 			"hasText": true,
 			"textOnRight": false,
-			"extraWide": false,
-			
+			"extraWide": false,			
 			"fullScreen": false,
             "centered": true,
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
-			
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,
         },
         "5": {
             "photo": document.getElementById("photo5"),
@@ -368,6 +372,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "6": {
@@ -388,6 +394,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "MelAndCole",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "7": {
@@ -410,6 +418,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"fastTransitionOut": true,
+			"transitionOutChanged": false,	
 			
         },
         "8": {
@@ -423,7 +433,7 @@ const image = {
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
-        	"duration": DEFAULT_PHOTO_DURATION,
+        	"duration": DEFAULT_PHOTO_DURATION * 1.25,
 			"hasText": false,
 			"textOnRight": true,
 			"extraWide": false,
@@ -432,6 +442,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Scott",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "9": {
@@ -454,6 +466,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Castle",
 			"hasDisplayed": false,
+			"fastTransitionOut": true,
+			"transitionOutChanged": false,	
 			
 		},
         "10": {
@@ -476,6 +490,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Bed",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "11": {
@@ -488,7 +504,7 @@ const image = {
 			"currentPosition": [0,0],
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
         	"duration": DEFAULT_PHOTO_DURATION,
 			"hasText": true,
             "centered": false,
@@ -498,6 +514,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "12": {
@@ -510,7 +528,7 @@ const image = {
 			"currentPosition": [0,0],
             "transitionInIsComplete": false,
             "transitionOutIsComplete": false,
-            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
+            "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED * 1.25,
         	"duration": DEFAULT_PHOTO_DURATION / 2,
 			"hasText": false,
             "centered": true,
@@ -522,6 +540,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "13": {
@@ -544,6 +564,8 @@ const image = {
 			"hasCaption": false,
 			"captionID": "Don",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "14": {
@@ -566,6 +588,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Theatre",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "15": {
@@ -588,6 +612,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Family",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
         "16": {
@@ -610,6 +636,8 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Flower",
 			"hasDisplayed": false,
+			"fastTransitionOut": false,
+			"transitionOutChanged": false,	
 			
         },
     },

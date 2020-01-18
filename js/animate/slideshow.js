@@ -44,6 +44,11 @@ function slideShow()
 			hideArrow();
 		};
 
+		if (!photo.transitionOutChanged && photo.fastTransitionOut) {
+			photo.transitionSpeed = photo.transitionSpeed * 1.25;
+			photo.transitionOutChanged = true;
+		};
+		
 		if (photo.hasCaption) {
 			hide("caption" + photo.captionID);
 		};
