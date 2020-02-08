@@ -52,7 +52,7 @@ function slideShow()
 			hide("caption" + photo.captionID);
 		};
 
-        if ((photo.transitionType !== FADE_IN_AND_OUT && photo.currentPosition[X] > (0-canvas.slideshow.width-100) && photo.currentPosition[X] < canvas.slideshow.width) || (photo.transitionType === FADE_IN_AND_OUT && canvas.slideshow.getContext("2d").globalAlpha >= TRANSPARENT)) {
+        if ((photo.transitionType !== FADE_IN_AND_OUT && photo.currentPosition[X] > (0-canvas.slideshow.width-100) && photo.currentPosition[X] < canvas.slideshow.width) || (photo.transitionType !== SLIDE_IN_AND_OUT && canvas.slideshow.getContext("2d").globalAlpha >= TRANSPARENT)) {
 			updatePhotoTransition(photo);
 		} else {
 			if (text[photoCounter].transitionOutIsComplete === true) {
