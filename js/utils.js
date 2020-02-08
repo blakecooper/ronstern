@@ -26,6 +26,13 @@ function getCanvasOpacity(canvas) {
 	return canvas.getContext("2d").globalAlpha;
 };
 
+function setCanvasOpacityToTransparent(canvas) {
+	canvas.getContext("2d").globalAlpha = TRANSPARENT;
+};
+
+function setCanvasOpacityToOpaque(canvas) {
+	canvas.getContext("2d").globalAlpha = OPAQUE;
+};
 function canvasIsOpaque(canvas) {
 	return getCanvasOpacity(canvas) > OPAQUE;
 };

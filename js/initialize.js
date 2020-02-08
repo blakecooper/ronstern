@@ -1,3 +1,8 @@
+//Transition settings:
+const SLIDE_IN_AND_OUT = 0;
+const SLIDE_IN_AND_FADE_ON_SLIDE_OUT = 1;
+const FADE_IN_AND_OUT = 2;
+
 let cameraPlayed = false;
 
 const OUT = 0;
@@ -279,6 +284,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_FADE_ON_SLIDE_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 		},
@@ -303,6 +309,7 @@ const image = {
 			"captionID": "",
 			"hasDisplayed": false,
 			"fastTransitionOut": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"transitionOutChanged": false,		
         },
         "3": {
@@ -310,7 +317,7 @@ const image = {
             "hasNotBeenDrawnYet": true,
             "drawWidth": document.getElementById("photo3").width,
             "drawHeight": document.getElementById("photo3").height,
-            "initialPosition": RIGHT,
+            "initialPosition": [0,0],
             "finalPosition": [canvas.slideshow.width, 0],
 			"currentPosition": [0,0],
             "transitionInIsComplete": false,
@@ -325,6 +332,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": FADE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
         },
@@ -348,6 +356,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,
         },
@@ -372,6 +381,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -394,6 +404,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "MelAndCole",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -418,6 +429,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": true,
 			"transitionOutChanged": false,	
 			
@@ -442,6 +454,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Scott",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -466,6 +479,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Castle",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": true,
 			"transitionOutChanged": false,	
 			
@@ -490,6 +504,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Bed",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -514,6 +529,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -540,6 +556,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -564,6 +581,7 @@ const image = {
 			"hasCaption": false,
 			"captionID": "Don",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -588,6 +606,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Theatre",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -612,6 +631,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Family",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			
@@ -636,6 +656,7 @@ const image = {
 			"hasCaption": true,
 			"captionID": "Flower",
 			"hasDisplayed": false,
+			"transitionType": SLIDE_IN_AND_OUT,
 			"fastTransitionOut": false,
 			"transitionOutChanged": false,	
 			

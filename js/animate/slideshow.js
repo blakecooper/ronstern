@@ -1,6 +1,5 @@
 function slideShow()
 {
-
 	clearCanvas(canvas.slideshow);
 
     var photo = image.slideshow[photoCounter];
@@ -31,7 +30,7 @@ function slideShow()
 		};
 
 	} else {
-        updatePhotoPosition(photo);
+        updatePhotoTransition(photo);
 
 		checkForCompletedTransition(photo);
     };
@@ -53,8 +52,8 @@ function slideShow()
 			hide("caption" + photo.captionID);
 		};
 
-        if ((photo.currentPosition[X] > (0-canvas.slideshow.width-100) && photo.currentPosition[X] < canvas.slideshow.width)) {
-			updatePhotoPosition(photo);
+        if ((photo.transitionType !== FADE_IN_AND_OUT && photo.currentPosition[X] > (0-canvas.slideshow.width-100) && photo.currentPosition[X] < canvas.slideshow.width) || (photo.transitionType === FADE_IN_AND_OUT && canvas.slideshow.getContext("2d").globalAlpha >= TRANSPARENT)) {
+			updatePhotoTransition(photo);
 		} else {
 			if (text[photoCounter].transitionOutIsComplete === true) {
             	photo.transitionOutIsComplete = true;
@@ -105,8 +104,20 @@ function sizeAndPositionPhoto(photo) {
 
     photo.currentPosition[X] = canvas.slideshow.width * photo.initialPosition[X];
     photo.currentPosition[Y] = canvas.slideshow.height * photo.initialPosition[Y];
-       	
+       
+	setInitialPhotoOpacity(photo);
+
 	photo.hasNotBeenDrawnYet = false;
+};
+
+function setInitialPhotoOpacity(photo) {
+	if (photo.transitionType === FADE_IN_AND_OUT) {
+		setCanvasOpacityToTransparent(canvas.slideshow);
+	} else {
+		if (!canvasIsOpaque(canvas.slideshow)) {
+			setCanvasOpacityToOpaque(canvas.slideshow);
+		};
+	};
 };
 
 function drawPhoto(photo) {
@@ -117,6 +128,22 @@ function drawPhoto(photo) {
 		photo.drawWidth,
 		photo.drawHeight
 	);
+};
+
+function updatePhotoTransition(photo) {
+	if (!photo.transitionInIsComplete && canvas.slideshow.getContext("2d").globalAlpha <= OPAQUE) {
+		fadeCanvas(canvas.slideshow,.005);
+	};
+
+	if (photo.transitionType !== FADE_IN_AND_OUT) {
+		updatePhotoPosition(photo);
+	};
+
+	if (photo.transitionInIsComplete && photo.transitionType !== SLIDE_IN_AND_OUT) {
+		if ((photo.transitionType === SLIDE_IN_AND_FADE_ON_SLIDE_OUT && photo.currentPosition[X] < (-150)) || (photo.transitionType === FADE_IN_AND_OUT)) {
+			fadeCanvas(canvas.slideshow,-.005);
+		};
+	};
 };
 
 function updatePhotoPosition(photo) {
@@ -151,5 +178,9 @@ function checkForCompletedTransition(photo) {
                 photo.transitionInIsComplete = true;		
             };
         };
-    };
+    } else { 
+		if (canvas.slideshow.getContext("2d").globalAlpha >= OPAQUE) {
+			photo.transitionInIsComplete = true;
+		};
+	};
 };
