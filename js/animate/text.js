@@ -106,5 +106,11 @@ function fadeInText(photo) {
 };
 
 function fadeOutText(photo) {
-    	text[photoCounter].alpha -= TEXT_FADE_SPEED;
+		let chauffeurOffset = 0;
+
+		if (photoCounter === 1) {
+			chauffeurOffset += .001;
+		};
+
+    	text[photoCounter].alpha -= (TEXT_FADE_SPEED + chauffeurOffset);
 };

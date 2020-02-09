@@ -144,7 +144,7 @@ function updatePhotoTransition(photo) {
 	};
 
 	if (photo.transitionInIsComplete && photo.transitionType !== SLIDE_IN_AND_OUT) {
-		if ((photo.transitionType === SLIDE_IN_AND_FADE_ON_SLIDE_OUT && photo.currentPosition[X] < (-150)) || (photo.transitionType === FADE_IN_AND_OUT)) {
+		if ((photo.transitionType === SLIDE_IN_AND_FADE_ON_SLIDE_OUT && photo.currentPosition[X] < (-100)) || (photo.transitionType === FADE_IN_AND_OUT)) {
 			fadeCanvas(canvas.slideshow,(-1 * photo.fadeSpeed));
 		};
 	};
