@@ -505,7 +505,7 @@ const image = {
             "transitionOutIsComplete": false,
             "transitionSpeed": DEFAULT_PHOTO_TRANSITION_SPEED,
         	"fadeSpeed": .005,
-        	"duration": (DEFAULT_PHOTO_DURATION / 2) - 25,
+        	"duration": (DEFAULT_PHOTO_DURATION / 2) + 200,
 			"hasText": false,
             "centered": true,
 			"textOnRight": true,
