@@ -54,6 +54,7 @@ function animate()
 
 	if (animationStep === 7)
 	{
+		sizeContactCanvas();
 		showContact();
 	};
 

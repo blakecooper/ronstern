@@ -3,6 +3,7 @@ const SLIDE_IN_AND_OUT = 0;
 const SLIDE_IN_AND_FADE_ON_SLIDE_OUT = 1;
 const FADE_IN_AND_OUT = 2;
 
+
 let cameraPlayed = false;
 
 const OUT = 0;
@@ -756,15 +757,24 @@ function sizeCanvas()
     
     document.getElementById("textCanvas").width = window.innerWidth;
     document.getElementById("textCanvas").height = window.innerHeight * 2;
+    
+	document.getElementById("contact").width = 0;
+    document.getElementById("contact").height = 0;
 
+    document.getElementById("contactReversed").width = 0;
+    document.getElementById("contactReversed").height = 0;
+
+
+	document.getElementById("arrowCanvas").width = window.innerWidth;
+	document.getElementById("arrowCanvas").height = window.innerHeight * 2;
+};
+
+function sizeContactCanvas() {
     document.getElementById("contact").width = window.innerWidth;
     document.getElementById("contact").height = window.innerHeight;
 
     document.getElementById("contactReversed").width = window.innerWidth;
     document.getElementById("contactReversed").height = window.innerHeight;
-
-	document.getElementById("arrowCanvas").width = window.innerWidth;
-	document.getElementById("arrowCanvas").height = window.innerHeight * 2;
 };
 
 function sizeText()
