@@ -1,3 +1,8 @@
+/* Ron occasionally changes his mind about how fast the whole presentation should go. Use this to adjust all timing (it's multiplied by all changes)
+*/
+
+const RON_FACTOR = 0.75;
+
 //Transition settings:
 const SLIDE_IN_AND_OUT = 0;
 const SLIDE_IN_AND_FADE_ON_SLIDE_OUT = 1;
@@ -11,7 +16,7 @@ const IN = 1;
 
 let scottsTextSliding = 0;
 
-const curtainDriftOffset = 1;
+const curtainDriftOffset = 1 * RON_FACTOR;
 
 let photoCounter = 1;
 
@@ -45,9 +50,11 @@ const PORTRAIT = 1;
 
 let screenOrientation = LANDSCAPE;
 
-let DEFAULT_PHOTO_DURATION = 500;
 
-let DEFAULT_PHOTO_TRANSITION_SPEED = 1.15;
+
+let DEFAULT_PHOTO_DURATION = 500 / RON_FACTOR; 
+
+let DEFAULT_PHOTO_TRANSITION_SPEED = 1.15 * RON_FACTOR; 
 
 const textBuffer = 100;
 
@@ -795,7 +802,7 @@ setTimeout(() => { window.requestAnimationFrame(animateSkywriting); }, 1600 );
 function pauseFor(time) 
 {
 	timer++;
-		if (timer > time)
+		if (timer > (time * RON_FACTOR))
 		{
 			timer = 0;
 			animationStep++;

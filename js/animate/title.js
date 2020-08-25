@@ -5,7 +5,7 @@ function fadeTitle() {
 	
 		//TODO: replace this with the standard fadeCanvas() function
 		let alphaRealisticTemp = alpha.titleRealistic;
-		alpha.titleRealistic -= .004;
+		alpha.titleRealistic -= (.004 * RON_FACTOR);
 		canvas.titleRealistic.getContext("2d").globalAlpha = alphaRealisticTemp;
 		
 		canvas.titleRealistic.getContext("2d").drawImage(image.titleRealistic.photo,0,0,canvas.titleRealistic.width,image.titleRealistic.photo.height/(image.titleRealistic.photo.width/canvas.titleRealistic.width));
@@ -16,12 +16,12 @@ function fadeTitle() {
 
 		timer++;
    
-		if (timer > image.title.duration) {
+		if (timer > (image.title.duration / RON_FACTOR)) {
 			clearCanvas(canvas.title);
 
 			//TODO: replace with fadeCanvas() method
 			let alphaTemp = alpha.title;
-			alpha.title -= .005;
+			alpha.title -= (.005 * RON_FACTOR);
 			canvas.title.getContext("2d").globalAlpha = alphaTemp;
 
 			if (canvasIsTransparent(canvas.title)) {
